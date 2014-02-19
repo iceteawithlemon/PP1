@@ -6,11 +6,11 @@
 
 typedef struct Point
 {
-  signed double x;
-  signed double y;
+  signed int x;
+  signed int y;
 } *point;
 
-point creerPoint(signed double x, signed double y)
+point creerPoint(signed int x, signed int y)
 {
   point p = malloc(sizeof(struct Point));
   assert(p != NULL);
@@ -27,17 +27,17 @@ void detruirePoint(point p)
 
 
 
-signed double getX(point p)
+signed int getX(point p)
 {
   return p->x;
 }
 
-signed double getY(point p)
+signed int getY(point p)
 {
   return p->y;
 }
 
-double distaceEntreDeuxPoints(point p1, point p2)
+int distaceEntreDeuxPoints(point p1, point p2)
 {
   double x1 = getX(p1);
   double x2 = getX(p2);

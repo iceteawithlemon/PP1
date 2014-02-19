@@ -4,11 +4,11 @@
 
 typedef struct point * point;
 
-point creerPoint(double,double);
+point creerPoint(signed int, signed int);
 void detruirePoint(point);
-signed double getX(point);
-signed double getY(point);
-double distanceEntreDeuxPoints(point,point);
+signed int getX(point);
+signed int getY(point);
+int distanceEntreDeuxPoints(point,point);
 extern 
 
 
