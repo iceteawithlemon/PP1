@@ -38,7 +38,7 @@ signed int getY(point p)
   return p->y;
 }
 
-int distanceEntreDeuxPoints(point p1, point p2)
+float distanceEntreDeuxPoints(point p1, point p2)
 {
   double x1 = getX(p1);
   double x2 = getX(p2);
