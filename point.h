@@ -5,9 +5,9 @@
 typedef struct point * point;
 
 point creerPoint(double,double);
-void detruirePoint(Point);
-signed double getX();
-signed double getY();
+void detruirePoint(point);
+signed double getX(point);
+signed double getY(point);
 double distanceEntreDeuxPoints(point,point);
 extern 
 
