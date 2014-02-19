@@ -1,14 +1,15 @@
 # include <stdlib.h>
 # include <assert.h>
-# include <maths.h>
+# include <math.h>
 
 # include "point.h"
 
-typedef struct Point
+struct Point
 {
   signed int x;
   signed int y;
-} *point;
+};
+typedef struct Point *point;
 
 point creerPoint(signed int x, signed int y)
 {
@@ -21,7 +22,7 @@ point creerPoint(signed int x, signed int y)
 
 void detruirePoint(point p)
 {
-  assert(point != NULL);
+  assert(p != NULL);
   free(p);
 }
 

@@ -12,7 +12,7 @@ test-point: test-point.o point.o
 
 
 point.o: point.c point.h
-	$(CC) -c -std=c99 $(CFLAGS) point.c
+	$(CC) -c -std=c99 -lm $(CFLAGS) point.c
 
 
 dep:
@@ -20,4 +20,4 @@ dep:
 
 .PHONY: clean
 clean:
-	-rm -f *.o  $(OUTFILES)
+	-rm -f *.o *~ $(OUTFILES)
