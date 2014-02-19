@@ -37,7 +37,7 @@ signed double getY(point p)
   return p->y;
 }
 
-double distace(point p1, point p2)
+double distaceEntreDeuxPoints(point p1, point p2)
 {
   double x1 = getX(p1);
   double x2 = getX(p2);
