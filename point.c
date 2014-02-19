@@ -1,6 +1,6 @@
-# include <stdbool.h>
 # include <stdlib.h>
 # include <assert.h>
+# include <maths.h>
 
 # include "point.h"
 
@@ -37,3 +37,12 @@ signed double getY(point p)
   return p->y;
 }
 
+double distace(point p1, point p2)
+{
+  double x1 = getX(p1);
+  double x2 = getX(p2);
+  double y1 = getY(p1);
+  double y2 = getY(p2);
+  double tmp =  (x2 - x1)*(x2 - x1) + (y2 - y1)*(y2 - y1);
+  return sqrt(tmp);
+}
