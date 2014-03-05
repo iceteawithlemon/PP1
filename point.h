@@ -8,8 +8,9 @@ point creerPoint(signed int, signed int);
 void detruirePoint(point);
 signed int getX(point);
 signed int getY(point);
-float distanceEntreDeuxPoints(point,point);
+double distanceEntreDeuxPoints(point,point);
 
 
 
 #endif
+
