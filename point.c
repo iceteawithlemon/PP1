@@ -47,5 +47,5 @@ float distanceEntreDeuxPoints(point p1, point p2)
   double tmp =  (x2 - x1) + (y2 - y1);
 	if (tmp<0)
 		tmp=-tmp;
-  return sqrt(tmp);
+  return tmp;
 }
