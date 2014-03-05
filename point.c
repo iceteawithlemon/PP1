@@ -44,8 +44,15 @@ double distanceEntreDeuxPoints(point p1, point p2)
   double x2 = getX(p2);
   double y1 = getY(p1);
   double y2 = getY(p2);
-  double tmp =  (x2 - x1) + (y2 - y1);
-	if (tmp<0)
-		tmp=-tmp;
+
+  double a =(x2 - x1);
+  if(a<0)
+     a=-a;		
+  double b =(y2 - y1);
+  if(b<0)
+     b=-b;
+
+  double tmp = a+b;
+	
   return tmp;
 }
