@@ -55,7 +55,7 @@ bool fileVide(file F)
 }
 
 
-void enfiler(file F, sommet x)
+void enfiler(file F, void* x)
 {
 	if (F->plein)
 	{
