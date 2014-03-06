@@ -7,6 +7,12 @@ typedef struct cellule cellule;
 typedef cellule *sommet;
 typedef struct file *file;
 
+extern file creerFile(int taille);
+extern void detruireFile(file f);
+extern void* valeur(file f);
+extern bool fileVide(file f);
+extern void enfiler(file f, void* x);
+extern void defiler(file f);
 
 extern int getValeur(sommet s);
 extern sommet filsGauche(sommet s);
