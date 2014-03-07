@@ -7,6 +7,8 @@ A faire:
 - nearest neighbour a finir 
 - faire le compte rendu a rendre mardi prochain 
 - repartition des taches
+- ajouter implementation liste chaînée?
+
 
 
 (https://xkcd.com/399/)
