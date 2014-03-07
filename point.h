@@ -1,14 +1,22 @@
 #ifndef _POINT_H
 #define _POINT_H
 
+# include <stdbool.h>
 
 typedef struct Point *point;
 
-point creerPoint(signed int, signed int);
-void detruirePoint(point);
-signed int getX(point);
-signed int getY(point);
-double distanceEntreDeuxPoints(point,point);
+point creerPoint(signed int x, signed int y);
+void detruirePoint(point p);
+
+signed int getX(point p);
+signed int getY(point p);
+bool isVisited(point p);
+
+void setX(point p, signed int x);
+void setY(point p, signed int y);
+void markVisited(point p);
+
+double distanceEntreDeuxPoints(point p1, point p2);
 
 
 
