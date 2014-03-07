@@ -7,3 +7,6 @@ A faire:
 - nearest neighbour a finir 
 - faire le compte rendu a rendre mardi prochain 
 - repartition des taches
+
+
+(https://xkcd.com/399/)
