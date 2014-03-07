@@ -10,7 +10,7 @@ typedef struct cellule cellule;
 typedef cellule *sommet;
 struct cellule
 {
-	int info;
+	void *info;
 	sommet gauche;
 	sommet droit;
 	sommet pere;
@@ -44,7 +44,7 @@ void detruireFile(file F)
 	free(F);
 }
 
-sommet valeur(file F)
+void *valeur(file F)
 {
 	return F->fileT[F->premier];
 }
@@ -77,7 +77,7 @@ void defiler(file F)
 
 // accès
 
-int getValeur(sommet s)
+void *getValeur(sommet s)
 {
 	return s->info;
 }
@@ -104,7 +104,7 @@ bool estFeuille(sommet s)
 
 //modification
 
-sommet creerArbreBinaire(int racine)
+sommet creerArbreBinaire(void *racine)
 {
 	cellule *cell = (cellule*)malloc(sizeof(cellule));
 	assert(cell != NULL);
@@ -116,7 +116,7 @@ sommet creerArbreBinaire(int racine)
 	return tmp;
 }
 
-void ajouterFilsGauche(sommet S, int x)
+void ajouterFilsGauche(sommet S, void *x)
 {
 	cellule *temp = (cellule*)malloc(sizeof(cellule));
 	assert(temp != NULL);
@@ -127,7 +127,7 @@ void ajouterFilsGauche(sommet S, int x)
 	S->gauche=temp;
 }
 
-void ajouterFilsDroit(sommet S, int x)
+void ajouterFilsDroit(sommet S, void *x)
 {
 	cellule *temp = (cellule*)malloc(sizeof(cellule));
 	assert(temp != NULL);
@@ -169,7 +169,7 @@ void detruireArbreBinaire(sommet s) //does not free the sommet that is passed in
 	}
 }
 
-sommet remplirTableauArbre(int tab[], int len)
+sommet remplirTableauArbre(void *tab[], int len)
 {
 	sommet A = creerArbreBinaire(tab[0]);
 	file F;
@@ -197,7 +197,7 @@ sommet remplirTableauArbre(int tab[], int len)
 	return A;
 }
 
-void afficherArbre(sommet A, int mode)
+/*void afficherArbre(sommet A, int mode) 
 {
 	if (estFeuille(A))
 		printf("%d ", getValeur(A));
@@ -215,9 +215,9 @@ void afficherArbre(sommet A, int mode)
 			printf("%d ", getValeur(A));
 	}
 
-}
+}*/
 
-int arbre2Tableau(sommet A, int *tab, int i)
+/*int arbre2Tableau(sommet A, void **tab, int i)
 {
 	i+=1;
 	tab[i]=getValeur(A);
@@ -226,15 +226,15 @@ int arbre2Tableau(sommet A, int *tab, int i)
 	{
 		if(filsGauche(A) != NULL)
 		{
-			i=arbre2Tableau(filsGauche(A), tab, i);
+			i = arbre2Tableau(filsGauche(A), tab, i);
 		}
 		if(filsDroit(A) != NULL)
 		{
-			i=arbre2Tableau(filsDroit(A), tab, i);
+			i = arbre2Tableau(filsDroit(A), tab, i);
 		}
 	}
 	return i;
-}
+}*/
 
 int hauteurArbreBinaire(sommet s)
 {
