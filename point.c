@@ -37,6 +37,10 @@ bool equals(point p1,point p2){
     return (getX(p1) == getX(p2) && getY(p1) == getY(p2))? true : false;
 }
 
+point clone(point p){
+    return creerPoint(p->x, p->y);
+}
+
 // accesseurs
 signed int getX(point p)
 {
