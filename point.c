@@ -33,8 +33,9 @@ void detruirePoint(point p)
   free(p);
 }
 
-bool equals(point p1,point p2){
-    return (getX(p1) == getX(p2) && getY(p1) == getY(p2))? true : false;
+bool equals(point p1, point p2)
+{
+    return (getX(p1) == getX(p2) && getY(p1) == getY(p2));
 }
 
 point clone(point p){
