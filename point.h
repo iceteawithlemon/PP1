@@ -16,6 +16,7 @@ void setX(point p, signed int x);
 void setY(point p, signed int y);
 void markVisited(point p);
 
+void afficherPoint(point p);
 double distanceEntreDeuxPoints(point p1, point p2);
 
 

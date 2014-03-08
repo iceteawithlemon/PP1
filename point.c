@@ -2,6 +2,8 @@
 # include <assert.h>
 # include <math.h>
 # include <stdbool.h>
+# include <stdio.h>
+
 
 # include "point.h"
 
@@ -64,6 +66,12 @@ void markVisited(point p)
   p->visited = true;
 }
 
+//misc.
+void afficherPoint(point p)
+{
+  assert(p != NULL);
+  printf("(%d, %d) (visitée? %s)\n", getX(p), getY(p), isVisited(p)? "True" : "False");
+}
 
 
 double distanceEntreDeuxPoints(point p1, point p2)
