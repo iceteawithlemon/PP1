@@ -9,6 +9,7 @@ point creerPoint(signed int x, signed int y);
 void detruirePoint(point p);
 
 bool equals(point p1,point p2);
+point clone(point p);
 signed int getX(point p);
 signed int getY(point p);
 bool isVisited(point p);
