@@ -11,11 +11,11 @@ OUTFILES= testN test-point
 all: $(OUTFILES)
 
 
-testN: NN.o 
-	${CC} NN.o -o testN $(LDLIBS) $(INCS)
+testN: Nearest-Neighbour.o 
+	${CC} Nearest-Neighbour.o -o testN $(LDLIBS) $(INCS)
 
-NN.o: NN.c ArbresBinaires.h nearest_neighbour.h point.h
-	$(CC) -c -std=c99 $(CFLAGS) NN.c $(LDLIBS) $(INCS)
+NN.o: Nearest-Neighbour.c ArbresBinaires.h nearest_neighbour.h point.h
+	$(CC) -c -std=c99 $(CFLAGS) Nearest-Neighbour.c $(LDLIBS) $(INCS)
 
 
 
