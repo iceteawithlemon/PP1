@@ -1,0 +1,12 @@
+compte rendu du 10/03/2014:
+
+- l'algorithme de nearest neighbour est presque fini;
+- nous avons fait les tests, le makefile, ansi que toutes les interface et implementations 
+  des fonctions que nous utilisons pour notre algorithme de Nearest Neighbour;
+travail réalisé par chacun:
+	-> caitlin: listes chainées, arbres binanaires, points, TravellingSalesman
+	-> benjamin: liste, main, tests, point le plus proche
+	-> manon: Makefile, nearest neighbour (une implementation)
+	
+chacun a participé à la mise en place de l'algorithme général.
+
