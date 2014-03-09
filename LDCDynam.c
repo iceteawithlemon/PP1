@@ -4,246 +4,239 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <stdbool.h>
+# include "point.h"
 
-
-typedef int car; //ou char, double, etc au lieu de 'int'
-typedef struct cellule cellule;
-typedef cellule *curseur;
-typedef struct listeDC_car listeDC_car;
+typedef struct cellule *cellule;
+typedef struct listeDC_point *liste;
 
 struct cellule
 {
- 	car valeurElement;
- 	curseur pointeurPrecedent;
- 	curseur pointeurSuivant;
+ 	point valeurElement;
+ 	cellule pointeurPrecedent;
+ 	cellule pointeurSuivant;
 };
 
-struct listeDC_car
+struct listeDC_point
 {
-	curseur premier;
-	curseur dernier;
-	curseur cle;
+	cellule premier;
+	cellule dernier;
+	cellule cle;
 };
 
-//Primitives d'accès
+//Primitives de création et de délétion
 
-bool estFinListe(listeDC_car L)
+liste creerListe()
 {
-	return (L.cle==L.dernier);
-}
-
-bool estDebutListe(listeDC_car L)
-{
-	return (L.cle==L.premier);
-}
-
-void debutListe(listeDC_car *L) // *L car 'ref' dans le cours
-{
-	L->cle=L->premier;
-}
-
-void finListe(listeDC_car *L)
-{
-	L->cle=L->dernier;
-}
-
-
-bool listeVide(listeDC_car L) // L (sans *) car 'val' dans le cours
-{
-	return (L.premier==NULL);
-}
-
-void suivant(listeDC_car *L)
-{
-	if(!listeVide(*L) && !estFinListe(*L))
-		L->cle=L->cle->pointeurSuivant;
-}
-
-void precedent(listeDC_car *L)
-{
-	if(!listeVide(*L) && !estDebutListe(*L))
-		L->cle=L->cle->pointeurPrecedent;
-}
-
-car valeur(listeDC_car L)
-{
-	if (!listeVide(L))
-		return L.cle->valeurElement; //j'utilise le 'if'/'else' et non un 'assert' car avec un assert cette fonction ne retourne rien, ce qui provoque un stackdump
-	else
-		return EXIT_FAILURE; //j'utilise exit_failure pour que ça marche n'importe le type de 'car', mais attention car il retourne "1" si car est un int, ce qui peut provoquer (et a provoqué) des confusions...
-}
-
-curseur getCleListe(listeDC_car L)
-{
-	return L.cle;
-}
-
-//Primitives de modification
-
-void creer_liste(listeDC_car *L)
-{
-	//cellule *nouv = (cellule*)malloc(sizeof(cellule));
+	liste L = malloc(sizeof(struct listeDC_point));
 	L->premier=NULL;
 	L->dernier=NULL;
 	L->cle=L->premier;
+	return L;
+}
+
+cellule creerCellule(point p)
+{
+	cellule c = malloc(sizeof(struct cellule));
+	c->valeurElement = p;
+	c->pointeurSuivant = c->pointeurPrecedent = NULL;
+	return c;
+}
+
+void debutListe(liste L);
+bool estFinListe(liste L);
+
+void detruireListe(liste L)
+{
+	debutListe(L);
+	cellule tmp;
+	while(!estFinListe(L))
+	{
+		tmp = L->cle->pointeurSuivant;
+		free(L->cle);
+		L->cle = tmp;
+	}
+	free(L);
+}
+
+//Primitives d'accès
+
+bool estFinListe(liste L)
+{
+	return (L->cle == L->dernier);
+}
+
+bool estDebutListe(liste L)
+{
+	return (L->cle == L->premier);
+}
+
+void debutListe(liste L)
+{
+	L->cle = L->premier;
+}
+
+void finListe(liste L)
+{
+	L->cle = L->dernier;
 }
 
 
-//TD3 ex3.1
-
-void insererEnTete(listeDC_car *L, car x)
+bool listeVide(liste L)
 {
-	cellule *nouv = (cellule*)malloc(sizeof(cellule));
-	if (!listeVide(*L)) //donc si la liste n'est pas vide
+	return L->premier == NULL;
+}
+
+void suivant(liste L)
+{
+	if(!listeVide(L) && !estFinListe(L))
+		L->cle = L->cle->pointeurSuivant;
+}
+
+void precedent(liste L)
+{
+	if(!listeVide(L) && !estDebutListe(L))
+		L->cle = L->cle->pointeurPrecedent;
+}
+
+point valeur(liste L)
+{
+	return L->cle->valeurElement;
+}
+
+cellule getCleListe(liste L)
+{
+	return L->cle;
+}
+
+
+//Primitives de modification
+void insererEnTete(liste L, point x)
+{
+	cellule nouv = creerCellule(x);
+	if (!listeVide(L)) //donc si la liste n'est pas vide
 	{
-		nouv->pointeurSuivant=L->premier; //
-		L->premier->pointeurPrecedent=nouv;
+		nouv->pointeurSuivant = L->premier; 
+		L->premier->pointeurPrecedent = nouv;
 	}
 	else
 	{
-		L->dernier=nouv; //si la liste est vide alors la première cellule sera aussi la dernière
-		nouv->pointeurSuivant= NULL;
-		nouv->pointeurPrecedent=NULL;
+		L->dernier = nouv; //si la liste est vide alors la première cellule sera aussi la dernière
+		nouv->pointeurSuivant = NULL;
+		nouv->pointeurPrecedent = NULL;
 	}
-	nouv->valeurElement=x; //mais dans tous les cas on fait ceci
-	L->premier=nouv;
+	nouv->valeurElement = x; 
+	L->premier = nouv;
 }
 
-void insererApres(listeDC_car *L, car x)
+void insererApres(liste L, point x)
 {
-	if(!L->cle)
+	cellule tmp = creerCellule(x);
+	tmp->valeurElement = x;
+	if(listeVide(L))
+	{
 		insererEnTete(L, x);
+	}
 	else
 	{
-		cellule *nouv = (cellule*)malloc(sizeof(cellule));
-		if (L->cle->pointeurSuivant!=NULL)
+		if(!estFinListe(L))
 		{
-			nouv->pointeurSuivant=L->cle->pointeurSuivant;
-			nouv->pointeurSuivant->pointeurPrecedent=nouv;
+			L->cle->pointeurSuivant->pointeurPrecedent = tmp;
+			tmp->pointeurSuivant = L->cle->pointeurSuivant;
 		}
 		else
-		{
-			L->dernier=nouv;
-			nouv->pointeurSuivant=NULL;
-		} 
-		nouv->valeurElement=x;
-		L->cle->pointeurSuivant=nouv;
-		nouv->pointeurPrecedent=L->cle;
+			tmp->pointeurSuivant = NULL;
+		tmp->pointeurPrecedent = L->cle;
 	}
 }
 
 
-void supprimerApres(listeDC_car *L)
+void supprimerApres(liste L)
 {
-	if (L->cle->pointeurSuivant)
+	if (L->cle->pointeurSuivant && L->cle->pointeurSuivant->pointeurSuivant)
 	{
-		L->cle->pointeurSuivant=L->cle->pointeurSuivant->pointeurSuivant;
-		L->cle->pointeurSuivant->pointeurPrecedent=L->cle;
+		cellule tmp = L->cle;
+		L->cle->pointeurSuivant = L->cle->pointeurSuivant->pointeurSuivant;
+		L->cle->pointeurSuivant->pointeurPrecedent = L->cle;
+		free(tmp);
 	}
 }
 
-void supprimerEnTete(listeDC_car *L)
+void supprimerEnTete(liste L)
 {
-	if (L->cle==L->premier)
+	cellule tmp = L->premier;
+	if (L->cle == L->premier)
 		suivant(L);
+
 	if (L->cle->pointeurSuivant)
 	{
 		L->premier=L->premier->pointeurSuivant;
 		L->premier->pointeurPrecedent=NULL;
 	}
+	free(tmp);
 }
  
-void detruireListe(listeDC_car *L)
+
+void setCleListe(liste L, cellule c)
 {
-	while (!listeVide(*L))
-		supprimerEnTete(L);
+	L->cle = c;
 }
 
-void setCleListe(listeDC_car *L, curseur c)
+void printList(liste L)
 {
-	L->cle=c;
-}
-
-void printList(listeDC_car L)
-{
-	debutListe(&L);
-	if(!listeVide(L))
+	cellule tmp = L->cle;
+	debutListe(L);
+	while(!estFinListe(L))
 	{
-	while (!estFinListe(L))
-	{
-		printf("%d, ", L.cle->valeurElement);
-		suivant(&L);
+		afficherPoint(L->cle->valeurElement);
+		suivant(L);
 	}
-	printf("%d.\n", L.cle->valeurElement);
-	}
+	setCleListe(L, tmp);
 }
 
-/*void check(listeDC_car L)
+
+
+
+bool appartient(liste E, point x)
 {
-	printf("\nListe vide? %s\n", listeVide(L)? "yes": "no");
-	printf("estDebutListe? %s\n", (L.premier==L.cle)? "yes": "no");
-	printf("estFinListe? %s\n", estFinListe(L)? "yes": "no");
-	if (!listeVide(L))
-		printf("Valeur element = %d\n\n", valeur(L));
-}*/
-
-//TD3 ex3.2 (ensembles)
-
-typedef listeDC_car ensemble;
-
-int cardinalite(ensemble E)
-{
-	int i = 0;
-	debutListe(&E);
-	if(!listeVide(E))
-	{
-		while (!estFinListe(E))
-		{
-			i++;
-			suivant(&E);
-		}
-		i++;
-	}
-	return i;
-}
-
-bool appartient(ensemble E, car x)
-{
-	debutListe(&E);
+	debutListe(E);
 	while(!estFinListe(E) && valeur(E)!= x)
-	{
-		suivant(&E);
-	}
-	return valeur(E)==x;
-}
-
-void ajouter(ensemble *E, car x)
-{
-	if (!appartient(*E, x))
-		insererApres(E, x);
-}
-
-void supprimer(ensemble *E, car x)
-{
-	curseur p = getCleListe(*E);
-	while(!estFinListe(*E) && valeur(*E)!= x)
 	{
 		suivant(E);
 	}
-	if(valeur(*E)==x)
+	return valeur(E) == x;
+}
+
+void ajouter(liste E, point x)
+{
+	if (!appartient(E, x))
+		insererApres(E, x);
+}
+
+void supprimer(liste E, point x)
+{
+	cellule p = getCleListe(E);
+	while(!estFinListe(E) && valeur(E)!= x)
 	{
-		if(estDebutListe(*E))
+		suivant(E);
+	}
+	if(valeur(E)==x)
+	{
+		if(estDebutListe(E))
+		{
 			supprimerEnTete(E);
+		}
 		else
+		{
 			precedent(E);
 			supprimerApres(E);
+		}
 	}
 	setCleListe(E, p);
 }
 
-void insererIci(ensemble *E, car x)
+void insererIci(liste E, point x)
 {
-	if(estDebutListe(*E))
+	if(estDebutListe(E))
 		insererEnTete(E, x);
 	else
 	{
@@ -252,130 +245,45 @@ void insererIci(ensemble *E, car x)
 	}
 }
 
-ensemble convertir(listeDC_car L)
+/*liste convertir(liste L)
 {
-	debutListe(&L);
-	ensemble E;
-	creer_liste(&E);
+	debutListe(L);
+	liste E;
+	creerListe(&E);
 	while(!estFinListe(L))
 	{
 		if (!listeVide(E))
 		if(valeur(L)==valeur(E))
 		{
-			suivant(&L);
-			debutListe(&E);
+			suivant(L);
+			debutListe(E);
 		}
 		if(valeur(L)<valeur(E) || estFinListe(E) || listeVide(E))
 		{
 			if(!valeur(L)<valeur(E) && estFinListe(E) && !listeVide(E))
-				insererApres(&E, valeur(L));
+				insererApres(E, valeur(L));
 			else
-				insererIci(&E, valeur(L));
-			suivant(&L);
-			debutListe(&E);
+				insererIci(E, valeur(L));
+			suivant(L);
+			debutListe(E);
 		}
 		if(valeur(L)>valeur(E))
-			suivant(&E);
+			suivant(E);
 	}
 	debutListe(&E);
 	return E;
-}
+}*/
 
-ensemble reunion(ensemble E1, ensemble E2)
+
+
+liste populate(point t[], int len)
 {
-	ensemble E;
-	creer_liste(&E);
-	debutListe(&E1);
-	debutListe(&E2);
-	while(!estFinListe(E1))
-	{
-		insererApres(&E, valeur(E1));
-		suivant(&E1);
-	}
-	while(!estFinListe(E2))
-	{
-		insererApres(&E, valeur(E2));
-		suivant(&E2);
-	}
-	return convertir(E);
-}
-
-
-ensemble intersection(ensemble E1, ensemble E2)
-{
-	ensemble E;
-	creer_liste(&E);
-	debutListe(&E1);
-	debutListe(&E2);
-	while(!estFinListe(E1))
-	{
-		if (valeur(E1)==valeur(E2))
-		{
-			insererApres(&E, valeur(E1));
-			suivant(&E2);
-			suivant(&E1);
-		}
-		else
-		{
-			suivant(&E2);
-		}
-		if (estFinListe(E2))
-		{
-			debutListe(&E2);
-			suivant(&E1);
-		}
-	}
-	return convertir(E);
-}
-
-ensemble populate(car t[], int len)
-{
-	ensemble E;
-	creer_liste(&E);
-	debutListe(&E);
-	for(int i=0; i<len; i++)
-		insererApres(&E, t[i]);
+	liste E = creerListe();
+	debutListe(E);
+	cellule tmp = malloc(sizeof(struct cellule));
+	tmp->valeurElement = t[0];
+	E->cle = E->premier = E->dernier = tmp;
+	for(int i = 1; i < len; i++)
+		insererApres(E, t[i]);
 	return E;
-}
-
-
-int main()
-{
-	listeDC_car L1;
-	creer_liste(&L1);
-	insererEnTete(&L1, 10);
-	debutListe(&L1);
-	insererApres(&L1, 2);
-	insererApres(&L1, 3);
-	insererApres(&L1, 4);
-	insererApres(&L1, 2);
-	insererApres(&L1, 5);
-	ajouter(&L1, 1);
-	ajouter(&L1, 6);
-	insererApres(&L1, 2);
-	insererEnTete(&L1, 6);
-	ajouter(&L1, 7);
-	supprimer(&L1, 7);
-	printList(L1);
-	printf("Cardinalité: %d\n", cardinalite(L1));
-	printf("1 appartient à L1? %d\n", appartient(L1, 1)); 
-	printf("7 appartient à L1? %d\n", appartient(L1, 7)); 
-	ensemble E1;
-	E1=convertir(L1);
-	printList(E1);
-	ensemble E2;
-	creer_liste(&E2);
-	car t[]= {1, 5, 7, 8, 6, 5, 6, 7, 2, 1, 10, 11, 11, 9};
-	int len = (sizeof(t))/sizeof(t[0]);
-	E2=populate(t, len);
-	printList(E2);
-	ensemble E3 = reunion(E1, E2);
-	printList(E3);
-	printf("\n");
-	insererApres(&E1, 6);
-	printList(E1);
-	printList(E2);
-	ensemble E4 = intersection(E1, E2);
-	printList(E4);
-	return 0;
 }
