@@ -8,7 +8,9 @@ typedef struct cellule cellule;
 typedef cellule *curseur;
 typedef struct listeDC_car listeDC_car;
 
-//primitives d'accès		
+//primitives d'accès	
+bool estFinListe(listeDC_car L);
+bool estDebutListe(listeDC_car L);
 void debutListe(listeDC_car *L);
 void finListe(listeDC_car *L);
 bool listeVide(listeDC_car L);
