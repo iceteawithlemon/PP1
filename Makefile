@@ -4,7 +4,7 @@
 CC = gcc
 CFLAGS = -g -W -Wall
 LDLIBS = -lm
-INCS = -I"https://github.com/iceteawithlemon/PP1" 
+INCS = -I"C:\Users\Manon\Desktop\L2 info\test\test devc++" 
 
 OUTFILES= testN test-point
 
