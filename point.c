@@ -33,9 +33,8 @@ void detruirePoint(point p)
   free(p);
 }
 
-bool equals(point p1, point p2)
-{
-    return (getX(p1) == getX(p2) && getY(p1) == getY(p2));
+bool equals(point p1,point p2){
+    return (getX(p1) == getX(p2) && getY(p1) == getY(p2))? true : false;
 }
 
 point clone(point p){
@@ -89,6 +88,15 @@ double distanceEntreDeuxPoints(point p1, point p2)
   double x2 = getX(p2);
   double y1 = getY(p1);
   double y2 = getY(p2);
-
-  return sqrt((x2 - x1)*(x2 - x1) + (y2 - y1)*(y2 - y1));	
+    
+    double a =(x2 - x1);
+    if(a<0)
+        a=-a;
+    double b =(y2 - y1);
+    if(b<0)
+        b=-b;
+    
+    double tmp = a+b;
+    
+    return tmp;
 }
