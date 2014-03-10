@@ -40,3 +40,53 @@ point PointLePlusProche(point p,list liste){
     }
     return pointTmp;
 }
+
+
+
+
+point* nearestNeighbour(int nombreDePoints,point tab[],point ordreDePassage[]){
+    //Initialisation d'une liste chainée
+    list liste = NULL;
+    
+    //Insertion du premier point dans la liste (après le point d'origine)
+    liste = ajouterEnTete(liste, tab[1]);
+    
+    //Insertion des points dans la liste
+    for(int i = 2; i<nombreDePoints;i++){
+        liste = ajouterEnFin(liste, tab[i]);
+    }
+    
+    //Point d'origine inséré dans le tableau
+    ordreDePassage[0] = clone(tab[0]);
+    
+    //On defini un point qui sera l'intermédiaire
+    point pointActuel = clone(tab[0]);
+    
+    //Indice du tableau d'ordre de passage
+    int indice = 1;
+    
+    //Tant que l'on est pas à la fin de la liste
+    while(indice<nombreDePoints){
+        
+        // On stocke le point le plus proche dans le point intermédiaire
+        pointActuel = clone(PointLePlusProche(pointActuel, liste));
+        
+        // On supprime le point trouvé de la liste
+        liste = supprimerElement(liste, pointActuel);
+        
+        
+        // On implémente le point le plus proche du précedent dans le tableau
+        ordreDePassage[indice] = clone(pointActuel);
+        
+        // On passe à l'indice suivant
+        indice++;
+    }
+    // On ajoute le point de départ au tableau d'ordre de passage
+    ordreDePassage[indice] = clone(tab[0]);
+    
+    // On libere la mémoire de la liste
+    effacerListe(liste);
+    
+    return ordreDePassage;
+}
+
