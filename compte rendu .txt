@@ -1,12 +1,16 @@
 compte rendu du 10/03/2014:
 
-- l'algorithme de nearest neighbour est presque fini;
+- l'algorithme de nearest neighbour est terminÃ©;
 - nous avons fait les tests, le makefile, ansi que toutes les interface et implementations 
   des fonctions que nous utilisons pour notre algorithme de Nearest Neighbour;
-travail réalisé par chacun:
-	-> caitlin: listes chainées, arbres binanaires, points, TravellingSalesman
+travail rï¿½alisï¿½ par chacun:
+	-> caitlin: listes chainï¿½es, arbres binanaires, points, TravellingSalesman
 	-> benjamin: liste, main, tests, point le plus proche
 	-> manon: Makefile, nearest neighbour (une implementation)
 	
-chacun a participé à la mise en place de l'algorithme général.
+chacun a participï¿½ ï¿½ la mise en place de l'algorithme gï¿½nï¿½ral.
 
+Ce qu'il reste Ã  faire :
+
+- ExploitÃ© depuis un fichier .tsp les donnÃ©es d'une matrice;
+- Ecrire dans un fichier .tour le parcours obtenu avec l'algorithme.
