@@ -14,14 +14,15 @@ int main(int argc, const char * argv[])
 	point p3 = creerPoint(2,0);
 	point p4 = creerPoint(3,0);
     
-    printf("Points en entrée : \n");
-    for(int i =0;i<nombreDePoints+1;i++){
-        afficherPoint(ordreDePassage[i]);
-    }
+    
     
     //Tableau comprenant les points
 	point tab[nombreDePoints]={p1,p2,p3,p4};
     
+    printf("Points en entrée : \n");
+    for(int i =0;i<nombreDePoints;i++){
+        afficherPoint(tab[i]);
+    }
    
     //Creation d'un tableau qui contiendra l'ordre de passage le plus court
     point ordreDePassage[nombreDePoints+1] ;
