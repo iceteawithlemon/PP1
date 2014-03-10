@@ -14,6 +14,11 @@ int main(int argc, const char * argv[])
 	point p3 = creerPoint(2,0);
 	point p4 = creerPoint(3,0);
     
+    printf("Points en entrée : \n");
+    for(int i =0;i<nombreDePoints+1;i++){
+        afficherPoint(ordreDePassage[i]);
+    }
+    
     //Tableau comprenant les points
 	point tab[nombreDePoints]={p1,p2,p3,p4};
     
@@ -25,6 +30,7 @@ int main(int argc, const char * argv[])
     nearestNeighbour(nombreDePoints,tab,ordreDePassage);
     
     
+    printf("Points en sortie :  \n");
     //Affichage de l'ordre de passage
     for(int i =0;i<nombreDePoints+1;i++){
         afficherPoint(ordreDePassage[i]);
