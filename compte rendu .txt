@@ -1,14 +1,14 @@
 compte rendu du 10/03/2014:
 
 - l'algorithme de nearest neighbour est terminé;
-- nous avons fait les tests, le makefile, ansi que toutes les interface et implementations 
+- nous avons fait les tests, le makefile, ansi que toutes les interfaces et implementations 
   des fonctions que nous utilisons pour notre algorithme de Nearest Neighbour;
-travail r�alis� par chacun:
-	-> caitlin: listes chain�es, arbres binanaires, points, TravellingSalesman
+travail realise par chacun:
+	-> caitlin: listes chainees, arbres binanaires, points, TravellingSalesman
 	-> benjamin: liste, main, tests, point le plus proche
 	-> manon: Makefile, nearest neighbour (une implementation)
 	
-chacun a particip� � la mise en place de l'algorithme g�n�ral.
+chacun a participe a la mise en place de l'algorithme general.
 
 Ce qu'il reste à faire :
 
