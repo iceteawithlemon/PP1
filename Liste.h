@@ -18,5 +18,6 @@ bool estVide(list liste);
 point valeur(list liste);
 list effacerListe(list liste);
 bool finListe(list liste);
+list suivant(list liste);
 
 #endif
