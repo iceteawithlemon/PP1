@@ -6,7 +6,7 @@
 
 typedef point point; //ou char, double, etc au lieu de 'int'
 typedef struct cellule *cellule;
-typedef struct liste *liste;
+typedef struct listeDC_point *liste;
 
 //primitives de création et délétion
 liste creerListe();
@@ -24,7 +24,7 @@ point valeur(liste L);
 cellule getCleListe(liste L);
 
 //primitives de modification
-bool estFinListe(liste L);
+
 void insererApres(liste L, point x);
 void insererEnTete(liste L, point x);
 void supprimerApres(liste L);
