@@ -85,6 +85,16 @@ list rechercherElement(list liste, point pValeur)
     return NULL;
 }
 
+
+list suivant(list liste){
+    if(liste == NULL)
+        return NULL;
+    
+    element *tmp = liste;
+    tmp = tmp->pSuivant;
+    return tmp;
+}
+
 void afficherListe(list liste)
 {
     element *tmp = liste;
@@ -106,7 +116,7 @@ list supprimerElement(list liste, point pValeur)
         return NULL;
     
     //Le Point est trouvé
-    if(liste->valeur == pValeur)
+    if(equals(liste->valeur,pValeur))
     {
         //On garde l'adresse de l'élément suivant
         element* tmp = liste->pSuivant;
@@ -139,8 +149,10 @@ point valeur(list liste)
     return liste->valeur;
 }
 
+
+
 bool finListe(list liste){
-    return (liste == NULL)? true : false;
+    return (liste->pSuivant == NULL)? true : false;
 }
 
 //Fonction recursive
