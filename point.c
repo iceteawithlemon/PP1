@@ -78,7 +78,7 @@ void markVisited(point p)
 void afficherPoint(point p)
 {
   assert(p != NULL);
-  printf("(%d, %d) (visitée? %s)\n", getX(p), getY(p), isVisited(p)? "True" : "False");
+  printf("(%d, %d)\n", getX(p), getY(p));
 }
 
 
