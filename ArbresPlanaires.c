@@ -14,6 +14,7 @@ typedef cellule sommet;
 struct cellule
 {
 	point info;
+	int weight;
 	sommet premierFils;
 	sommet frere;
 	sommet pere;
@@ -22,9 +23,24 @@ struct cellule
 
 // accès 
 
-point getValeur(sommet s)
+point getPoint(sommet s)
 {
 	return s->info;
+}
+
+int getWeight(sommet s)
+{
+	return s->weight;
+}
+
+void setPoint(sommet s, point p)
+{
+	s->info = point;
+}
+
+void setWeight(sommet s, int weight);
+{
+	s->weight = weight;
 }
 
 sommet premierFils(sommet s)

@@ -15,8 +15,8 @@ int main()
 	ajouterFils(A, c);
 	ajouterFils(A, d);
 
-	afficherPoint(getValeur(A));
-	afficherPoint(getValeur(premierFils(A)));
+	afficherPoint(getPoint(A));
+	afficherPoint(getPoint(premierFils(A)));
 	return 0;
 }
 
