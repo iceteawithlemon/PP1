@@ -17,6 +17,7 @@ struct cellule
 	sommet premierFils;
 	sommet frere;
 	sommet pere;
+	point racine;
 };
 
 // accès 
@@ -52,10 +53,11 @@ sommet creerArbrePlanaire(point racine)
 	tmp->premierFils = NULL;
 	tmp->frere = NULL;
 	tmp->pere = NULL;
+	tmp->racine = tmp;
 	return tmp;
 }
 
-void ajouterFils(sommet s, point x)
+void ajouterFils(point racine, sommet s, point x)
 {
 	cellule cell = malloc(sizeof(struct cellule));
 	assert(cell != NULL);
@@ -63,6 +65,7 @@ void ajouterFils(sommet s, point x)
 	tmp->info = x;
 	tmp->frere = NULL;
 	tmp->pere = s;
+	tmp->racine = racine;
 	if(s->premierFils == NULL)
 		s->premierFils = tmp;
 	else

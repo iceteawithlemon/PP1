@@ -11,6 +11,7 @@ struct cellule
 	sommet premierFils;
 	sommet frere;
 	sommet pere;
+	point racine;
 };
 
 point getValeur(sommet s);
