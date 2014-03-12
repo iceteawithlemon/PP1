@@ -2,9 +2,9 @@
 
 
 CC = gcc
-CFLAGS = -g -W -Wall
-LDLIBS = -lm
-INCS = -I"https://github.com/iceteawithlemon/PP1" 
+CFLAGS = -g -W -Wall 
+
+INCS = -I"https://github.com/iceteawithlemon/PP1/include" 
 
 OUTFILES= testN
 
@@ -12,22 +12,17 @@ all: $(OUTFILES)
 
 
 testN: main.o Liste.o projetAlgo.o point.o
-	${CC} main.o Liste.o projetAlgo.o point.o -o testN $(LDLIBS) $(INCS)
+	${CC} main.o Liste.o projetAlgo.o point.o -o testN -lm $(INCS)
 	
 main.o: main.c  point.h projetAlgo.h Liste.h 
-	$(CC) -c -std=c99 $(CFLAGS) main.c $(LDLIBS) $(INCS)
+	$(CC) -c -std=c99 $(CFLAGS) main.c -lm $(INCS)
 
-#LDCtest: LDCtest.o
-#	${CC} LDCtest.o -o LDCtest $(LDLIBS) $(INCS)
-	
-#LDCtest.o: LDCtest.c LDCDynam.h point.h
-#	$(CC) -c -std=c99 $(CFLAGS) LDCtest.c $(LDLIBS) $(INCS)
 
 Liste.o: Liste.c point.h
-	$(CC) -c -std=c99 $(CFLAGS) Liste.c $(LDLIBS) $(INCS)
+	$(CC) -c -std=c99 $(CFLAGS) Liste.c -lm $(INCS)
 
 projetAlgo.o: projetAlgo.c Liste.h point.h
-	$(CC) -c -std=c99 $(CFLAGS) projetAlgo.c $(LDLIBS) $(INCS)
+	$(CC) -c -std=c99 $(CFLAGS) projetAlgo.c -lm $(INCS)
 	
 point.o: point.c point.h
 	$(CC) -c -std=c99 $(CFLAGS) point.c
