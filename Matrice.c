@@ -2,6 +2,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <assert.h>
+# include <string.h>
 
 
 struct Matrice
@@ -24,19 +25,28 @@ typedef struct Matrice *matrice;
 	return fp;
 }
 
+void fermer_tsp(FILE *fp)
+{
+	fclose(fp);
+}
+
 void lecture_tsp(FILE *fp)
 {
-	assert(fp != NULL);
-	while(fscanf(fp, "%s", str)!= "EOF")
-	{
-		fscanf(fp, "%s: %s")
+	char str[100];
+	char *test = "EDGE_WEIGHT_SECTION";
+/*	while(fgets(str, 100, fp))
+	{	
+		if(strcmp(str, test) == 0)
+		{
+
+			printf("%s\n", str);
+		}
 	}
 } */
 
 //primitives de modification
 
-
-matrice creerMatriceDesPoints(point liste[], int dimension)
+matrice creerMatriceDesPoints(point liste[], int dimension) //retourne une matrice crée à partir d'une liste de points
 {
 	matrice m = malloc(sizeof(struct Matrice));
 	m->dimension = dimension ;
@@ -55,12 +65,43 @@ matrice creerMatriceDesPoints(point liste[], int dimension)
 	return m;
 }
 
+
 void detruireMatrice(matrice m)
 {
+	for(int i = 0; i < m->dimension; i++)
+		free(m->tab[i]);
 	free(m->tab);
 	free(m->ref);
 	free(m);
 }
+
+//primitives d'accès
+
+int getIndicePoint(matrice m, point p)
+{
+	for(int i = 0; i < m->dimension; i++)
+		if (equals(p, m->ref[i]))
+			return i;
+	return -1;	
+}
+
+point getPointIndice(matrice m, int indice)
+{
+	return m->ref[indice];
+}
+
+double getDistanceIndice(matrice m, int ref1, int ref2)
+{
+	return m->tab[ref1][ref2];
+}
+
+double getDistancePoint(matrice m, point p1, point p2)
+{
+	return getDistanceIndice(m, getIndicePoint(m, p1), getIndicePoint(m, p2));
+}
+
+
+// affichage
 
 void afficherMatrice(matrice m)
 {
@@ -71,12 +112,11 @@ void afficherMatrice(matrice m)
 		printf("%d. ", i+1);
 		afficherPoint(m->ref[i]);
 	}
-	printf("\n");
 	printf("Matrice: \n");
 	for(int i = 0; i < m->dimension; i++)
 	{
 		for(int j = 0; j < m->dimension; j++)
-			printf("%0.2f ", m->tab[i][j]);
+			printf("%0.1f\t", m->tab[i][j]);
 		printf("\n");
 	}
 
@@ -89,12 +129,24 @@ int main()
 	point c = creerPoint(10, 10);
 	point d = creerPoint(1, -2);
 	point test_list[] = {a, b, c, d};
-	afficherPoint(a);
+
+
 	matrice test = creerMatriceDesPoints(test_list, 4);
-	afficherPoint(b);
 	afficherMatrice(test);
 
-	//detruireMatrice(test);
+	afficherPoint(a);
+	printf("Ref de a: %d\n", getIndicePoint(test, a));
+	afficherPoint(getPointIndice(test, 0));
+	printf("%f\n", getDistanceIndice(test, 0, 2));
+	printf("%f\n", getDistancePoint(test, a, c));
+
+	printf("Lecture tsp: \n");
+	char fnom[] = "exemple10.tsp";
+	FILE *fp = ouvrir_tsp(fnom);
+	lecture_tsp(fp);
+	fermer_tsp(fp);
+
+	detruireMatrice(test);
 
 	return 0;
 }
