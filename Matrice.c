@@ -46,20 +46,12 @@ matrice creerMatriceDesPoints(point liste[], int dimension)
 	for(int i = 0; i < m->dimension; i++)
 	{
 		m->ref[i] = liste[i];
+		m->tab[i] = malloc(sizeof(float) * m->dimension);
 	}
 	
 	for(int i = 0; i < m->dimension; i++)
-	{
-		m->tab[i] = malloc(sizeof(float) * m->dimension);
 		for(int j = 0; j < m->dimension; j++)
-		{
-			printf("i, j: %d, %d\n", i, j);
-			afficherPoint(m->ref[i]);
-			afficherPoint(m->ref[j]);
-			m->tab[i][j] = m->tab[j][i] = distanceManhattan(liste[i], liste[j]);
-			printf("%d\n", m->tab[i][j]);
-		}
-	}
+			m->tab[i][j] = distanceManhattan(liste[i], liste[j]);
 	return m;
 }
 
@@ -76,7 +68,7 @@ void afficherMatrice(matrice m)
 	printf("Points: \n");
 	for(int i = 0; i < m->dimension; i++)
 	{
-		printf("%d. ", i);
+		printf("%d. ", i+1);
 		afficherPoint(m->ref[i]);
 	}
 	printf("\n");
@@ -84,7 +76,7 @@ void afficherMatrice(matrice m)
 	for(int i = 0; i < m->dimension; i++)
 	{
 		for(int j = 0; j < m->dimension; j++)
-			printf("%f ", m->tab[i][j]);
+			printf("%0.2f ", m->tab[i][j]);
 		printf("\n");
 	}
 
