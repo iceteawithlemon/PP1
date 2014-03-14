@@ -191,9 +191,11 @@ void lecture_tsp(FILE *fp)
 
 void ecrireMatriceTSP(char *fnom, matrice m)
 {
+	char tmp[strlen(fnom)];
+	memcpy(tmp, fnom, strlen(fnom)-4);
 	FILE *fp = ouvrir_tsp(fnom, "w");
 	assert(fp != NULL);
-	fprintf(fp, "NAME: %s\nTYPE: TSP\nDIMENSION: %d\n", fnom, m->dimension);
+	fprintf(fp, "NAME: %s\nTYPE: TSP\nDIMENSION: %d\n", tmp, m->dimension);
 	fprintf(fp, "EDGE_WEIGHT_TYPE: EXPLICIT\nEDGE_WEIGHT_FORMAT: FULL_MATRIX\nDISPLAY_DATA_TYPE: TWOD_DISPLAY\nEDGE_WEIGHT_SECTION\n");
 	for(int i = 0; i < m->dimension; i++)
 	{
