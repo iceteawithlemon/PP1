@@ -82,42 +82,38 @@ void afficherPoint(point p)
 }
 
 
-double distanceEntreDeuxPoints(point p1, point p2) //distance euclidienne x+y
+float distanceEntreDeuxPoints(point p1, point p2) //distance euclidienne x+y
 {
-  double x1 = getX(p1);
-  double x2 = getX(p2);
-  double y1 = getY(p1);
-  double y2 = getY(p2);
+  float x1 = getX(p1);
+  float x2 = getX(p2);
+  float y1 = getY(p1);
+  float y2 = getY(p2);
     
-    double a =(x2 - x1);
+    float a =(x2 - x1);
     if(a<0)
         a=-a;
-    double b =(y2 - y1);
+    float b =(y2 - y1);
     if(b<0)
         b=-b;
     
-    double tmp = a+b;
+    float tmp = a+b;
     
     return tmp;
 }
 
-double distanceManhattan (point p1, point p2){ //distance Manhattan R²(x²+y²)
+float distanceManhattan (point p1, point p2){ //distance Manhattan R²(x²+y²)
 
-  double x1 = getX(p1);
-  double x2 = getX(p2);
-  double y1 = getY(p1);
-  double y2 = getY(p2);
+  float x1 = getX(p1);
+  float x2 = getX(p2);
+  float y1 = getY(p1);
+  float y2 = getY(p2);
 
-  double a =(x2 - x1);
-    if(a<0)
-        a=-a;
-    double b =(y2 - y1);
-    if(b<0)
-        b=-b;
+  float a =(x2 - x1);
+  float b =(y2 - y1);
+ 
+  float tmp = sqrt((a*a)+(b*b));
     
-    double tmp = sqrt((a*a)+(b*b));
-    
-    return tmp;
+  return tmp;
 	
 
 }

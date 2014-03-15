@@ -6,8 +6,8 @@
 
 point PointLePlusProche(point p,list liste){
     point pointTmp = creerPoint(0,0);
-    double distance = 0;
-    double tmp = 0;
+    float distance = 0;
+    float tmp = 0;
     
     //Distance entre p et le prochain point de la liste
     distance = distanceEntreDeuxPoints(p,valeur(liste));

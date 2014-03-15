@@ -19,7 +19,8 @@ void setY(point p, signed int y);
 void markVisited(point p);
 
 void afficherPoint(point p);
-double distanceEntreDeuxPoints(point p1, point p2);
+float distanceEntreDeuxPoints(point p1, point p2);
+float distanceManhattan(point p1, point p2);
 
 
 
