@@ -124,78 +124,94 @@ void fermer_tsp(FILE *fp)
 {
 	fclose(fp);
 }
-/*
-void lecture_tsp(FILE *fp)
+
+matrice lecture_tsp(FILE *fp)
 {
 	char str[1000];
-	char tmp[1000];
 	char *tok;
 	int x = 0;
 	int y = 0;
 	int i = 0;
 	int j = 0;
+	int pi = 0;
+	int px = 0;
+	int py = 0;
+	int k = 0;
+	int dim_bool = 0;
 	int dim;
+	int skip = 1;
 	matrice m;
 	char *delim = ": ";
-	while(fgets(str, 1000, fp))
+	while(!feof(fp))
 	{	
-		//printf("{%s}", str);
-		strcpy(tmp, str);
-		tok = strtok(tmp, ":");
+		if(y == 0)
+			fscanf(fp, "%s\n", str);
+		tok = strtok(str, ":");
 		while(tok != NULL && x == 0)
 		{
-			if(!strcmp(tok, "DIMENSION"))
+			printf("tok: '%s'\n", tok);
+			if(dim_bool)
 			{
-				dim = atoi(strtok(NULL, delim));
+				dim = atoi(tok);
+				printf("dim: %d\n", dim);
+				dim_bool = 0;
 				m = creerMatriceVide(dim);
 			}
-			if(!strcmp(tok, "EDGE_WEIGHT_FORMAT") && strcmp(strtok(NULL, ": "), "FULL_MATRIX"))
-				exit(0);
-			if (!strcmp(tok, "EDGE_WEIGHT_SECTION\n"))
+			if(!strcmp(tok, "DIMENSION"))
+				dim_bool = 1;
+			/*if(!strcmp(tok, "EDGE_WEIGHT_FORMAT") && strcmp(strtok(NULL, ": "), "FULL_MATRIX"))
+				exit(0);*/
+			if (!strcmp(tok, "EDGE_WEIGHT_SECTION"))
 				x=1;
-			printf("(%s)\n", tok);
+			//printf("(%s)\n", tok);
 			tok = strtok(NULL, delim);
 		}
-
+		//j = 0;
 		if(x == 1)
 		{
+			if(i >= dim)
+				y = 1;
 			delim = " ";
-			j = 0;
-			strcpy(tmp, str);
-			tok = strtok(tmp, delim);
-			//printf("tok: %s\n", tok);
+			//strcpy(tmp, str);
+			tok = strtok(str, delim);
+			//strtok(NULL, delim);
+			//printf("tok: %s, y=%d\n", tok, y);
 			//i++;
-			while(tok != NULL && y == 0)
+			while(tok != NULL && y == 0 && !skip && i < dim)
 			{
-				
-				if(!strcmp(tok, "DISPLAY_DATA_SECTION\n"))
+				printf("i, j: %d, %d = %.2f\n", i, j, atof(tok));
+				m->tab[i][j] = atof(tok);
+				j++;
+				if(j >= dim)
+				{
+					j = 0;
+					i++;
+				}
+				if(!strcmp(tok, "DISPLAY_DATA_SECTION"))
 					y=1;
 				tok = strtok(NULL, delim);
-				j++;
-				if(tok && !strcmp(tok, "\n"))
-					i++;
-				if(j >= dim)
-						j = 0;
-				if(tok && i < dim && j< dim)
-				{
-					printf("i, j: %d, %d\n", i, j);
-					printf("[%d]\n", atoi(tok));
-				}
-				
-
 			}
+			skip = 0;
 		}
+		if(y == 1 && k < dim)
+		{
+			fscanf(fp, "%d %d %d\n", &pi, &px, &py);
+			m->ref[pi-1] = creerPoint(px, py);
+			printf("%d %d %d\n", pi, px, py);
+			k++;
+		}
+		if(k >= dim)
+			break;
 	}
+	return m;
 
-} */
+} 
 
 void ecrireMatriceTSP(char *fnom, matrice m)
 {
-	char tmp[strlen(fnom)];
-	memcpy(tmp, fnom, strlen(fnom)-4);
 	FILE *fp = ouvrir_tsp(fnom, "w");
 	assert(fp != NULL);
-	fprintf(fp, "NAME: %s\nTYPE: TSP\nDIMENSION: %d\n", tmp, m->dimension);
+	fprintf(fp, "NAME: %s\nTYPE: TSP\nDIMENSION: %d\n", fnom, m->dimension);
 	fprintf(fp, "EDGE_WEIGHT_TYPE: EXPLICIT\nEDGE_WEIGHT_FORMAT: FULL_MATRIX\nDISPLAY_DATA_TYPE: TWOD_DISPLAY\nEDGE_WEIGHT_SECTION\n");
 	for(int i = 0; i < m->dimension; i++)
 	{
@@ -229,14 +245,15 @@ int main()
 	printf("%f\n", getDistanceIndice(test, 0, 2));
 	printf("%f\n", getDistancePoint(test, a, c));
 
-	//printf("Lecture tsp: \n");
-	//char fnom[] = "exemple10.tsp";
-	//FILE *fp = ouvrir_tsp(fnom, "r");
-	//lecture_tsp(fp);
-	//fermer_tsp(fp);
+	printf("Lecture tsp: \n");
+	char fnom[] = "exemple10.tsp";
+	FILE *fp = ouvrir_tsp(fnom, "r");
+	matrice m = lecture_tsp(fp);
+	fermer_tsp(fp);
+	afficherMatrice(m);
 
-	char tsp_test[] = "test.tsp";
-	ecrireMatriceTSP(tsp_test, test);
+	char tsp_test[] = "exemple102";
+	ecrireMatriceTSP(tsp_test, m);
 
 	detruireMatrice(test);
 
