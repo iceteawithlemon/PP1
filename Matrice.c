@@ -211,8 +211,9 @@ matrice creerMatriceTSP(char *fnom) //wrapper for lecture_tsp
 
 void creerTSPMatrice(char *fnom, matrice m)
 {
-	
-	FILE *fp = ouvrir_tsp(fnom, "w");
+	char *tmp;
+	asprintf(&tmp, "%s.tsp", fnom);
+	FILE *fp = ouvrir_tsp(tmp, "w");
 	assert(fp != NULL);
 	int is_int = ( (int)m->tab[0][1] == m->tab[0][1] ) ;
 	fprintf(fp, "NAME: %s\nTYPE: TSP\nDIMENSION: %d\n", fnom, m->dimension);
@@ -234,6 +235,22 @@ void creerTSPMatrice(char *fnom, matrice m)
 			fprintf(fp, "\t%d\t%f\t%f\n", i+1, (float)getX(getPointIndice(m, i)), (float)getY(getPointIndice(m, i)));
 	fprintf(fp, "EOF\n");
 	fermer_tsp(fp);
+}
+
+void creerTOUR(char *fnom, matrice m, point *liste) //la liste des points DOIT correspondre à la matrice donnée
+{
+	char *tmp;
+	asprintf(&tmp, "%s.opt.tour", fnom);
+	FILE *fp = ouvrir_tsp(tmp, "w");
+	assert(fp != NULL);
+	fprintf(fp, "NAME : %s\n", tmp);
+	fprintf(fp, "COMMENT : Optimum solution of %s\n", fnom);
+	fprintf(fp, "DIMENSION : %d\n", m->dimension);
+	fprintf(fp, "TOUR_SECTION\n");
+	for(int i = 0; i < m->dimension; i++)
+		fprintf(fp, "%d\n", getIndicePoint(m, liste[i]));
+	fprintf(fp, "EOF\n");
+	fclose(fp);
 }
 
 
@@ -260,7 +277,10 @@ int main()
 	matrice m = creerMatriceTSP(fnom);
 	
 	afficherMatrice(m);
-	creerTSPMatrice("test.tsp", m);
+	creerTSPMatrice("test2", test);
+
+	creerTOUR("test_tour", test, test_list);
+
 
 	detruireMatrice(test);
 
