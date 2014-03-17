@@ -1,15 +1,22 @@
-﻿compte rendu du 10/03/2014:
+﻿compte rendu du 17/03/2014:
 
-- l'algorithme de nearest neighbour est terminé;
-- nous avons fait les tests, le makefile, ansi que toutes les interfaces et implementations 
-  des fonctions que nous utilisons pour notre algorithme de Nearest Neighbour;
+
+travail effectué:
+-> matrices;
+-> ecriture et lecture des fichiers TSP;
+-> ecriture des fichiers TOUR;
+-> commencement de l'algorithme de prim;
+-> création de module;
+-> README -> TODO;
+
+
 travail realise par chacun:
-	-> caitlin: listes chainees, arbres binanaires, points, TravellingSalesman, matrices, lecture & ecriture des fichiers tsp
-	-> benjamin: liste, main, tests, point le plus proche
-	-> manon: Makefile, nearest neighbour (une implementation)
+	-> caitlin: matrices, lecture & ecriture des fichiers tsp, ecriture fichiers TOUR
+	-> benjamin: 
+	-> manon: création modulaire, reademe -> todo, recherche algo prim
 	
 chacun a participe a la mise en place de l'algorithme general.
 
 Ce qu'il reste à faire :
 
-- Ecrire dans un fichier .tour le parcours obtenu avec l'algorithme.
+- continuer algorithme de Prim.
