@@ -12,7 +12,7 @@ travail effectué:
 
 travail realise par chacun:
 	-> caitlin: matrices, lecture & ecriture des fichiers tsp, ecriture fichiers TOUR
-	-> benjamin: 
+	-> benjamin: modification de l'algorithme NearestNeighbour afin de prendre en compte les matrices, et recherche d'optimisation algorithme 
 	-> manon: création modulaire, reademe -> todo, recherche algo prim
 	
 chacun a participe a la mise en place de l'algorithme general.
