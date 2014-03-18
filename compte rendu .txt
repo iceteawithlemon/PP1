@@ -15,8 +15,9 @@ travail realise par chacun:
 	-> benjamin: modification de l'algorithme NearestNeighbour afin de prendre en compte les matrices, et recherche d'optimisation algorithme 
 	-> manon: création modulaire, reademe -> todo, recherche algo prim
 	
-chacun a participe a la mise en place de l'algorithme general.
+
 
 Ce qu'il reste à faire :
 
-- continuer algorithme de Prim.
+- continuer algorithme de Prim;
+- commencer interface graphique.
