@@ -74,7 +74,7 @@ int getIndicePoint(matrice m, point p) //retourne l'indice d'un point, ou -1 s'i
 
 point getPointIndice(matrice m, int indice) //retourn un point à partir de son indice
 {
-	return m->ref[indice];
+	return clone(m->ref[indice]);
 }
 
 float getDistanceIndice(matrice m, int ref1, int ref2) //retourne la distance entre deux points referencés par les deux indices données
@@ -86,6 +86,24 @@ float getDistancePoint(matrice m, point p1, point p2) // retourne la distance en
 {
 	return getDistanceIndice(m, getIndicePoint(m, p1), getIndicePoint(m, p2));
 }
+
+int getDimensionMatrice(matrice m){
+    return m->dimension;
+}
+
+
+void setMatricePoint(matrice m,point p,int indice){
+    m->ref[indice] = p;
+}
+
+void setMatricePointMarkVisited(matrice m, int indice){
+    markVisited(m->ref[indice]);
+}
+
+bool getPointisVisited(matrice m, int indice){
+    return isVisited(m->ref[indice]);
+}
+
 
 
 // affichage

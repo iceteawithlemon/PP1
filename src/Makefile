@@ -27,6 +27,8 @@ projetAlgo.o: projetAlgo.c Liste.h point.h
 point.o: point.c point.h
 	$(CC) -c -std=c99 $(CFLAGS) point.c
 
+matrice.o: matrice.c matrice.h point.h
+	$(CC) -c -std=c99 $(CFLAGS) matrice.c -lm $(INCS)
 
 
 dep:
