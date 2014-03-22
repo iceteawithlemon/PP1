@@ -12,7 +12,7 @@ int PointLePlusProche(int indicePointActuel,matrice m){
     
     int indice = 0;
     
-    while(getPointisVisited(m, indice)){
+    while(isVisited(getPointIndice(m,indice))){
         indice++;
     }
     
@@ -29,7 +29,7 @@ int PointLePlusProche(int indicePointActuel,matrice m){
         //On passe au prochain point
         indice++;
         
-        if(!getPointisVisited(m, indice)){
+        if(!isVisited(getPointIndice(m, indice))){
             
             //Distance entre le point actuel et le point d'après
             tmp = getDistanceIndice(m,indicePointActuel, indice);
@@ -45,11 +45,13 @@ int PointLePlusProche(int indicePointActuel,matrice m){
             }
         }
     }
-    setMatricePointMarkVisited(m, indicePoint);
+    markVisited(getPointIndice(m, indicePoint));
     return indicePoint;
 }
 
-matrice nearestNeighbour(matrice m,point tab[],point ordreDePassage[]){
+
+
+matrice nearestNeighbour(matrice m,point ordreDePassage[]){
     
     int nombreDePoints = getDimensionMatrice(m);
     point tabPoint[nombreDePoints];
@@ -60,7 +62,7 @@ matrice nearestNeighbour(matrice m,point tab[],point ordreDePassage[]){
     
     //Point d'origine inséré dans la nouvelle matrice
     setMatricePoint(mOut,clone(getPointIndice(m,0)),0);
-    setMatricePointMarkVisited(m,0);
+    markVisited(getPointIndice(m, 0));
     
     //On defini un point qui sera l'intermédiaire
     int indicePointActuel = 0;
