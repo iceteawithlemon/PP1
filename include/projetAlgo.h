@@ -4,6 +4,6 @@
 #include "Liste.h"
 
 point PointLePlusProche(point p,list l);
-point* nearestNeighbour(int nombreDePoints,point* tab,point* ordreDePassage);
+point* nearestNeighbour(int nombreDePoints,point* ordreDePassage);
 
 #endif
