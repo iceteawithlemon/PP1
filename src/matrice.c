@@ -24,7 +24,7 @@ matrice creerMatriceDesPoints(point liste[], int dimension) //retourne une matri
 	m->dimension = dimension ;
 	m->ref = malloc(sizeof(point) * m->dimension);
 	m->tab = malloc(sizeof(float*) * m->dimension);
-
+    
 	for(int i = 0; i < m->dimension; i++)
 	{
 		m->ref[i] = liste[i];
@@ -43,12 +43,12 @@ matrice creerMatriceVide(int dimension) //à utiliser dans la lecture des fichie
 	m->dimension = dimension ;
 	m->ref = malloc(sizeof(point) * m->dimension);
 	m->tab = malloc(sizeof(float*) * m->dimension);
-
+    
 	for(int i = 0; i < m->dimension; i++)
 	{
 		m->tab[i] = malloc(sizeof(float) * m->dimension);
 	}
-
+    
 	return m;
 }
 
@@ -69,10 +69,10 @@ int getIndicePoint(matrice m, point p) //retourne l'indice d'un point, ou -1 s'i
 	for(int i = 0; i < m->dimension; i++)
 		if (equals(p, m->ref[i]))
 			return i;
-	return -1;	
+	return -1;
 }
 
-point getPointIndice(matrice m, int indice) //retourn un point à partir de son indice
+point getPointIndice(matrice m, int indice) //retourne un point à partir de son indice
 {
 	return clone(m->ref[indice]);
 }
@@ -96,15 +96,6 @@ void setMatricePoint(matrice m,point p,int indice){
     m->ref[indice] = p;
 }
 
-void setMatricePointMarkVisited(matrice m, int indice){
-    markVisited(m->ref[indice]);
-}
-
-bool getPointisVisited(matrice m, int indice){
-    return isVisited(m->ref[indice]);
-}
-
-
 
 // affichage
 
@@ -125,7 +116,7 @@ void afficherMatrice(matrice m) //affiche la matrice passée en paramètre
 			printf("%0.1f\t", m->tab[i][j]);
 		printf("\n");
 	}
-
+    
 }
 
 
@@ -164,7 +155,7 @@ matrice lecture_tsp(FILE *fp) //crée un matrice à partir d'un fichier TSP de f
 	matrice m;
 	char *delim = ": ";
 	while(!feof(fp))
-	{	
+	{
 		if(y == 0)
 			fscanf(fp, "%s\n", str);
 		tok = strtok(str, ":");
@@ -217,8 +208,8 @@ matrice lecture_tsp(FILE *fp) //crée un matrice à partir d'un fichier TSP de f
 			break;
 	}
 	return m;
-
-} 
+    
+}
 
 matrice creerMatriceTSP(char *fnom) //wrapper for lecture_tsp
 {
