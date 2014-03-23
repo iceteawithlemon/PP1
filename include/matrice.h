@@ -16,7 +16,6 @@ float getDistanceIndice(matrice m, int ref1, int ref2);
 float getDistancePoint(matrice m, point p1, point p2);
 
 int getDimensionMatrice(matrice m);
-void setMatricePoint(matrice mOut,point p,int indice);
 
 void afficherMatrice(matrice m);
 
