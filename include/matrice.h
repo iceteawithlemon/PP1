@@ -25,7 +25,4 @@ void creerTSPMatrice(char *fnom, matrice m);
 void creerTOUR(char *fnom, matrice m, point liste[]);
 
 
-matrice lecture_tsp(FILE *fp);
-FILE *ouvrir_tsp(char *fnom, char *mode);
-
 #endif
