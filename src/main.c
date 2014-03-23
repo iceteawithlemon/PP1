@@ -26,21 +26,17 @@ int main(int argc, const char * argv[])
      
 
     
-    /*char* mode = "r";
-    //char* fileName = "bays29.tsp";
     char fileN [11] = "bays29.tsp";
-    //ouverture du fichier
-    FILE* tsp = ouvrir_tsp(fileN, mode);
     
     matrice matriceIN;
     //Lecture du fichier
-    matriceIN = lecture_tsp(tsp);
+    matriceIN = creerMatriceTSP(fileN); //ne pas utiliser lecture_TSP, mais plutôt son wrapper creerMatriceTSP
     
-    afficherMatrice(matriceIN);*/
+    afficherMatrice(matriceIN);
     
-    //int nbPoint = getDimensionMatrice(matriceIN);
-    //point ordreDePassage[nbPoint+1];
-    //nearestNeighbour(matriceIN,ordreDePassage);
+    int nbPoint = getDimensionMatrice(matriceIN);
+    point ordreDePassage[nbPoint+1];
+    nearestNeighbour(matriceIN,ordreDePassage);
 
     return 0;
 }

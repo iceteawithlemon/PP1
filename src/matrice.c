@@ -132,7 +132,7 @@ void fermer_tsp(FILE *fp)
 	fclose(fp);
 }
 
-matrice lecture_tsp(FILE *fp) //crée un matrice à partir d'un fichier TSP de format 'FULL_MATRIX'
+matrice lecture_tsp(FILE *fp) //crée un matrice à partir d'un fichier TSP de format 'FULL_MATRIX' -> !!! ne pas utiliser tout seul - il faut utiliser son wrapper "creerMatriceTSP"
 {
 	char str[1000];
 	char *tok;
