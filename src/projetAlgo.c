@@ -1,9 +1,8 @@
 #include "point.h"
-#include "Liste.h"
 #include <stdlib.h>
 #include "matrice.h"
 
-//Version tableau matrice qui renvoi l'indice du point le plus proche
+//Version tableau matrice qui renvoi sous forme de tableau l'indice du point et sa distance avec le point de reference
 int PointLePlusProche(int indicePointActuel,matrice m){
     
     float distance = 0;
@@ -49,19 +48,13 @@ int PointLePlusProche(int indicePointActuel,matrice m){
     return indicePoint;
 }
 
-
-
-matrice nearestNeighbour(matrice m,point ordreDePassage[]){
+void nearestNeighbour(matrice m,point ordreDePassage[]){
     
     int nombreDePoints = getDimensionMatrice(m);
-    point tabPoint[nombreDePoints];
-    
-    //Creation d'une matrice de sortie
-    matrice mOut = creerMatriceDesPoints(tabPoint,nombreDePoints+1);
-    
-    
-    //Point d'origine inséré dans la nouvelle matrice
-    setMatricePoint(mOut,clone(getPointIndice(m,0)),0);
+        
+    //Insertion du point d'origine
+    ordreDePassage[0] = getPointIndice(m, 0);
+    //Marquage du point visité
     markVisited(getPointIndice(m, 0));
     
     //On defini un point qui sera l'intermédiaire
@@ -75,16 +68,15 @@ matrice nearestNeighbour(matrice m,point ordreDePassage[]){
         
         indicePointActuel = PointLePlusProche(indicePointActuel,m);
         
-        // On implémente le point le plus proche du précedent dans la matrice de sortie
-        setMatricePoint(mOut,getPointIndice(m,indicePointActuel),indice);
+        //Le point le plus proche du pointActuel est inséré
+        ordreDePassage[indice] = getPointIndice(m, indicePointActuel);
         
         // On passe à l'indice suivant
         indice++;
     }
     
-    // On ajoute le point de départ au tableau d'ordre de passage
-    setMatricePoint(mOut,clone(getPointIndice(m,0)),indice);
+    //On retourne au point d'origine
+    ordreDePassage[indice] = getPointIndice(m, indice);
     
-    return mOut;
 }
 
