@@ -13,7 +13,7 @@ struct Matrice
 	point *ref; //référence pour trouver l'indice correspondant à un point donnée
 	float **tab; // matrice des valeurs
 };
-typedef struct Matrice *matrice;
+//typedef struct Matrice *matrice;
 
 
 //primitives de modification
@@ -74,7 +74,7 @@ int getIndicePoint(matrice m, point p) //retourne l'indice d'un point, ou -1 s'i
 
 point getPointIndice(matrice m, int indice) //retourne un point à partir de son indice
 {
-	return clone(m->ref[indice]);
+	return m->ref[indice];
 }
 
 float getDistanceIndice(matrice m, int ref1, int ref2) //retourne la distance entre deux points referencés par les deux indices données
@@ -89,11 +89,6 @@ float getDistancePoint(matrice m, point p1, point p2) // retourne la distance en
 
 int getDimensionMatrice(matrice m){
     return m->dimension;
-}
-
-
-void setMatricePoint(matrice m,point p,int indice){
-    m->ref[indice] = p;
 }
 
 
