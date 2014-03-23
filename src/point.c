@@ -13,7 +13,7 @@ struct Point
   signed int y;
   bool visited;
 };
-typedef struct Point *point;
+//typedef struct Point *point;
 
 
 //constructeurs
