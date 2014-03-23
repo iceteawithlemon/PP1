@@ -1,9 +1,9 @@
 #ifndef ProjetPP1_projetAlgo_h
 #define ProjetPP1_projetAlgo_h
 
-#include "Liste.h"
+#include "matrice.h"
 
-point PointLePlusProche(point p,list l);
-point* nearestNeighbour(int nombreDePoints,point* ordreDePassage);
+int PointLePlusProche(int indicePointActuel,matrice m);
+void nearestNeighbour(matrice m,point ordreDePassage[]);
 
 #endif
