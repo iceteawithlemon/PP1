@@ -11,17 +11,14 @@ OUTFILES= testN
 all: $(OUTFILES)
 
 
-testN: main.o Liste.o projetAlgo.o point.o
-	${CC} main.o Liste.o projetAlgo.o point.o -o testN -lm $(INCS)
+testN: main.o  projetAlgo.o point.o matrice.o
+	${CC} main.o  projetAlgo.o point.o matrice.o -o testN -lm $(INCS)
 	
-main.o: main.c  point.h projetAlgo.h Liste.h 
+main.o: main.c  point.h projetAlgo.h matrice.h 
 	$(CC) -c -std=c99 $(CFLAGS) main.c -lm $(INCS)
 
 
-Liste.o: Liste.c point.h
-	$(CC) -c -std=c99 $(CFLAGS) Liste.c -lm $(INCS)
-
-projetAlgo.o: projetAlgo.c Liste.h point.h
+projetAlgo.o: projetAlgo.c matrice.h point.h
 	$(CC) -c -std=c99 $(CFLAGS) projetAlgo.c -lm $(INCS)
 	
 point.o: point.c point.h
