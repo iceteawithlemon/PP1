@@ -53,7 +53,7 @@ void nearestNeighbour(matrice m,point ordreDePassage[]){
     int nombreDePoints = getDimensionMatrice(m);
         
     //Insertion du point d'origine
-    ordreDePassage[0] = getPointIndice(m, 0);
+    ordreDePassage[0] = clone(getPointIndice(m, 0));
     //Marquage du point visité
     markVisited(getPointIndice(m, 0));
     
@@ -69,14 +69,14 @@ void nearestNeighbour(matrice m,point ordreDePassage[]){
         indicePointActuel = PointLePlusProche(indicePointActuel,m);
         
         //Le point le plus proche du pointActuel est inséré
-        ordreDePassage[indice] = getPointIndice(m, indicePointActuel);
+        ordreDePassage[indice] = clone(getPointIndice(m, indicePointActuel));
         
         // On passe à l'indice suivant
         indice++;
     }
     
     //On retourne au point d'origine
-    ordreDePassage[indice] = getPointIndice(m, indice);
+    ordreDePassage[indice] = clone(ordreDePassage[0]);
     
 }
 
