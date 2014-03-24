@@ -1,4 +1,4 @@
-﻿compte rendu du 17/03/2014:
+﻿compte rendu du 24/03/2014:
 
 
 travail effectué:
@@ -13,7 +13,7 @@ travail effectué:
 travail realise par chacun:
 	-> caitlin: matrices, lecture & ecriture des fichiers tsp, ecriture fichiers TOUR
 	-> benjamin: modification de l'algorithme NearestNeighbour afin de prendre en compte les matrices, et recherche d'optimisation algorithme 
-	-> manon: création modulaire, reademe -> todo, recherche algo prim
+	-> manon: création modulaire, reademe -> todo, recherche algo prim, ajout de commentaires sur les fonctions
 	
 
 
