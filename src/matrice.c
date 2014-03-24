@@ -6,7 +6,7 @@
 
 # include "matrice.h"
 
-
+//definition d'une structure matrice
 struct Matrice
 {
 	int dimension;
@@ -16,9 +16,10 @@ struct Matrice
 //typedef struct Matrice *matrice;
 
 
-//primitives de modification
+/********************************* primitives de modification ************************************/
 
-matrice creerMatriceDesPoints(point liste[], int dimension) //retourne une matrice crée à partir d'une liste de points
+/*retourne une matrice crée à partir d'une liste de points*/
+matrice creerMatriceDesPoints(point liste[], int dimension) 
 {
 	matrice m = malloc(sizeof(struct Matrice));
 	m->dimension = dimension ;
@@ -37,6 +38,7 @@ matrice creerMatriceDesPoints(point liste[], int dimension) //retourne une matri
 	return m;
 }
 
+/*fonction qui crée une matrice vide*/
 matrice creerMatriceVide(int dimension) //à utiliser dans la lecture des fichiers tsp
 {
 	matrice m = malloc(sizeof(struct Matrice));
@@ -52,7 +54,7 @@ matrice creerMatriceVide(int dimension) //à utiliser dans la lecture des fichie
 	return m;
 }
 
-
+/*fonction qui détruit une matrice passée en paramètres*/
 void detruireMatrice(matrice m)
 {
 	for(int i = 0; i < m->dimension; i++)
@@ -62,9 +64,10 @@ void detruireMatrice(matrice m)
 	free(m);
 }
 
-//primitives d'accès
+/*********************************** primitives d'accès **************************************/
 
-int getIndicePoint(matrice m, point p) //retourne l'indice d'un point, ou -1 s'il n'existe pas
+/*retourne l'indice d'un point, ou -1 s'il n'existe pas*/
+int getIndicePoint(matrice m, point p) 
 {
 	for(int i = 0; i < m->dimension; i++)
 		if (equals(p, m->ref[i]))
@@ -72,29 +75,34 @@ int getIndicePoint(matrice m, point p) //retourne l'indice d'un point, ou -1 s'i
 	return -1;
 }
 
-point getPointIndice(matrice m, int indice) //retourne un point à partir de son indice
+/*retourne un point à partir de son indice*/
+point getPointIndice(matrice m, int indice) 
 {
 	return m->ref[indice];
 }
 
-float getDistanceIndice(matrice m, int ref1, int ref2) //retourne la distance entre deux points referencés par les deux indices données
+/*retourne la distance entre deux points referencés par les deux indices données*/
+float getDistanceIndice(matrice m, int ref1, int ref2) 
 {
 	return m->tab[ref1][ref2];
 }
 
-float getDistancePoint(matrice m, point p1, point p2) // retourne la distance entre deux points
+/*retourne la distance entre deux points*/
+float getDistancePoint(matrice m, point p1, point p2) 
 {
 	return getDistanceIndice(m, getIndicePoint(m, p1), getIndicePoint(m, p2));
 }
 
+/*retourne la dimension d'une matrice passée en paramètre*/
 int getDimensionMatrice(matrice m){
     return m->dimension;
 }
 
 
-// affichage
+/************************************* affichage *******************************************/
 
-void afficherMatrice(matrice m) //affiche la matrice passée en paramètre
+/*affiche la matrice passée en paramètre*/
+void afficherMatrice(matrice m) 
 {
 	assert(m != NULL);
 	printf("Dimension: %d\n", m->dimension);
@@ -115,7 +123,7 @@ void afficherMatrice(matrice m) //affiche la matrice passée en paramètre
 }
 
 
-// lecture de tsp
+/* lecture de tsp*/
 FILE *ouvrir_tsp(char *fnom, char *mode)
 {
 	FILE *fp = fopen(fnom, mode);
@@ -132,7 +140,9 @@ void fermer_tsp(FILE *fp)
 	fclose(fp);
 }
 
-matrice lecture_tsp(FILE *fp) //crée un matrice à partir d'un fichier TSP de format 'FULL_MATRIX' -> !!! ne pas utiliser tout seul - il faut utiliser son wrapper "creerMatriceTSP"
+/*crée un matrice à partir d'un fichier TSP de format 'FULL_MATRIX' 
+-> !!! ne pas utiliser tout seul - il faut utiliser son wrapper "creerMatriceTSP"*/
+matrice lecture_tsp(FILE *fp) 
 {
 	char str[1000];
 	char *tok;
@@ -206,7 +216,8 @@ matrice lecture_tsp(FILE *fp) //crée un matrice à partir d'un fichier TSP de f
     
 }
 
-matrice creerMatriceTSP(char *fnom) //wrapper for lecture_tsp
+/*wrapper for lecture_tsp*/
+matrice creerMatriceTSP(char *fnom) 
 {
 	FILE *fp = ouvrir_tsp(fnom, "r");
 	matrice m = lecture_tsp(fp);
@@ -243,7 +254,8 @@ void creerTSPMatrice(char *fnom, matrice m)
 	fermer_tsp(fp);
 }
 
-void creerTOUR(char *fnom, matrice m, point liste[]) //la liste des points DOIT correspondre à la matrice donnée
+/*la liste des points DOIT correspondre à la matrice donnée*/
+void creerTOUR(char *fnom, matrice m, point liste[]) 
 {
 	char *tmp;
 	asprintf(&tmp, "%s.opt.tour", fnom);
