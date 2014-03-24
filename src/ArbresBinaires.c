@@ -27,6 +27,7 @@ struct file
 
 typedef struct file *file;
 
+/*fonction création d'une file défini par sa taille*/
 file creerFile(int taille)
 {
 	file F = malloc(sizeof(struct file));
@@ -37,24 +38,24 @@ file creerFile(int taille)
 	F->fileT = malloc(sizeof(sommet) * F->taille);
 	return F;
 }
-
+/*fonction qui détruit une file*/
 void detruireFile(file F)
 {
 	free(F->fileT);
 	free(F);
 }
-
+/*fonction qui rencoie la valeur du premier élément de la file*/
 void *valeur(file F)
 {
 	return F->fileT[F->premier];
 }
-
+/*retourne vrai si la file est vide*/
 bool fileVide(file F)
 {
 	return ((F->premier == F->dernier) && (!F->plein));
 }
 
-
+/*fonction qui enfile un élément passé en paramètre dans une file*/
 void enfiler(file F, void* x)
 {
 	if (F->plein)
@@ -68,42 +69,44 @@ void enfiler(file F, void* x)
 	F->plein=(F->dernier == F->premier);
 }
 
-
+/*fonction qui supprime le premier élément d'une file*/
 void defiler(file F)
 {
 	F->premier=((F->premier+1)%(F->taille));
 	F->plein=false;
 }
 
-// accès
+/********************************** accès ******************************/
 
+/*renvoie la valeur du sommet passé en paramètre*/
 void *getValeur(sommet s)
 {
 	return s->info;
 }
-
+/*retourne le fils gauche du sommet passé en paramètre*/
 sommet filsGauche(sommet s)
 {
 	return s->gauche;
 }
-
+/*retourne le fils droit du sommet passé en paramètre*/
 sommet filsDroit(sommet s)
 {
 	return s->droit;
 }
-
+/*retourne le père du sommet passé en paramètre*/
 sommet pere(sommet s)
 {
 	return s->pere;
 }
-
+/*renvoie vrai si notre sommet est une feuille*/
 bool estFeuille(sommet s)
 {
 	return ((filsGauche(s)==NULL) && (filsDroit(s)==NULL));
 }
 
-//modification
+/********************************* modification **********************************/
 
+/*crée un arbre binaire*/
 sommet creerArbreBinaire(void *racine)
 {
 	cellule *cell = (cellule*)malloc(sizeof(cellule));
@@ -115,7 +118,7 @@ sommet creerArbreBinaire(void *racine)
 	tmp->pere=NULL;
 	return tmp;
 }
-
+/*ajoute un fils gauche *x à notre sommet s */
 void ajouterFilsGauche(sommet S, void *x)
 {
 	cellule *temp = (cellule*)malloc(sizeof(cellule));
@@ -126,7 +129,7 @@ void ajouterFilsGauche(sommet S, void *x)
 	temp->pere=S;
 	S->gauche=temp;
 }
-
+/*ajoute un fils droit *x à notre sommet s */
 void ajouterFilsDroit(sommet S, void *x)
 {
 	cellule *temp = (cellule*)malloc(sizeof(cellule));
@@ -138,12 +141,13 @@ void ajouterFilsDroit(sommet S, void *x)
 	S->droit=temp;
 }
 
+/*supprime le fils gauche de notre sommet s */
 void supprimerFilsGauche(sommet S)
 {
 	free(S->gauche);
 	S->gauche=NULL;
 }
-
+/*supprime le fils droit de notre sommet s */
 void supprimerFilsDroit(sommet S)
 {
 	free(S->droit);
@@ -236,6 +240,7 @@ sommet remplirTableauArbre(void *tab[], int len)
 	return i;
 }*/
 
+/*renvoie la hauteur de notre arbre */
 int hauteurArbreBinaire(sommet s)
 {
 	
@@ -256,7 +261,7 @@ int hauteurArbreBinaire(sommet s)
 			return tmp2+1;
 	}
 }
-
+/*renvoie la taille de notre arbre*/
 int tailleArbreBinaire(sommet A) //si A est un arbre binaire complet
 {
 	if(estFeuille(A))
@@ -265,9 +270,7 @@ int tailleArbreBinaire(sommet A) //si A est un arbre binaire complet
 		return(1 + tailleArbreBinaire(filsGauche(A)) + tailleArbreBinaire(filsDroit(A)));
 }
 
-
-// 19/11/2013
-
+/*renvoie vrai si notre arbre est complet*/
 bool estComplet(sommet A)
 {
 	if (estFeuille(A))
