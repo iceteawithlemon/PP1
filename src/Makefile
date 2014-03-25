@@ -4,17 +4,17 @@
 CC = gcc
 CFLAGS = -g -W -Wall 
 
-INCS = -I"https://github.com/iceteawithlemon/PP1/include" 
+INCS = -I"https://github.com/iceteawithlemon/PP1/tree/master/include" 
 
 OUTFILES= testN
 
 all: $(OUTFILES)
 
 
-testN: main.o projetAlgo.o point.o matrice.o
+testN: main.o projetAlgo.o point.o matrice.o 
 	$(CC) main.o  projetAlgo.o point.o matrice.o -o testN -lm $(INCS)
 	
-main.o: main.c  point.h projetAlgo.h matrice.h 
+main.o: main.c point.h projetAlgo.h matrice.h 
 	$(CC) -c -std=c99 $(CFLAGS) main.c -lm $(INCS)
 
 
