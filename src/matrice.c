@@ -4,7 +4,7 @@
 # include <assert.h>
 # include <string.h>
 
-# include "matrice.h"
+# include <matrice.h>
 
 //definition d'une structure matrice
 struct Matrice

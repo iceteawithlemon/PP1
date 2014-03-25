@@ -5,7 +5,7 @@
 # include <stdio.h>
 
 
-# include "point.h"
+# include <point.h>
 
 struct Point
 {
