@@ -18,14 +18,14 @@ main.o: src/main.c include/point.h include/projetAlgo.h include/matrice.h
 	$(CC) -c -std=c99 $(CFLAGS) src/main.c -lm $(INCS)
 
 
-projetAlgo.o: src/projetAlgo.c matrice.h point.h 
-	$(CC) -c -std=c99 $(CFLAGS) projetAlgo.c -lm $(INCS)
+projetAlgo.o: src/projetAlgo.c include/matrice.h include/point.h 
+	$(CC) -c -std=c99 $(CFLAGS) src/projetAlgo.c -lm $(INCS)
 	
-point.o: src/point.c point.h
-	$(CC) -c -std=c99 $(CFLAGS) point.c -lm $(INCS)
+point.o: src/point.c include/point.h
+	$(CC) -c -std=c99 $(CFLAGS) src/point.c -lm $(INCS)
 
-matrice.o: src/matrice.c matrice.h point.h
-	$(CC) -c -std=c99 $(CFLAGS) matrice.c -lm $(INCS)
+matrice.o: src/matrice.c include/matrice.h include/point.h
+	$(CC) -c -std=c99 $(CFLAGS) src/matrice.c -lm $(INCS)
 
 
 dep:
