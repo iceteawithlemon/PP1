@@ -27,7 +27,7 @@ int main(int argc, const char * argv[])
      
 
     
-    char fileN [11] = "bays29.tsp";
+    char *fileN = "test_cases/bays29.tsp";
     
     matrice matriceIN;
     //Lecture du fichier
