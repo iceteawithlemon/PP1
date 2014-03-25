@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+
 #include <point.h>
 #include <projetAlgo.h>
 #include <matrice.h>

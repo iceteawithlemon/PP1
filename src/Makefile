@@ -4,7 +4,7 @@
 CC = gcc
 CFLAGS = -g -W -Wall 
 
-INCS = -I"https://github.com/iceteawithlemon/PP1/tree/master/include" 
+INCS = -I"https://github.com/iceteawithlemon/PP1/include" 
 
 OUTFILES= testN
 
