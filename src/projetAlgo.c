@@ -1,6 +1,6 @@
-#include <point.h>
+#include "point.h"
 #include <stdlib.h>
-#include <matrice.h>
+#include "matrice.h"
 
 //Version tableau matrice qui renvoi sous forme de tableau l'indice du point et sa distance avec le point de reference
 int PointLePlusProche(int indicePointActuel,matrice m){

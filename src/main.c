@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include <point.h>
-#include <projetAlgo.h>
-#include <matrice.h>
+#include "point.h"
+#include "projetAlgo.h"
+#include "matrice.h"
 
 #define nombreDePoints 4
 int main(int argc, const char * argv[])
