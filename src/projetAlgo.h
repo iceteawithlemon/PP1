@@ -5,5 +5,6 @@
 
 int PointLePlusProche(int indicePointActuel,matrice m);
 void nearestNeighbour(matrice m,point ordreDePassage[]);
+int overallDistance(matrice m, point *points);
 
 #endif
