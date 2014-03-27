@@ -18,26 +18,6 @@ struct Matrice
 
 /********************************* primitives de modification ************************************/
 
-/*retourne une matrice crée à partir d'une liste de points*/
-matrice creerMatriceDesPoints(point liste[], int dimension) 
-{
-	matrice m = malloc(sizeof(struct Matrice));
-	m->dimension = dimension ;
-	m->ref = malloc(sizeof(point) * m->dimension);
-	m->tab = malloc(sizeof(float*) * m->dimension);
-    
-	for(int i = 0; i < m->dimension; i++)
-	{
-		m->ref[i] = liste[i];
-		m->tab[i] = malloc(sizeof(float) * m->dimension);
-	}
-	
-	for(int i = 0; i < m->dimension; i++)
-		for(int j = 0; j < m->dimension; j++)
-			m->tab[i][j] = distanceManhattan(liste[i], liste[j]);
-	return m;
-}
-
 /*fonction qui crée une matrice vide*/
 matrice creerMatriceVide(int dimension) //à utiliser dans la lecture des fichiers tsp
 {
@@ -53,6 +33,23 @@ matrice creerMatriceVide(int dimension) //à utiliser dans la lecture des fichie
     
 	return m;
 }
+
+/*retourne une matrice crée à partir d'une liste de points*/
+matrice creerMatriceDesPoints(point liste[], int dimension) 
+{
+	matrice m = creerMatriceVide(dimension);
+	
+	for(int i = 0; i < m->dimension; i++)
+	{
+		m->ref[i] = liste[i];
+		for(int j = 0; j < m->dimension; j++)
+			m->tab[i][j] = distanceManhattan(liste[i], liste[j]);
+	}
+
+	return m;
+}
+
+
 
 /*fonction qui détruit une matrice passée en paramètres*/
 void detruireMatrice(matrice m)
