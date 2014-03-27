@@ -1,8 +1,17 @@
-#include <point.h>
+#include "point.h"
 #include <stdlib.h>
-#include <matrice.h>
+#include "matrice.h"
 
-//Version tableau matrice qui renvoi sous forme de tableau l'indice du point et sa distance avec le point de reference
+/*
+ * Description: Cherche dans la matrice quel est le point le plus proche du point indiqué par l'indice,
+ * cette fonction utilise la fonction getDistanceIndice() permettant de connaitre la distance entre deux points.
+ *
+ * Parametres: 
+ * - indicePointActuel correpond à l'indice du point actuel, permettant l'accès à ce point.
+ * - m matrice contenant tous les points
+ *
+ * Retour: indice du point le plus proche du point actuel
+ */
 int PointLePlusProche(int indicePointActuel,matrice m){
     
     float distance = 0;
@@ -48,6 +57,16 @@ int PointLePlusProche(int indicePointActuel,matrice m){
     return indicePoint;
 }
 
+
+/*
+ * Description: Parcour de la matrice, crée un ordre de parcour permettant d'effectuer une distance moindre,
+ * recherche de point le plus proche.
+ *
+ * Parametres:
+ * - m matrice d'entrée qui permet d'obtenir la liste des points que l'on souhaite parcourir.
+ * - ordreDePassage[] tableau de sortie qui contiendra le nouveau parcour
+ *
+ */
 void nearestNeighbour(matrice m,point ordreDePassage[]){
     
     int nombreDePoints = getDimensionMatrice(m);

@@ -4,7 +4,7 @@
 # include <stdbool.h>
 # include <math.h>
 
-# include <ArbresBinaires.h>
+# include "ArbresBinaires.h"
 
 typedef struct cellule cellule;
 typedef cellule *sommet;

@@ -1,10 +1,10 @@
-# include <point.h>
+# include "point.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <assert.h>
 # include <string.h>
 
-# include <matrice.h>
+# include "matrice.h"
 
 //definition d'une structure matrice
 struct Matrice

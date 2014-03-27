@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include <point.h>
+#include "point.h"
 #define ERROR -1
 
 typedef struct element element;
