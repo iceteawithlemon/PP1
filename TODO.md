@@ -22,11 +22,14 @@ Les objectifs à atteindre sont:
 5- début d'interface graphique (OPTION: PAS OBLIGATOIRE A FAIRE SI LE TEMPS).
 
 
-+ qqs petits détails:
-- utiliser abs dans fonctions distance dans point.c
-- inverser noms des fonctions distance
+qqs petits détails:
+
+- utiliser abs dans fonctions distance dans point.c*
+- inverser noms des fonctions distance*
 - supprimer duplication de code dans creerMatrice (utiliser creerMatriceVide dans creerMatriceDesPoints)
 - mettre lecture_tsp (fopen, fclose) dans un autre fichier
+
+* = fait
 
 
 
