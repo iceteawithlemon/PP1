@@ -19,9 +19,9 @@ int main()
      point tab[nombreDePoints]={p1,p2,p3,p4};
      
      printf("Points en entrée : \n");
-     for(int i =0;i<nombreDePoints;i++){
-     afficherPoint(tab[i]);
-     }
+     for(int i =0;i<nombreDePoints;i++)
+        afficherPoint(tab[i]);
+     
     
     
     //CREATION MATRICE ENTREE
@@ -49,6 +49,8 @@ int main()
     
     //AFFICHAGE DU PARCOUR
     afficherMatrice(matriceOut);
+
+    printf("\nDistance totale: %d\n", overallDistance(matriceIN, ordreDePassage));
 
     return 0;
 }
