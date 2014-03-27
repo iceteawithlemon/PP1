@@ -3,26 +3,23 @@ PP1
 
 Projet Prog 1 (Travelling Salesman)
 
-ATTENTION: Nous devons changer notre main.c afin que celui-ci fonctionne avec les matrice tsp.
+ATTENTION: Nous devons changer notre main.c afin d'afficher le résultat du neirest après l'appel de la fonction
 
 
-Un compte-rendu doit être envoyé à la prof au plus tard 24h avant soit le 24/03
+Un compte-rendu doit être envoyé à la prof au plus tard 24h avant soit le 31/03
 au matin à 9h30 au plus tard.
 
 Les objectifs à atteindre sont:
 
-1- découpage modulaire + code de qualité (lisible sans duplication); ok
+1- implémentation du MST(prim);
 
-2- Makefile/cmake adapté au découpage; ok
+2- chaque membre doit implémenter au moins un test unitaire;
 
-3- chargement d'une matrice de distance; ok
+3- automatisation de l'exécution des tests (make test ou ctest);
 
-4- transformation du 1er main sous forme de test unitaire; 
+4- réflexion sur l'algorithme exhaustif;
 
-5- réflexion sur l'algo MST + découpage des tâches : (comment
-implémenter MST et qui fera quoi d'ici la troisième séance).
+5- début d'interface graphique (OPTION: PAS OBLIGATOIRE A FAIRE SI LE TEMPS)
 
 
-PS:
-Pour moi (manon) je pense que nous avons fait le 1,2 et 3 que la prof a demandé.
-Pour le découpage des tâches il faudra que l'on pense à commencer l'interface graphique.
+
