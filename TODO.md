@@ -6,8 +6,8 @@ Projet Prog 1 (Travelling Salesman)
 ATTENTION: Nous devons changer notre main.c afin d'afficher le résultat du neirest après l'appel de la fonction
 
 
-Un compte-rendu doit être envoyé à la prof au plus tard 24h avant soit le 31/03
-au matin à 9h30 au plus tard.
+Un compte-rendu doit être envoyé à la prof au plus tard 24h avant soit le 01/04
+au matin à 10h10 au plus tard.
 
 Les objectifs à atteindre sont:
 
