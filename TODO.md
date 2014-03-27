@@ -19,7 +19,7 @@ Les objectifs à atteindre sont:
 
 4- réflexion sur l'algorithme exhaustif;
 
-5- début d'interface graphique (OPTION: PAS OBLIGATOIRE A FAIRE SI LE TEMPS)
+5- début d'interface graphique (OPTION: PAS OBLIGATOIRE A FAIRE SI LE TEMPS).
 
 
 
