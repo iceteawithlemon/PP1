@@ -80,3 +80,16 @@ void nearestNeighbour(matrice m,point ordreDePassage[]){
     
 }
 
+
+int overallDistance(matrice m, point *points)
+{
+    float sum = 0;
+    int n = getDimensionMatrice(m);
+    for(int i = 0; i < n-1; i++)
+    {
+
+        sum += getDistancePoint(m, points[i], points[i+1]);
+    }
+    return (int)sum;
+}
+
