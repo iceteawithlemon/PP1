@@ -88,40 +88,15 @@ void afficherPoint(point p)
   printf("(%d, %d)\n", getX(p), getY(p));
 }
 
-/* calcul la distance euclidienne x+y entre deux points*/
-float distanceEntreDeuxPoints(point p1, point p2) 
-{
-  float x1 = getX(p1);
-  float x2 = getX(p2);
-  float y1 = getY(p1);
-  float y2 = getY(p2);
-    
-    float a =(x2 - x1);
-    if(a<0)
-        a=-a;
-    float b =(y2 - y1);
-    if(b<0)
-        b=-b;
-    
-    float tmp = a+b;
-    
-    return tmp;
+/* calcul la distance manhattan x+y entre deux points*/
+float distanceManhattan(point p1, point p2) 
+{  
+    return abs((getX(p2) - getX(p1))) + abs(getY(p2) - getY(p1));
 }
 
-/* calcul la distance Manhattan R²(x²+y²) entre deux points*/
-float distanceManhattan (point p1, point p2){ 
+/* calcul la distance R²(x²+y²) entre deux points*/
+float distanceEntreDeuxPoints (point p1, point p2){ 
 
-  float x1 = getX(p1);
-  float x2 = getX(p2);
-  float y1 = getY(p1);
-  float y2 = getY(p2);
-
-  float a =(x2 - x1);
-  float b =(y2 - y1);
- 
-  float tmp = sqrt((a*a)+(b*b));
-    
-  return tmp;
+  return sqrt( pow( getX(p2) - getX(p1), 2 ) + pow( getY(p2) - getY(p1), 2) ) ;
 	
-
 }
