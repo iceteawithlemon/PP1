@@ -5,7 +5,7 @@
 #include "matrice.h"
 
 #define nombreDePoints 4
-int main(int argc, const char * argv[])
+int main()
 {
     
     //Creation de Points (a remplacer par une lecture de matrice)
