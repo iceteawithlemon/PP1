@@ -26,10 +26,10 @@ qqs petits détails:
 
 - utiliser abs dans fonctions distance dans point.c*
 - inverser noms des fonctions distance*
-- supprimer duplication de code dans creerMatrice (utiliser creerMatriceVide dans creerMatriceDesPoints)
+- supprimer duplication de code dans creerMatrice (utiliser creerMatriceVide dans creerMatriceDesPoints)*
 - mettre lecture_tsp (fopen, fclose) dans un autre fichier
 
-* = fait
+"*" = fait
 
 
 
