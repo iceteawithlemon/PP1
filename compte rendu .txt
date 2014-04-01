@@ -1,28 +1,27 @@
-﻿compte rendu du 24/03/2014:
+﻿compte rendu du 31/03/2014:
 
 
 travail effectué:
 -> matrices;
 -> ecriture et lecture des fichiers TSP;
 -> ecriture des fichiers TOUR;
--> commencement de l'algorithme de prim;
--> création de module;
--> README -> TODO;
+-> début algorithme de prim;
+-> création modulaire;
 
 
 travail realise par chacun:
-	-> caitlin: matrices, lecture & ecriture des fichiers tsp, ecriture fichiers TOUR
-	-> benjamin: modification de l'algorithme NearestNeighbour afin de prendre en compte les matrices, et recherche d'optimisation algorithme 
-	-> manon: création modulaire, reademe -> todo, recherche algo prim, ajout de commentaires sur les fonctions
+	-> caitlin: matrices, lecture & ecriture des fichiers tsp, ecriture fichiers TOUR, algorithme de prim
+	-> benjamin: modification de l'algorithme NearestNeighbour afin de prendre en compte les matrices, et recherche d'optimisation algorithme, Modification du makefile 
+	-> manon: création modulaire, algo prim, ajout de commentaires sur les fonctions, modification Makefile
 	
 
 
 Ce qu'il reste à faire :
 
-- continuer algorithme de Prim;
+- terminer algorithme de Prim;
 - commencer interface graphique.
 - utiliser abs dans fonctions distance dans point.c
-- inverser noms des fonctions distance
+
 - supprimer duplication de code dans creerMatrice (utiliser creerMatriceVide dans creerMatriceDesPoints)
 - mettre lecture_tsp (fopen, fclose) dans un autre fichier
 
