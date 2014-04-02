@@ -141,3 +141,30 @@ void parcoursHierarchique(sommet A, sommet tab[], int i)
 	}
 	parcoursHierarchique(premierFils(A), tab, i);
 }
+
+sommet remplirTableauArbre(int tab[], int len)
+{
+	sommet A = creerArbreBinaire(tab[0]);
+	file F;
+	sommet s;
+	F = creerFile(len);
+	enfiler(F, A);
+	int c = 1; //place in list
+	while(c<(len-1))
+	{
+		s=valeur(F);
+		defiler(F);
+		ajouterFilsGauche(s, tab[c]);
+		enfiler(F, filsGauche(s));
+		ajouterFilsDroit(s, tab[c+1]);
+		enfiler(F, filsDroit(s));
+		c+=2;
+	}
+	//if there's one value in the list left
+	if (c == (len - 1))
+	{
+		s=valeur(F);
+		defiler(F);
+		ajouterFilsGauche(s, tab[c]);
+	}
+	return A;
