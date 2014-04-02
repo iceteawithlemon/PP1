@@ -29,7 +29,8 @@ int main()
     matriceIN = creerMatriceDesPoints(tab, nombreDePoints);
     
     //AFFICHAGE MATRICE
-    afficherMatrice(matriceIN);
+    matrice m = creerMatriceTSP("exemple10.tsp");
+    afficherMatrice(m);
     
     /*
      * UTILE DANS LE CAS DE LECTURE D'UNE MATRICE TSP
