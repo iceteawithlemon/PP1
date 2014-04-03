@@ -1,3 +1,5 @@
+# define _GNU_SOURCE
+
 # include <stdio.h>
 # include <assert.h>
 # include <stdlib.h>
@@ -6,118 +8,61 @@
 # include "matrice.h"
 # include "tspIOtourO.h"
 
-/* lecture de tsp*/
-FILE *ouvrir_tsp(char *fnom, char *mode)
+matrice creerMatriceTSP(char *fileName)
 {
-	FILE *fp = fopen(fnom, mode);
-	if(fp == NULL)
-	{
-		printf("Erreur: lecture de fichier impossible.\n");
-		exit(0);
-	}
-	return fp;
-}
-
-void fermer_tsp(FILE *fp)
-{
-	fclose(fp);
-}
-
-/*crée un matrice à partir d'un fichier TSP de format 'FULL_MATRIX' 
--> !!! ne pas utiliser tout seul - il faut utiliser son wrapper "creerMatriceTSP"*/
-matrice lecture_tsp(FILE *fp) 
-{
-	char str[1000];
-	char *tok;
-	int x = 0;
-	int y = 0;
+	char arg1[100];
+	char arg2[100];
+	char dump[100];
 	int i = 0;
-	int j = 0;
-	int pi = 0;
-	float px = 0;
-	float py = 0;
-	int k = 0;
-	int dim_bool = 0;
+	int j = 1;
 	int dim;
-	int skip = 1;
-	matrice m;
-	char *delim = ": ";
-	while(!feof(fp))
-	{
-		if(y == 0)
-			fscanf(fp, "%s\n", str);
-		tok = strtok(str, ":");
-		while(tok != NULL && x == 0)
-		{
-			//printf("tok: '%s'\n", tok);
-			if(dim_bool)
-			{
-				dim = atoi(tok);
-				//printf("dim: %d\n", dim);
-				dim_bool = 0;
-				m = creerMatriceVide(dim);
-			}
-			if(!strcmp(tok, "DIMENSION"))
-				dim_bool = 1;
-			if (!strcmp(tok, "EDGE_WEIGHT_SECTION"))
-				x=1;
-			tok = strtok(NULL, delim);
-		}
-		if(x == 1)
-		{
-			if(i >= dim)
-				y = 1;
-			delim = " ";
-			tok = strtok(str, delim);
-			while(tok != NULL && y == 0 && !skip && i < dim)
-			{
-				//printf("i, j: %d, %d = %.2f\n", i, j, atof(tok));
-				setDistanceIndice(m, i, j, atof(tok));
-				j++;
-				if(j >= dim)
-				{
-					j = 0;
-					i++;
-				}
-				if(!strcmp(tok, "DISPLAY_DATA_SECTION"))
-					y=1;
-				tok = strtok(NULL, delim);
-			}
-			skip = 0;
-		}
-		if(y == 1 && k < dim)
-		{
-			fscanf(fp, "%d %f %f\n", &pi, &px, &py);
-			setPointIndice(m, pi-1, creerPoint(px, py));
-			//m->ref[pi-1] = creerPoint(px, py);
-			//printf("%d %f %f\n", pi, px, py);
-			k++;
-		}
-		if(k >= dim)
-			break;
+	if (strstr(fileName, ".tsp") == NULL) //si le nom du fichier passée en paramètre ne contient pas ".tsp", l'ajouter
+		asprintf(&fileName, "%s.tsp", fileName);
+	//printf("%s\n", fileName);
+	FILE *fp = fopen(fileName, "r");
+	if(fp == NULL)
+		exit(1);
+
+	while(fscanf(fp, "%s %s\n", arg1, arg2) && strcmp(arg1, "EDGE_WEIGHT_SECTION") != 0)
+	{	
+		//printf("'%s' '%s'\n", arg1, arg2);
+		if(strcmp(arg1, "DIMENSION:") == 0)
+			dim = atoi(arg2);
 	}
-	return m;
-    
+	matrice m = creerMatriceVide(dim);
+	setDistanceIndice(m, 0, 0, 0);
+	while(fscanf(fp, "%s ", arg1) && strcmp(arg1, "DISPLAY_DATA_SECTION") != 0)
+	{
+		if(j >= dim)
+		{
+			i++;
+			j = 0;
+		}
+		setDistanceIndice(m, i, j, atof(arg1));
+		//printf("i: %d j: %d = %s\n", i, j, arg1);
+		j++;
+	}
+	i = 0;
+	while(fscanf(fp, "%s %s %s", dump, arg1, arg2) && strcmp(dump, "EOF") != 0)
+	{
+		setPointIndice(m, i, creerPoint(atof(arg1), atof(arg2)));
+		//printf("%d: %s %s\n", i, arg1, arg2);
+		i++;
+	}
+
+ 	return m;
 }
 
-/*wrapper for lecture_tsp*/
-extern matrice creerMatriceTSP(char *fnom) 
-{
-	FILE *fp = ouvrir_tsp(fnom, "r");
-	matrice m = lecture_tsp(fp);
-	fclose(fp);
-	return m;
-}
 
 
-extern void creerTSPMatrice(char *fnom, matrice m)
+extern void creerTSPMatrice(char *fileName, matrice m)
 {
-	char *tmp;
-	asprintf(&tmp, "%s.tsp", fnom);
-	FILE *fp = ouvrir_tsp(tmp, "w");
-	assert(fp != NULL);
+	if (strstr(fileName, ".tsp") == NULL) //si le nom du fichier passée en paramètre ne contient pas ".tsp", l'ajouter
+		asprintf(&fileName, "%s.tsp", fileName);
+	//printf("%s\n", fileName);
+	FILE *fp = fopen(fileName, "w");
 	int is_int = ( (int)getDistanceIndice(m, 0, 1) == getDistanceIndice(m, 0, 1) ) ;
-	fprintf(fp, "NAME: %s\nTYPE: TSP\nDIMENSION: %d\n", fnom, getDimensionMatrice(m));
+	fprintf(fp, "NAME: %s\nTYPE: TSP\nDIMENSION: %d\n", fileName, getDimensionMatrice(m));
 	fprintf(fp, "EDGE_WEIGHT_TYPE: EXPLICIT\nEDGE_WEIGHT_FORMAT: FULL_MATRIX\nDISPLAY_DATA_TYPE: TWOD_DISPLAY\nEDGE_WEIGHT_SECTION\n");
 	for(int i = 0; i < getDimensionMatrice(m); i++)
 	{
@@ -135,18 +80,19 @@ extern void creerTSPMatrice(char *fnom, matrice m)
 		else
 			fprintf(fp, "\t%d\t%f\t%f\n", i+1, (float)getX(getPointIndice(m, i)), (float)getY(getPointIndice(m, i)));
 	fprintf(fp, "EOF\n");
-	fermer_tsp(fp);
+	fclose(fp);
 }
 
 /*la liste des points DOIT correspondre à la matrice donnée*/
-extern void creerTOUR(char *fnom, matrice m, point liste[]) 
+extern void creerTOUR(char *fileName, matrice m, point liste[]) 
 {
-	char *tmp;
-	asprintf(&tmp, "%s.opt.tour", fnom);
-	FILE *fp = ouvrir_tsp(tmp, "w");
+	if (strstr(fileName, ".opt.tour") == NULL) //si le nom du fichier passée en paramètre ne contient pas ".tsp", l'ajouter
+		asprintf(&fileName, "%s.opt.tour", fileName);
+	printf("%s\n", fileName);
+	FILE *fp = fopen(fileName, "w");
 	assert(fp != NULL);
-	fprintf(fp, "NAME : %s\n", tmp);
-	fprintf(fp, "COMMENT : Optimum solution of %s\n", fnom);
+	fprintf(fp, "NAME : %s\n", fileName);
+	fprintf(fp, "COMMENT : Optimum solution of %s\n", fileName);
 	fprintf(fp, "DIMENSION : %d\n", getDimensionMatrice(m));
 	fprintf(fp, "TOUR_SECTION\n");
 	for(int i = 0; i < getDimensionMatrice(m); i++)
