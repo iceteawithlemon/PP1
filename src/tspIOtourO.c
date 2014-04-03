@@ -21,7 +21,10 @@ matrice creerMatriceTSP(char *fileName)
 	//printf("%s\n", fileName);
 	FILE *fp = fopen(fileName, "r");
 	if(fp == NULL)
+	{
+		printf("ERROR: unable to read file");
 		exit(1);
+	}
 
 	while(fscanf(fp, "%s %s\n", arg1, arg2) && strcmp(arg1, "EDGE_WEIGHT_SECTION") != 0)
 	{	
