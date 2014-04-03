@@ -33,6 +33,7 @@ testN: $(OBJ)
 	$(CC) -MM $(CFLAGS) $*.c > $*.d
 
 .PHONY: clean
-
+valgrind:
+       VALGRIND="valgrind --log-file=/tmp/valgrind-%p.log" $(MAKE)
 clean:
 	-rm -f $(OBJ) $(DEP) *~ \#*\# $(OUTFILES)
