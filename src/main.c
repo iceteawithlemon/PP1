@@ -30,8 +30,8 @@ int main()
     matriceIN = creerMatriceDesPoints(tab, nombreDePoints);
     
     //AFFICHAGE MATRICE
-    matrice m = creerMatriceTSP("exemple10.tsp");
-    
+    matrice m = creerMatriceTSP("../test_cases/exemple10.tsp");
+
     afficherMatrice(m);
     
     /*
