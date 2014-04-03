@@ -3,6 +3,7 @@
 #include "point.h"
 #include "projetAlgo.h"
 #include "matrice.h"
+# include "tspIOtourO.h"
 
 #define nombreDePoints 4
 int main()
@@ -30,6 +31,7 @@ int main()
     
     //AFFICHAGE MATRICE
     matrice m = creerMatriceTSP("exemple10.tsp");
+    
     afficherMatrice(m);
     
     /*
