@@ -15,6 +15,8 @@ point getPointIndice(matrice m, int indice);
 float getDistanceIndice(matrice m, int ref1, int ref2);
 float getDistancePoint(matrice m, point p1, point p2);
 
+point *getTableauPointsMatrice(matrice m);
+
 void setDistanceIndice(matrice m, int ref1, int ref2, float distance);
 void setPointIndice(matrice m, int i, point p);
 

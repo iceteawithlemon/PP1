@@ -88,6 +88,13 @@ void afficherPoint(point p)
   printf("(%d, %d)\n", getX(p), getY(p));
 }
 
+//affiche une liste de points
+void afficherListeDesPoints(point *p, int len)
+{
+  for(int i = 0; i < len; i++)
+    afficherPoint(p[i]);
+}
+
 /* calcul la distance manhattan x+y entre deux points*/
 float distanceManhattan(point p1, point p2) 
 {  

@@ -109,6 +109,11 @@ void setPointIndice(matrice m, int i, point p)
 	m->ref[i] = p;
 }
 
+point *getTableauPointsMatrice(matrice m)
+{
+	return m->ref; //possible car utilisation de malloc ds création des matrices
+}
+
 /************************************* affichage *******************************************/
 
 /*affiche la matrice passée en paramètre*/

@@ -112,3 +112,59 @@ int overallDistance(matrice m, point *points)
     return (int)sum;
 }
 
+void swap(point *plist, int i, int j)
+{
+    if(i != j)
+    {
+        point tmp;
+        tmp = plist[i];
+        plist[i] = plist[j];
+        plist[j] = tmp;
+    }
+}
+
+
+void copyList(point *pIn, point *pOut, int len)
+{
+    for(int i = 0; i < len; i++)
+        pOut[i] = pIn[i];
+}
+
+
+
+void bruteForceRough(matrice m, point *pIn, int i, int n, int *min, point *pOut)
+{
+    int j;
+    if(i == n)
+    {
+        int d = overallDistance(m, pIn);
+        if( d < *min)
+        {
+            *min = d;
+            copyList(pIn, pOut, n);
+        }
+    }
+    else
+    {
+        for(j = i; j < n; j++)
+        {
+            swap(pIn, i, j);
+            bruteForceRough(m, pIn, i+1, n, min, pOut);
+            swap(pIn, i, j);
+        }
+    }
+
+}
+
+//wrapper pour bruteForceRough
+void bruteForce(matrice m, point *pList)
+{
+    int n = getDimensionMatrice(m);
+    point pOut[n];
+    copyList(pList, pOut, n);
+    int *min = malloc(sizeof(int));
+    *min = overallDistance(m, pList);
+    bruteForceRough(m, pList, 0, n, min, pOut);
+    copyList(pOut, pList, n);
+    free(min);
+}
