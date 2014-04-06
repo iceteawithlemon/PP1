@@ -99,7 +99,7 @@ void nearestNeighbour(matrice m,point ordreDePassage[]){
     
 }
 
-
+/*fonction qui calcul la distance totale entre plusieurs points */
 int overallDistance(matrice m, point *points)
 {
     float sum = 0;
@@ -112,6 +112,7 @@ int overallDistance(matrice m, point *points)
     return (int)sum;
 }
 
+/*fonction qui echange deux points passés en paramètres*/
 void swap(point *plist, int i, int j)
 {
     if(i != j)
@@ -123,7 +124,7 @@ void swap(point *plist, int i, int j)
     }
 }
 
-
+/*fonction qui copie une liste de points */
 void copyList(point *pIn, point *pOut, int len)
 {
     for(int i = 0; i < len; i++)
@@ -131,7 +132,7 @@ void copyList(point *pIn, point *pOut, int len)
 }
 
 
-
+/*fonction brute force*/
 void bruteForceRough(matrice m, point *pIn, int i, int n, int *min, point *pOut)
 {
     int j;
