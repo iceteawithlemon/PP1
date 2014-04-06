@@ -11,7 +11,7 @@ au matin à 10h10 au plus tard.
 
 Les objectifs à atteindre sont:
 
-1- Brute force;
+1- Brute force; 
 
 2- commentaires;
 
@@ -30,12 +30,11 @@ qqs petits détails:
 - supprimer duplication de code dans creerMatrice (utiliser creerMatriceVide dans creerMatriceDesPoints)*
 - mettre lecture_tsp (fopen, fclose) dans un autre fichier
 
-"*" = fait
 
-à terminer :
 
--Prim;
--tests;
+
+
+
 
 
 

@@ -2,26 +2,22 @@
 
 
 travail effectué:
--> matrices;
--> ecriture et lecture des fichiers TSP;
--> ecriture des fichiers TOUR;
--> début algorithme de prim;
--> création modulaire;
+-> brute force;
+-> commentaires;
+-> tests;
+-> algorithme de prim;
+
 
 
 travail realise par chacun:
-	-> caitlin: matrices, lecture & ecriture des fichiers tsp, ecriture fichiers TOUR, algorithme de prim
-	-> benjamin: modification de l'algorithme NearestNeighbour afin de prendre en compte les matrices, et recherche d'optimisation algorithme, Modification du makefile 
-	-> manon: création modulaire, algo prim, ajout de commentaires sur les fonctions, modification Makefile
+	-> caitlin: algorithme brute force, tests ;
+	-> benjamin:  algorithme de prim; 
+	-> manon: ajout de commentaires sur les fonctions, reflexion sur force brute;
 	
 
 
 Ce qu'il reste à faire :
 
-- terminer algorithme de Prim;
-- commencer interface graphique.
-- utiliser abs dans fonctions distance dans point.c
-
-- supprimer duplication de code dans creerMatrice (utiliser creerMatriceVide dans creerMatriceDesPoints)
-- mettre lecture_tsp (fopen, fclose) dans un autre fichier
-
+- fuite de mémoires;
+- complexité NN & Prim;
+- reflexion brand & bound;
