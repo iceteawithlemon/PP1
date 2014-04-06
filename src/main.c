@@ -52,7 +52,7 @@ int main()
 
     printf("\nDistance totale: %d\n", overallDistance(matriceIN, ordreDePassage));
 
-    
+    //BRUTE FORCE
     printf("Test bruteForce:\n");
     printf("(Attention: il prend qqs secondes)\n");
     point tabTest[getDimensionMatrice(m)];
