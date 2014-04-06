@@ -10,8 +10,8 @@ travail effectué:
 
 
 travail realise par chacun:
-	-> caitlin: algorithme brute force, tests ;
-	-> benjamin:  algorithme de prim; 
+	-> caitlin: algorithme brute force;
+	-> benjamin:  algorithme de prim, tests; 
 	-> manon: ajout de commentaires sur les fonctions, reflexion sur force brute;
 	
 
