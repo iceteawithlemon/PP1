@@ -11,7 +11,7 @@ travail effectué:
 
 travail realise par chacun:
 	-> caitlin: algorithme brute force;
-	-> benjamin:  algorithme de prim, tests; 
+	-> benjamin:  algorithme de prim, tests, commentaire détaillé sur nearestNeighbour, ajout de valgrind au Makefile afin de déterminer les fuites memoires; 
 	-> manon: ajout de commentaires sur les fonctions, reflexion sur force brute;
 	
 
