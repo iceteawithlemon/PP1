@@ -9,7 +9,7 @@ OBJ=  projetAlgo.o point.o matrice.o tspIOtourO.o
 DEP = $(SRC:.c=.d)
 
 
-OUTFILES= testN test_NN test_BF
+OUTFILES= testN 
 
 all: $(OUTFILES)
 
@@ -44,6 +44,6 @@ check:
 	$(CC) $(OBJ) test_BF.o -o test_BF -lm
 	   
 clean:
-	-rm -f $(OBJ) main.o $(DEP) *~ \#*\# $(OUTFILES) 
+	-rm -f $(OBJ) main.o $(DEP) *~ \#*\# $(OUTFILES) test_NN test_BF
 	
 
