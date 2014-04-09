@@ -11,7 +11,7 @@ DEP = $(SRC:.c=.d)
 
 
 
-OUTFILES= testN test_NN test_BF
+OUTFILES= testN 
 
 all: $(OUTFILES)
 
