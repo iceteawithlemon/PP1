@@ -209,27 +209,3 @@ void branchBound(matrice m, point *pList, int pas)
     copyList(pOutBranch, pList, n);
 }*/
 
-/*fonction brute force*/
-void branchRough(matrice m, point *pIn, int i, int n, int *min, point *pOut)
-{
-    int j;
-    if(i == n)
-    {
-        int d = overallDistance(m, pIn);
-        if( d < *min)
-        {
-            *min = d;
-            copyList(pIn, pOut, n);
-        }
-    }
-    else
-    {
-        for(j = i; j < n; j++)
-        {
-            swap(pIn, i, j);
-            bruteForceRough(m, pIn, i+1, n, min, pOut);
-            swap(pIn, i, j);
-        }
-    }
-
-}
