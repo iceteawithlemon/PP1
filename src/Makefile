@@ -34,7 +34,7 @@ testN: $(OBJ)
 	$(CC) -c $(CFLAGS) $*.c -o $*.o
 	$(CC) -MM $(CFLAGS) $*.c > $*.d
 
-.PHONY: clean
+.PHONY: clean valgrind check
 valgrind:
        VALGRIND="valgrind --log-file=/tmp/valgrind-%p.log" $(MAKE)
 

@@ -6,7 +6,7 @@
 # include "tspIOtourO.h"
 
 #define nombreDePoints 4
-int main()
+int autres()
 {
     
     //Creation de Points (a remplacer par une lecture de matrice)
