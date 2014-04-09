@@ -5,7 +5,7 @@ CC = gcc
 CFLAGS = -c -std=c99 -g -W -Wall 
 SRC= $(wildcard *.c)
 #OBJ= $(SRC:.c=.o)
-OBJ= main.o projetAlgo.o point.o matrice.o
+OBJ= main.o projetAlgo.o point.o matrice.o tspIOtourO
 INCS = 
 DEP = $(SRC:.c=.d)
 #OBJ= main.o  projetAlgo.o point.o matrice.o 
@@ -29,7 +29,7 @@ testN: $(OBJ)
 
 # matrice.o: matrice.c matrice.h point.h
 
-
+#tspIOtourO.o: tspIOtourO.c point.h matrice.h tspIOtourO.h
 
 %.o: %.c
 	$(CC) -c $(CFLAGS) $*.c -o $*.o
