@@ -9,7 +9,7 @@ OBJ=  projetAlgo.o point.o matrice.o tspIOtourO.o
 DEP = $(SRC:.c=.d)
 
 
-OUTFILES= testN 
+OUTFILES= testN test_NN test_BF
 
 all: $(OUTFILES)
 
@@ -39,6 +39,7 @@ valgrind:
 check:
 	$(CC) -c  $(CFLAGS) test_NN.c 
 	$(CC) $(OBJ) test_NN.o -o test_NN -lm
+	
 	$(CC) -c  $(CFLAGS) test_BF.c 
 	$(CC) $(OBJ) test_BF.o -o test_BF -lm
 	   
