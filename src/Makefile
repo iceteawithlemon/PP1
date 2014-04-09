@@ -11,7 +11,7 @@ DEP = $(SRC:.c=.d)
 
 
 
-OUTFILES= testN
+OUTFILES= testN test_NN test_BF
 
 all: $(OUTFILES)
 
@@ -28,6 +28,8 @@ testN: $(OBJ)
 
 # matrice.o: matrice.c matrice.h point.h
 
+
+
 %.o: %.c
 	$(CC) -c $(CFLAGS) $*.c -o $*.o
 	$(CC) -MM $(CFLAGS) $*.c > $*.d
@@ -35,5 +37,14 @@ testN: $(OBJ)
 .PHONY: clean
 valgrind:
        VALGRIND="valgrind --log-file=/tmp/valgrind-%p.log" $(MAKE)
+
+check:
+	$(CC) -c  $(CFLAGS) test_NN.c $(DEP)
+	$(CC)  test_NN.o -o test_NN
+	$(CC) -c  $(CFLAGS) test_BF.c $(DEP)
+	$(CC)  test_NN.o -o test_BF
+	   
 clean:
 	-rm -f $(OBJ) $(DEP) *~ \#*\# $(OUTFILES)
+	
+
