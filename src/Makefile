@@ -5,10 +5,10 @@ CC = gcc
 CFLAGS = -c -std=c99 -g -W -Wall 
 SRC= $(wildcard *.c)
 #OBJ= $(SRC:.c=.o)
-OBJ= main.o projetAlgo.o point.o matrice.o tspIOtourO
+OBJ= main.o projetAlgo.o point.o matrice.o tspIOtourO.o
 INCS = 
 DEP = $(SRC:.c=.d)
-OBJTEST= projetAlgo.o point.o matrice.o tspIOtourO
+OBJTEST= projetAlgo.o point.o matrice.o tspIOtourO.o
 
 
 
