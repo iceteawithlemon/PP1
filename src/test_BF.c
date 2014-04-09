@@ -24,7 +24,6 @@ int autres()
         afficherPoint(tab[i]);
      
     
-    
     //CREATION MATRICE ENTREE
     matrice matriceIN;
     matriceIN = creerMatriceDesPoints(tab, nombreDePoints);
@@ -41,9 +40,8 @@ int autres()
     //CREATION D'UN TABLEAU DE POINT
     point ordreDePassage[nbPointOut];
     
-    
-
-    //BRUTE FORCE
+   
+   //BRUTE FORCE
     printf("Test bruteForce:\n");
     printf("(Attention: il prend qqs secondes)\n");
     point tabTest[getDimensionMatrice(m)];

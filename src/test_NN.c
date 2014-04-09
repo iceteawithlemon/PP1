@@ -52,9 +52,6 @@ int autre()
 
     printf("\nDistance totale: %d\n", overallDistance(matriceIN, ordreDePassage));
 
-    
-     
-
     return 0;
 }
 

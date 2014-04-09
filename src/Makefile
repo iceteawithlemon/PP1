@@ -8,7 +8,7 @@ SRC= $(wildcard *.c)
 OBJ= main.o projetAlgo.o point.o matrice.o tspIOtourO
 INCS = 
 DEP = $(SRC:.c=.d)
-#OBJ= main.o  projetAlgo.o point.o matrice.o 
+OBJTEST= projetAlgo.o point.o matrice.o tspIOtourO
 
 
 
@@ -41,9 +41,9 @@ valgrind:
 
 check:
 	$(CC) -c  $(CFLAGS) test_NN.c 
-	$(CC)  $(OBJ) test_NN.o -o test_NN -lm
+	$(CC)  $(OBJTEST) test_NN.o -o test_NN -lm
 	$(CC) -c  $(CFLAGS) test_BF.c 
-	$(CC)  $(OBJ) test_NN.o -o test_BF -lm
+	$(CC)  $(OBJTEST) test_BF.o -o test_BF -lm
 	   
 clean:
 	-rm -f $(OBJ) $(DEP) *~ \#*\# $(OUTFILES)
