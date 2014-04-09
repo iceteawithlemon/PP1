@@ -5,11 +5,8 @@ CC = gcc
 CFLAGS = -c -std=c99 -g -W -Wall 
 SRC= $(wildcard *.c)
 #OBJ= $(SRC:.c=.o)
-OBJ= main.o projetAlgo.o point.o matrice.o tspIOtourO.o
-INCS = 
+OBJ=  projetAlgo.o point.o matrice.o tspIOtourO.o
 DEP = $(SRC:.c=.d)
-OBJTEST= projetAlgo.o point.o matrice.o tspIOtourO.o
-
 
 
 OUTFILES= testN 
@@ -18,8 +15,8 @@ all: $(OUTFILES)
 
 -include $(DEP)
 
-testN: $(OBJ)
-	$(CC) $(OBJ) -o $@ -lm
+testN: $(OBJ) main.o
+	$(CC) $(OBJ) main.o -o $@ -lm
 
 # main.o: main.c point.h projetAlgo.h matrice.h 
 
@@ -41,11 +38,11 @@ valgrind:
 
 check:
 	$(CC) -c  $(CFLAGS) test_NN.c 
-	$(CC)  $(OBJTEST) test_NN.o -o test_NN -lm
+	$(CC) $(OBJ) test_NN.o -o test_NN -lm
 	$(CC) -c  $(CFLAGS) test_BF.c 
-	$(CC)  $(OBJTEST) test_BF.o -o test_BF -lm
+	$(CC) $(OBJ) test_BF.o -o test_BF -lm
 	   
 clean:
-	-rm -f $(OBJ) $(DEP) *~ \#*\# $(OUTFILES)
+	-rm -f $(OBJ) main.o $(DEP) *~ \#*\# $(OUTFILES) 
 	
 
