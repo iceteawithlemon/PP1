@@ -40,9 +40,9 @@ valgrind:
        VALGRIND="valgrind --log-file=/tmp/valgrind-%p.log" $(MAKE)
 
 check:
-	$(CC) -c  $(CFLAGS) test_NN.c $(DEP)
+	$(CC) -c  $(CFLAGS) test_NN.c 
 	$(CC)  $(OBJ) test_NN.o -o test_NN
-	$(CC) -c  $(CFLAGS) test_BF.c $(DEP)
+	$(CC) -c  $(CFLAGS) test_BF.c 
 	$(CC)  $(OBJ) test_NN.o -o test_BF
 	   
 clean:
