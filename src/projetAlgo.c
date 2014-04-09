@@ -99,7 +99,7 @@ void nearestNeighbour(matrice m,point ordreDePassage[]){
     
 }
 
-/*fonction qui calcul la distance totale entre plusieurs points */
+/*fonction qui calcul la distance totale entre tous les points d'un liste */
 int overallDistance(matrice m, point *points)
 {
     float sum = 0;
@@ -111,6 +111,7 @@ int overallDistance(matrice m, point *points)
     }
     return (int)sum;
 }
+
 
 /*fonction qui echange deux points passés en paramètres*/
 void swap(point *plist, int i, int j)
@@ -128,6 +129,13 @@ void swap(point *plist, int i, int j)
 void copyList(point *pIn, point *pOut, int len)
 {
     for(int i = 0; i < len; i++)
+        pOut[i] = pIn[i];
+}
+
+/*fonction qui copie une liste de points à partir d'un indice */
+void copyListIndice(point *pIn, point *pOut, int start, int end)
+{
+    for(int i = start; i < end; i++)
         pOut[i] = pIn[i];
 }
 
@@ -168,4 +176,60 @@ void bruteForce(matrice m, point *pList)
     bruteForceRough(m, pList, 0, n, min, pOut);
     copyList(pOut, pList, n);
     free(min);
+}
+/*
+void branchBound(matrice m, point *pList, int pas)
+{
+    int n = getDimensionMatrice(m);
+    //printf("Dim: %d\n", n);
+    int step = 0;
+    int tmp;
+    point pOutBranch[n];
+    point pOutBrute[pas];
+    pOutBranch[0] = pList[0];
+    copyList(pList, pOutBrute, pas);
+    //copyList(pList, pOut, n);
+    int *min = malloc(sizeof(int));
+    *min = overallDistance(m, pList);
+
+    while(step < n)
+    {
+        //printf("Step: %d\n", step);
+        //afficherPoint(pOutBranch[step]);
+        tmp = (step + pas < n)? step + pas: n;
+        bruteForceRough(m, pList, step, tmp, min, pOutBrute);
+        step ++;
+        pOutBranch[step] = pOutBrute[0];
+        copyListIndice(pOutBranch, pList, 0, step);
+        printf("Liste points: \n");
+        afficherListeDesPoints(pOutBrute, pas);
+        printf("\n");
+    }
+    free(min);
+    copyList(pOutBranch, pList, n);
+}*/
+
+/*fonction brute force*/
+void branchRough(matrice m, point *pIn, int i, int n, int *min, point *pOut)
+{
+    int j;
+    if(i == n)
+    {
+        int d = overallDistance(m, pIn);
+        if( d < *min)
+        {
+            *min = d;
+            copyList(pIn, pOut, n);
+        }
+    }
+    else
+    {
+        for(j = i; j < n; j++)
+        {
+            swap(pIn, i, j);
+            bruteForceRough(m, pIn, i+1, n, min, pOut);
+            swap(pIn, i, j);
+        }
+    }
+
 }
