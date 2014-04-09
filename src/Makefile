@@ -41,9 +41,9 @@ valgrind:
 
 check:
 	$(CC) -c  $(CFLAGS) test_NN.c 
-	$(CC)  $(OBJ) test_NN.o -o test_NN
+	$(CC)  $(OBJ) test_NN.o -o test_NN -lm
 	$(CC) -c  $(CFLAGS) test_BF.c 
-	$(CC)  $(OBJ) test_NN.o -o test_BF
+	$(CC)  $(OBJ) test_NN.o -o test_BF -lm
 	   
 clean:
 	-rm -f $(OBJ) $(DEP) *~ \#*\# $(OUTFILES)
