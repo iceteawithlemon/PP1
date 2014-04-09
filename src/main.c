@@ -59,7 +59,7 @@ int main()
     copyList(getTableauPointsMatrice(m), tabTest, getDimensionMatrice(m));
     bruteForce(m, tabTest);
 
-    for(int i = 0;i < 4; i++)
+    for(int i = 0;i < getDimensionMatrice(m); i++)
         afficherPoint(tabTest[i]);
     printf("Overall min: %d\n", overallDistance(m, tabTest));
      
