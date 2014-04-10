@@ -12,7 +12,8 @@ Les objectifs à atteindre sont:
 
 3- identifier fuites de mémoire;
 
-4- récupérer temps execution des tests pour comparaison ;
+4- récupérer temps execution des tests pour comparaison -> utiliser la fonction getrusage() voir le lien suivant : 
+  http://www.isima.fr/~lacomme/temps/Temps_de_calcul.pdf page 7-8;
 
 5- évaluation complexité NN & MST(Prim) & brute force;
 
