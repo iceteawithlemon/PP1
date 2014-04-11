@@ -39,10 +39,11 @@ valgrind:
 check:
 	$(CC) -c  $(CFLAGS) test_NN.c 
 	$(CC) $(OBJ) test_NN.o -o test_NN -lm
+	
 	$(CC) -c  $(CFLAGS) test_BF.c 
 	$(CC) $(OBJ) test_BF.o -o test_BF -lm
 	   
 clean:
-	-rm -f $(OBJ) main.o $(DEP) *~ \#*\# $(OUTFILES) 
+	-rm -f $(OBJ) main.o $(DEP) *~ \#*\# $(OUTFILES) test_NN test_BF
 	
 
