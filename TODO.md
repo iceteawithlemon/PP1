@@ -10,10 +10,9 @@ Les objectifs à atteindre sont:
 
 2- commentaires;
 
-3- identifier fuites de mémoire -> explication de Valgrind excellent http://www.mazikim.com/c/valgrind-detecter-les-erreurs-de-segmentation-et-les-fuites-memoires-en-c/
+3- identifier fuites de mémoire -> utiliser valgrind <nom executable >
 
-4- récupérer temps execution des tests pour comparaison -> utiliser la fonction getrusage() voir le lien suivant : 
-  http://www.isima.fr/~lacomme/temps/Temps_de_calcul.pdf page 7-8;
+4- récupérer temps execution des tests pour comparaison -> utiliser time <nom executable>
 
 5- évaluation complexité NN & MST(Prim) & brute force;
 
