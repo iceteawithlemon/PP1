@@ -177,35 +177,35 @@ void bruteForce(matrice m, point *pList)
     copyList(pOut, pList, n);
     free(min);
 }
-/*
-void branchBound(matrice m, point *pList, int pas)
+ 
+void branchBound(matrice m, point *in, int len, point *out)
 {
+    point tmp_p;
     int n = getDimensionMatrice(m);
-    //printf("Dim: %d\n", n);
-    int step = 0;
-    int tmp;
-    point pOutBranch[n];
-    point pOutBrute[pas];
-    pOutBranch[0] = pList[0];
-    copyList(pList, pOutBrute, pas);
-    //copyList(pList, pOut, n);
-    int *min = malloc(sizeof(int));
-    *min = overallDistance(m, pList);
-
-    while(step < n)
+    int i, j;
+    int tmp_lb;
+    int min_lb = 1000; //abitrary value
+    for(int k = 0; k < n - len; k++)
     {
-        //printf("Step: %d\n", step);
-        //afficherPoint(pOutBranch[step]);
-        tmp = (step + pas < n)? step + pas: n;
-        bruteForceRough(m, pList, step, tmp, min, pOutBrute);
-        step ++;
-        pOutBranch[step] = pOutBrute[0];
-        copyListIndice(pOutBranch, pList, 0, step);
-        printf("Liste points: \n");
-        afficherListeDesPoints(pOutBrute, pas);
-        printf("\n");
+        matrice tmp_m = clone(m);
+        i = getIndicePoint(m, out[len-1]);
+        j = getIndicePoint(m, in[k]);
+        for(int y = 0; y < n; y++)
+            for(int x = 0; x < n; x++)
+                if(x == i || y == j)
+                    m->tab[x][y] = -1;
+        tmp_lb = lowerBound(tmp_m);
+        if(tmp_lb < min_lb)
+        {
+            min_lb = tmp_lb;
+            tmp_p = getPointIndice(m, k);
+        }
+        detruireMatrice(tmp_m);
     }
-    free(min);
-    copyList(pOutBranch, pList, n);
-}*/
+
+    //add tmp_p to out and remove from in
+    //add condition on length of in or out & recursive call
+
+}
+
 

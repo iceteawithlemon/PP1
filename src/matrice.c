@@ -60,6 +60,11 @@ void detruireMatrice(matrice m)
 	free(m->tab);
 	free(m->ref);
 	free(m);
+
+
+matrice clone(matrice m)
+{
+	return creerMatriceDesPoints(getTableauPointsMatrice(m), getDimensionMatrice(m));
 }
 
 /*********************************** primitives d'accès **************************************/
@@ -142,7 +147,7 @@ int findMin(float *list, int len, int k)
 {
     int min = 1000; //valeur abitraire
     for(int i = 0; i < len; i++)
-        if(list[i] < min && i != k)
+        if(list[i] < min && i != k && list[i] != -1)
             min = list[i];   
     printf("min: %d\n", min);
     return min;
@@ -180,7 +185,6 @@ int reduceMatrix_lowerBound(matrice m)
     }
     return lowerBound;
 }
-
 
 
 
