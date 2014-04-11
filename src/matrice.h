@@ -10,6 +10,8 @@ matrice creerMatriceDesPoints(point liste[], int dimension);
 matrice creerMatriceVide(int dimension);
 void detruireMatrice(matrice m);
 
+matrice cloneMatrice(matrice m);
+
 int getIndicePoint(matrice m, point p);
 point getPointIndice(matrice m, int indice);
 float getDistanceIndice(matrice m, int ref1, int ref2);
@@ -28,7 +30,7 @@ matrice creerMatriceTSP(char *fnom);
 
 void creerTSPMatrice(char *fnom, matrice m);
 void creerTOUR(char *fnom, matrice m, point liste[]);
-int reduceMatrix_lowerBound(matrice m);
+int lowerBound(matrice m);
 
 
 #endif

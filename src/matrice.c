@@ -60,9 +60,9 @@ void detruireMatrice(matrice m)
 	free(m->tab);
 	free(m->ref);
 	free(m);
+}
 
-
-matrice clone(matrice m)
+matrice cloneMatrice(matrice m)
 {
 	return creerMatriceDesPoints(getTableauPointsMatrice(m), getDimensionMatrice(m));
 }
@@ -149,13 +149,15 @@ int findMin(float *list, int len, int k)
     for(int i = 0; i < len; i++)
         if(list[i] < min && i != k && list[i] != -1)
             min = list[i];   
-    printf("min: %d\n", min);
+    if(min >= 1000 || min < 0)
+    	return 0;
+    //printf("min: %d\n", min);
     return min;
 }
 
 
 /* réduit une matrice et retourne son lower bound */
-int reduceMatrix_lowerBound(matrice m)
+int lowerBound(matrice m)
 {
     int n = getDimensionMatrice(m);
     int lowerBound = 0;

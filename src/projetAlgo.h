@@ -9,6 +9,6 @@ int overallDistance(matrice m, point *points);
 void bruteForce(matrice m, point *pList);
 void copyList(point *pIn, point *pOut, int len);
 void copyListIndice(point *pIn, point *pOut, int start, int end);
-void branchBound(matrice m, point *pList, int pas);
+void branchBound(matrice m, point *in, int len, point *out);
 
 #endif

@@ -180,31 +180,65 @@ void bruteForce(matrice m, point *pList)
  
 void branchBound(matrice m, point *in, int len, point *out)
 {
-    point tmp_p;
+    //printf("len: %d\n", len);
+    point tmp_p = in[0];
     int n = getDimensionMatrice(m);
-    int i, j;
-    int tmp_lb;
-    int min_lb = 1000; //abitrary value
-    for(int k = 0; k < n - len; k++)
-    {
-        matrice tmp_m = clone(m);
-        i = getIndicePoint(m, out[len-1]);
-        j = getIndicePoint(m, in[k]);
-        for(int y = 0; y < n; y++)
-            for(int x = 0; x < n; x++)
-                if(x == i || y == j)
-                    m->tab[x][y] = -1;
-        tmp_lb = lowerBound(tmp_m);
-        if(tmp_lb < min_lb)
-        {
-            min_lb = tmp_lb;
-            tmp_p = getPointIndice(m, k);
-        }
-        detruireMatrice(tmp_m);
-    }
 
-    //add tmp_p to out and remove from in
-    //add condition on length of in or out & recursive call
+    if(len < n)
+    {
+        int i, j;
+        int tmp_lb;
+        int min_lb = 1000; //abitrary value
+        for(int k = 0; k < (n - len); k++)
+        {
+            if(!isVisited(getPointIndice(m, k)))
+            {
+                matrice tmp_m = cloneMatrice(m);
+                i = getIndicePoint(m, out[len]);
+                j = getIndicePoint(m, in[k]);
+                for(int y = 0; y < n; y++)
+                    for(int x = 0; x < n; x++)
+                        if(x == i || y == j)
+                            setDistanceIndice(tmp_m, x, y, -1);
+                        tmp_lb = lowerBound(tmp_m);
+                        if(tmp_lb < min_lb)
+                        {
+                            min_lb = tmp_lb;
+                            tmp_p = getPointIndice(m, k);
+                        }
+            //afficherMatrice(tmp_m);
+                        detruireMatrice(tmp_m);
+                    }
+                }
+        out[len++] = tmp_p;
+        markVisited(tmp_p);
+        point tmp_list[n-len+1];
+        int b = 0;
+        //afficherPoint(tmp_p);
+        int a = b; 
+        while(b < (n-len))
+        {
+            //afficherPoint(in[a]);
+            if(!equals(in[a], tmp_p))
+            {
+                tmp_list[b++] = in[a++];
+            }
+            else
+                a++;
+        }
+        //copyList(tmp_list, in, n-len);
+        //printf("in list: \n");
+        //afficherListeDesPoints(in, n-len);
+
+/*        printf("In: \n");
+        afficherListeDesPoints(in, n-len);
+
+        printf("Out: \n");
+        afficherListeDesPoints(out, len);*/
+
+        branchBound(m, tmp_list, len, out);
+    }
+    //out[n-1] = in[0];
 
 }
 

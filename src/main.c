@@ -53,15 +53,42 @@ int main()
     printf("\nDistance totale: %d\n", overallDistance(matriceIN, ordreDePassage));
 
     //BRUTE FORCE
-    printf("Test bruteForce:\n");
+    printf("Test brute force:\n");
     printf("(Attention: il prend qqs secondes)\n");
     point tabTest[getDimensionMatrice(m)];
+
+
     copyList(getTableauPointsMatrice(m), tabTest, getDimensionMatrice(m));
+    printf("Points en entrée: \n");
+    afficherListeDesPoints(tabTest, getDimensionMatrice(m));
     bruteForce(m, tabTest);
 
-    for(int i = 0;i < getDimensionMatrice(m); i++)
-        afficherPoint(tabTest[i]);
-    printf("Overall min: %d\n", overallDistance(m, tabTest));
+    printf("Points en sortie: \n");
+    afficherListeDesPoints(tabTest, getDimensionMatrice(m));
+    printf("Overall distance: %d\n", overallDistance(m, tabTest));
+
+
+
+    //BRANCH & BOUND
+    printf("Test branch & bound:\n");
+    printf("(Attention: il prend qqs secondes)\n");
+    point tabTestIn[getDimensionMatrice(m)];
+    point tabTestOut[getDimensionMatrice(m)];
+    point p = creerPoint(-666, -666);
+    for(int i = 0; i < getDimensionMatrice(m); i++)
+        tabTestOut[i] = p;
+
+    copyList(getTableauPointsMatrice(m), tabTestIn, getDimensionMatrice(m));
+    tabTestOut[0] = tabTestIn[0];
+    printf("Points en entrée: \n");
+    afficherListeDesPoints(tabTestIn, getDimensionMatrice(m));
+
+
+    branchBound(m, tabTestIn, 0, tabTestOut);
+
+    printf("Points en sortie: \n");
+    afficherListeDesPoints(tabTestOut, getDimensionMatrice(m));
+    printf("Overall distance: %d\n", overallDistance(m, tabTestOut));
      
 
     return 0;
