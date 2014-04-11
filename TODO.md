@@ -10,9 +10,9 @@ Les objectifs à atteindre sont:
 
 2- commentaires;
 
-3- identifier fuites de mémoire -> utiliser valgrind <nom executable >
+3- identifier fuites de mémoire -> utiliser valgrind +nom executable
 
-4- récupérer temps execution des tests pour comparaison -> utiliser time <nom executable>
+4- récupérer temps execution des tests pour comparaison -> utiliser time +nom executable
 
 5- évaluation complexité NN & MST(Prim) & brute force;
 
