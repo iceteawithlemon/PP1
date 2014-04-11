@@ -28,6 +28,7 @@ matrice creerMatriceTSP(char *fnom);
 
 void creerTSPMatrice(char *fnom, matrice m);
 void creerTOUR(char *fnom, matrice m, point liste[]);
+int reduceMatrix_lowerBound(matrice m);
 
 
 #endif

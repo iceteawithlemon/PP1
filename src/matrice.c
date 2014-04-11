@@ -137,6 +137,49 @@ void afficherMatrice(matrice m)
     
 }
 
+/* retourne la valeur minimum d'un liste de floats*/
+int findMin(float *list, int len, int k)
+{
+    int min = 1000; //valeur abitraire
+    for(int i = 0; i < len; i++)
+        if(list[i] < min && i != k)
+            min = list[i];   
+    printf("min: %d\n", min);
+    return min;
+}
+
+
+/* réduit une matrice et retourne son lower bound */
+int reduceMatrix_lowerBound(matrice m)
+{
+    int n = getDimensionMatrice(m);
+    int lowerBound = 0;
+    int min;
+    for(int i = 0; i < n; i++)
+    {
+        min = findMin(m->tab[i], n, i);
+
+        lowerBound += min;
+        for(int j = 0; j < n; j++)
+        	if (m->tab[i][j] != 0)
+            	m->tab[i][j] -= min;
+    }
+    for(int j = 0; j < n; j++)
+    {
+        float tmp[n];
+        for(int i = 0; i < n; i++)
+            tmp[i] = m->tab[i][j];
+        min = findMin(tmp, n, j);
+        lowerBound += min;
+        if(min != 0)
+        {
+        	for(int i = 0; i < n; i++)
+        		if (m->tab[i][j] != 0)
+        			m->tab[i][j] -= min;
+        }
+    }
+    return lowerBound;
+}
 
 
 
