@@ -242,4 +242,35 @@ void branchBound(matrice m, point *in, int len, point *out)
 
 }
 
+void prim(matrice m,point* TabVisite){
+    
+    int dim = getDimensionMatrice(m);
+    int current = 0; //Indice du point courant
+    
+    //Initatiliser le marquage des points sur non visités
+    for(int i = 1;i<dim;i++)
+        markNoVisited(getPointIndice(m, i));
+    
+    //Point d'origine visité
+    markVisited(getPointIndice(m, 0));
+    TabVisite[0] = getPointIndice(m,0);
+    int nbPointVisite = 1;
+    int tmp = 0;
+    int min = 32000;
+    //Parcours
+    while(nbPointVisite < dim){
+        for(int i = 1;i<=nbPointVisite;i++){
+            tmp = PointLePlusProche(current, m);
+            if (min > getDistanceIndice(m, i, tmp)){
+                min = getDistanceIndice(m, i, tmp);
+                current = tmp;
+            }
+        }
+        markVisited(getPointIndice(m, current));
+        TabVisite[nbPointVisite] = getPointIndice(m,current);
+        nbPointVisite++;
+    }
+    TabVisite[dim] = getPointIndice(m, 0);
+    
+}
 
