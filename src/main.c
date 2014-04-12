@@ -52,6 +52,17 @@ int main()
 
     printf("\nDistance totale: %d\n", overallDistance(matriceIN, ordreDePassage));
 
+    
+    
+    //PRIM -> Segmentation Fault :(
+    //printf("Test prim:\n");
+    //point tabPrim[nombreDePoints+1];
+    //prim(matriceIN,tabPrim);
+    //afficherListeDesPoints(tabPrim, nombreDePoints+1);
+    
+    
+    
+    
     //BRUTE FORCE
     printf("Test brute force:\n");
     printf("(Attention: il prend qqs secondes)\n");
