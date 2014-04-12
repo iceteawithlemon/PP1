@@ -17,6 +17,7 @@ bool isVisited(point p);
 void setX(point p, signed int x);
 void setY(point p, signed int y);
 void markVisited(point p);
+void markNoVisited(point p);
 
 void afficherPoint(point p);
 void afficherListeDesPoints(point *p, int len);

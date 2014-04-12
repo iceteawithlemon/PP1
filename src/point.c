@@ -81,6 +81,11 @@ void markVisited(point p)
   p->visited = true;
 }
 
+/*marque le point comme non visitŽ */
+void markNoVisited(point p){
+    p->visited =false;
+}
+
 /*affiche les coordonnées du point*/
 void afficherPoint(point p)
 {
