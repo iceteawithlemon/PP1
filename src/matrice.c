@@ -185,8 +185,17 @@ int lowerBound(matrice m)
         			m->tab[i][j] -= min;
         }
     }
-    return lowerBound;
+    return lowerBound/2;
 }
 
+
+void markAsInfinite(matrice m, int i, int j)
+{
+	int n = getDimensionMatrice(m);
+	for(int y = 0; y < n; y++)
+		for(int x = 0; x < n; x++)
+			if(x == i || y == j)
+				setDistanceIndice(m, x, y, -1);
+}
 
 

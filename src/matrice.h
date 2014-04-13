@@ -32,5 +32,7 @@ void creerTSPMatrice(char *fnom, matrice m);
 void creerTOUR(char *fnom, matrice m, point liste[]);
 int lowerBound(matrice m);
 
+void markAsInfinite(matrice m, int i, int j);
+
 
 #endif

@@ -135,8 +135,10 @@ void copyList(point *pIn, point *pOut, int len)
 /*fonction qui copie une liste de points à partir d'un indice */
 void copyListIndice(point *pIn, point *pOut, int start, int end)
 {
-    for(int i = start; i < end; i++)
-        pOut[i] = pIn[i];
+    int j = 0;
+    for(int i = 0; i < end; i++)
+        if(i >= start)
+            pOut[j++] = pIn[i];
 }
 
 
@@ -165,6 +167,21 @@ void bruteForceRough(matrice m, point *pIn, int i, int n, int *min, point *pOut)
 
 }
 
+void deleteFromList(point *in, int length, point p)
+{
+    point tmp_list[length-1];
+    int a = 0;
+    int b = 0; 
+    while(b < length-1)
+    {
+        if(!equals(in[a], p))
+             tmp_list[b++] = in[a++];
+        else
+             a++;
+    }
+    copyList(tmp_list, in, length-1);
+}
+
 //wrapper pour bruteForceRough
 void bruteForce(matrice m, point *pList)
 {
@@ -178,7 +195,7 @@ void bruteForce(matrice m, point *pList)
     free(min);
 }
  
-void branchBound(matrice m, point *in, int len, point *out)
+/*void branchBound(matrice m, point *in, int len, point *out)
 {
     //printf("len: %d\n", len);
     point tmp_p = in[0];
@@ -191,56 +208,47 @@ void branchBound(matrice m, point *in, int len, point *out)
         int min_lb = 1000; //abitrary value
         for(int k = 0; k < (n - len); k++)
         {
-            if(!isVisited(getPointIndice(m, k)))
+            if(!isVisited(in[k]))
             {
                 matrice tmp_m = cloneMatrice(m);
-                i = getIndicePoint(m, out[len]);
-                j = getIndicePoint(m, in[k]);
-                for(int y = 0; y < n; y++)
-                    for(int x = 0; x < n; x++)
-                        if(x == i || y == j)
-                            setDistanceIndice(tmp_m, x, y, -1);
-                        tmp_lb = lowerBound(tmp_m);
-                        if(tmp_lb < min_lb)
-                        {
-                            min_lb = tmp_lb;
-                            tmp_p = getPointIndice(m, k);
-                        }
-            //afficherMatrice(tmp_m);
-                        detruireMatrice(tmp_m);
-                    }
+                //i = point duquel on part, j = point sur lequel on arrive
+                i = getIndicePoint(m, in[k]);
+                j = getIndicePoint(m, out[len]);
+                //i = getIndicePoint(m, in[k]);
+                markAsInfinite(tmp_m, i, j);
+                tmp_lb = lowerBound(tmp_m);
+                if(tmp_lb < min_lb)
+                {
+                    min_lb = tmp_lb;
+                    tmp_p = in[k];
                 }
-        out[len++] = tmp_p;
-        markVisited(tmp_p);
-        point tmp_list[n-len+1];
-        int b = 0;
-        //afficherPoint(tmp_p);
-        int a = b; 
-        while(b < (n-len))
-        {
-            //afficherPoint(in[a]);
-            if(!equals(in[a], tmp_p))
-            {
-                tmp_list[b++] = in[a++];
+            //afficherMatrice(tmp_m);
+                detruireMatrice(tmp_m);
+
             }
-            else
-                a++;
         }
-        //copyList(tmp_list, in, n-len);
+        printf("Best min: \n");
+        afficherPoint(tmp_p);
+        printf("Min: %d\n", min_lb);
+
+        markVisited(tmp_p);
+        out[len++] = tmp_p;
+        
+        deleteFromList(in, n-len+1, tmp_p);
+
         //printf("in list: \n");
         //afficherListeDesPoints(in, n-len);
 
-/*        printf("In: \n");
+         printf("In: \n");
         afficherListeDesPoints(in, n-len);
 
         printf("Out: \n");
-        afficherListeDesPoints(out, len);*/
+        afficherListeDesPoints(out, len);
 
-        branchBound(m, tmp_list, len, out);
+        branchBound(m, in, len, out);
     }
-    //out[n-1] = in[0];
 
-}
+}*/
 
 void prim(matrice m,point* TabVisite){
     
@@ -274,3 +282,47 @@ void prim(matrice m,point* TabVisite){
     
 }
 
+point *branchBound(matrice m)
+{
+    point min_point;
+    int n = getDimensionMatrice(m);
+    int to, from, local_min, tmp_lb;
+    matrice tmp_m;
+
+
+    point in[n-1]; //liste des points qui restent
+    copyListIndice(getTableauPointsMatrice(m), in, 1, n); 
+
+    point *out = malloc(sizeof(point) * n); // parcours
+    out[0] = getPointIndice(m, 0);
+
+    for(int i = 0; i < n-1; i++) // = "branching"
+    {
+        local_min = 1000;
+        from = getIndicePoint(m, out[i]);
+
+        /*printf("Current list (in) : \n");
+        afficherListeDesPoints(in, n-i); */
+
+        for(int j = 0; j < n - i; j++) // = "bounding"
+        {
+            //from = point duquel on part, to = point sur lequel on arrive
+            tmp_m = cloneMatrice(m);
+            to = getIndicePoint(m, in[j]);
+            markAsInfinite(tmp_m, to, from);
+            tmp_lb = lowerBound(tmp_m);
+            if(tmp_lb < local_min)
+            {
+                local_min = tmp_lb;
+                min_point = in[j];
+            }
+            detruireMatrice(tmp_m);
+        }
+
+        out[i+1] = min_point; // on ajoute le point choisi à out
+        deleteFromList(in, n - i, min_point); // et on le supprime de in
+    }
+
+    return out;
+
+}
