@@ -243,7 +243,7 @@ void branchBound(matrice m, point *in, int len, point *out)
 
 }
 
-void prim(matrice m,point* TabVisite){
+int prim(matrice m,point* TabVisite){
     
     int dim = getDimensionMatrice(m);
     int current = 0; //Indice du point courant
@@ -260,28 +260,42 @@ void prim(matrice m,point* TabVisite){
     TabVisite[0] = getPointIndice(m,0);
     //Stcokage de l'indice du point visité
     indicePointVisite[0] = 0;
-    
-    int test =0;
+
     int nbPointVisite = 1;
     int tmp = 0;
     int min = 32000;
+    int distance = 0;
     //Parcours
+    //Tant qu'il reste des points à visité
     while(nbPointVisite < dim){
+        
+        //Pour tous les points visité
+        //On cherche le point le plus proche de chaque point visité et on garde celui qui sera le plus economique (distance)
         for(int i = 0;i<nbPointVisite;i++){
-            test = indicePointVisite[i];
             tmp = PointLePlusProche(indicePointVisite[i], m);
             if (min > getDistanceIndice(m, indicePointVisite[i], tmp)){
                 min = getDistanceIndice(m, indicePointVisite[i], tmp);
                 current = tmp;
             }
         }
+        distance+= min;
+        //Marquage du point visité
         markVisited(getPointIndice(m, current));
+        
+        //Stocker le parcour de point
         TabVisite[nbPointVisite] = getPointIndice(m,current);
+       
+        
+        //Mise a jour du nombre de point visité
         nbPointVisite++;
-        min = 32000;
+        
+        //Stocker les indices des points visités
         indicePointVisite[nbPointVisite-1] = current;
+        min = 32000;
+        
     }
     TabVisite[dim] = getPointIndice(m, 0);
-    
+    distance+= getDistanceIndice(m, indicePointVisite[nbPointVisite-1], 0);
+    return distance;
 }
 
