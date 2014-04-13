@@ -110,6 +110,7 @@ int overallDistance(matrice m, point *points)
 
         sum += getDistancePoint(m, points[i], points[i+1]);
     }
+    sum += getDistancePoint(m, points[n-1], points[0]);
     return (int)sum;
 }
 
@@ -196,60 +197,6 @@ void bruteForce(matrice m, point *pList)
     free(min);
 }
  
-/*void branchBound(matrice m, point *in, int len, point *out)
-{
-    //printf("len: %d\n", len);
-    point tmp_p = in[0];
-    int n = getDimensionMatrice(m);
-
-    if(len < n)
-    {
-        int i, j;
-        int tmp_lb;
-        int min_lb = 1000; //abitrary value
-        for(int k = 0; k < (n - len); k++)
-        {
-            if(!isVisited(in[k]))
-            {
-                matrice tmp_m = cloneMatrice(m);
-                //i = point duquel on part, j = point sur lequel on arrive
-                i = getIndicePoint(m, in[k]);
-                j = getIndicePoint(m, out[len]);
-                //i = getIndicePoint(m, in[k]);
-                markAsInfinite(tmp_m, i, j);
-                tmp_lb = lowerBound(tmp_m);
-                if(tmp_lb < min_lb)
-                {
-                    min_lb = tmp_lb;
-                    tmp_p = in[k];
-                }
-            //afficherMatrice(tmp_m);
-                detruireMatrice(tmp_m);
-
-            }
-        }
-        printf("Best min: \n");
-        afficherPoint(tmp_p);
-        printf("Min: %d\n", min_lb);
-
-        markVisited(tmp_p);
-        out[len++] = tmp_p;
-        
-        deleteFromList(in, n-len+1, tmp_p);
-
-        //printf("in list: \n");
-        //afficherListeDesPoints(in, n-len);
-
-         printf("In: \n");
-        afficherListeDesPoints(in, n-len);
-
-        printf("Out: \n");
-        afficherListeDesPoints(out, len);
-
-        branchBound(m, in, len, out);
-    }
-
-}*/
 
 int prim(matrice m,point* TabVisite){
     
@@ -321,10 +268,10 @@ point *branchBound(matrice m)
     point *out = malloc(sizeof(point) * n); // parcours
     out[0] = getPointIndice(m, 0);
 
-    for(int i = 0; i < n-1; i++) // = "branching"
+    for(int i = 0; i < n; i++) // = "branching"
     {
         local_min = 1000;
-        from = getIndicePoint(m, out[i]);
+        from = getIndicePoint(m, out[i%n]);
 
         /*printf("Current list (in) : \n");
         afficherListeDesPoints(in, n-i); */
