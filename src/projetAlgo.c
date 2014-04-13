@@ -53,7 +53,7 @@ int PointLePlusProche(int indicePointActuel,matrice m){
             }
         }
     }
-    markVisited(getPointIndice(m, indicePoint));
+
     return indicePoint;
 }
 
@@ -87,6 +87,7 @@ void nearestNeighbour(matrice m,point ordreDePassage[]){
         
         indicePointActuel = PointLePlusProche(indicePointActuel,m);
         
+        markVisited(getPointIndice(m, indicePointActuel));
         //Le point le plus proche du pointActuel est inséré
         ordreDePassage[indice] = clone(getPointIndice(m, indicePointActuel));
         
@@ -246,6 +247,8 @@ void prim(matrice m,point* TabVisite){
     
     int dim = getDimensionMatrice(m);
     int current = 0; //Indice du point courant
+    int indicePointVisite[dim];
+
     
     //Initatiliser le marquage des points sur non visités
     for(int i = 1;i<dim;i++)
@@ -253,22 +256,30 @@ void prim(matrice m,point* TabVisite){
     
     //Point d'origine visité
     markVisited(getPointIndice(m, 0));
+    //Insertion du point
     TabVisite[0] = getPointIndice(m,0);
+    //Stcokage de l'indice du point visité
+    indicePointVisite[0] = 0;
+    
+    int test =0;
     int nbPointVisite = 1;
     int tmp = 0;
     int min = 32000;
     //Parcours
     while(nbPointVisite < dim){
-        for(int i = 1;i<=nbPointVisite;i++){
-            tmp = PointLePlusProche(current, m);
-            if (min > getDistanceIndice(m, i, tmp)){
-                min = getDistanceIndice(m, i, tmp);
+        for(int i = 0;i<nbPointVisite;i++){
+            test = indicePointVisite[i];
+            tmp = PointLePlusProche(indicePointVisite[i], m);
+            if (min > getDistanceIndice(m, indicePointVisite[i], tmp)){
+                min = getDistanceIndice(m, indicePointVisite[i], tmp);
                 current = tmp;
             }
         }
         markVisited(getPointIndice(m, current));
         TabVisite[nbPointVisite] = getPointIndice(m,current);
         nbPointVisite++;
+        min = 32000;
+        indicePointVisite[nbPointVisite-1] = current;
     }
     TabVisite[dim] = getPointIndice(m, 0);
     
