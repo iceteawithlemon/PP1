@@ -59,10 +59,11 @@ int main()
     //PRIM -> Segmentation Fault :(
     printf("Test prim:\n");
     point tabPrim[nbPointOut];
-    prim(m,tabPrim);
+    int dist = prim(m,tabPrim);
     matrice matricePrimOut = creerMatriceDesPoints(tabPrim, nbPointOut);
     afficherListeDesPoints(tabPrim, nbPointOut);
     
+    printf("\nDistance totale REELLE !!! prim : %d\n",dist);
     printf("\nDistance totale: %d\n", overallDistance(matricePrimOut, tabPrim));
     
     
