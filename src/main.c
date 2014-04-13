@@ -17,7 +17,7 @@ int main()
      
     
      //Tableau comprenant les points
-     point tab[nombreDePoints]={p4 ,p2, p1, p3};
+     point tab[nombreDePoints]={p4 ,p2, p1,p3};
      
      printf("Points en entrée : \n");
      for(int i =0;i<nombreDePoints;i++)
@@ -35,14 +35,15 @@ int main()
     afficherMatrice(m);
      
     //RECUPERATION DU NOMBRE DE POINTS
-    int nbPointIn = getDimensionMatrice(matriceIN);
+    int nbPointIn = getDimensionMatrice(m);
     int nbPointOut = nbPointIn+1;
+    
     
     //CREATION D'UN TABLEAU DE POINT
     point ordreDePassage[nbPointOut];
     
     //ON APPLIQUE L'ALGORITHME NEARESTNEIGHBOUR DEPUIS LA MATRICE D'ENTREE, DANS UN TABLEAU
-    nearestNeighbour(matriceIN,ordreDePassage);
+    nearestNeighbour(m,ordreDePassage);
     
     //ON RECUPERE LE TABLEAU DE POINTS EN SORTIE
     matrice matriceOut = creerMatriceDesPoints(ordreDePassage, nbPointOut);
@@ -50,19 +51,24 @@ int main()
     //AFFICHAGE DU PARCOURS
     afficherMatrice(matriceOut);
 
-    printf("\nDistance totale: %d\n", overallDistance(matriceIN, ordreDePassage));
+    printf("\nDistance totale: %d\n", overallDistance(matriceOut, ordreDePassage));
 
     
     
+    
     //PRIM -> Segmentation Fault :(
-    //printf("Test prim:\n");
-    //point tabPrim[nombreDePoints+1];
-    //prim(matriceIN,tabPrim);
-    //afficherListeDesPoints(tabPrim, nombreDePoints+1);
+    printf("Test prim:\n");
+    point tabPrim[nbPointOut];
+    int dist = prim(m,tabPrim);
+    matrice matricePrimOut = creerMatriceDesPoints(tabPrim, nbPointOut);
+    afficherListeDesPoints(tabPrim, nbPointOut);
+    
+    printf("\nDistance totale REELLE !!! prim : %d\n",dist);
+    printf("\nDistance totale: %d\n", overallDistance(matricePrimOut, tabPrim));
     
     
     
-    
+   
     //BRUTE FORCE
     printf("Test brute force:\n");
     
@@ -93,7 +99,7 @@ int main()
     printf("Points en sortie: \n");
     afficherListeDesPoints(tabTestOut, getDimensionMatrice(m));
     printf("Overall distance: %d\n", overallDistance(m, tabTestOut));
-     
+    
 
     return 0;
 }
