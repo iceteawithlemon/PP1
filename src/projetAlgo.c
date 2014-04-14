@@ -3,14 +3,13 @@
 #include "matrice.h"
 
 /*
- * Description: Cherche dans la matrice quel est le point le plus proche du point indiqué par l'indice,
+ * \b Cherche dans la matrice quel est le point le plus proche du point indiqué par l'indice,
  * cette fonction utilise la fonction getDistanceIndice() permettant de connaitre la distance entre deux points.
  *
- * Parametres: 
- * - indicePointActuel correpond à l'indice du point actuel, permettant l'accès à ce point.
- * - m matrice contenant tous les points
+ * \param indicePointActuel correpond à l'indice du point actuel, permettant l'accès à ce point.
+ * \param m matrice contenant tous les points
  *
- * Retour: indice du point le plus proche du point actuel
+ * \return: indice du point le plus proche du point actuel
  */
 int PointLePlusProche(int indicePointActuel,matrice m){
     
@@ -59,24 +58,22 @@ int PointLePlusProche(int indicePointActuel,matrice m){
 
 
 /*
- * Description: Parcour de la matrice, crée un ordre de parcour permettant d'effectuer une distance moindre,
+ * \b Parcour de la matrice, crée un ordre de parcour permettant d'effectuer une distance moindre,
  * recherche de point le plus proche.
  *
- * Parametres:
- * - m matrice d'entrée qui permet d'obtenir la liste des points que l'on souhaite parcourir.
- * - ordreDePassage[] tableau de sortie qui contiendra le nouveau parcour
- *
+ * \param m matrice d'entrée qui permet d'obtenir la liste des points que l'on souhaite parcourir.
+ * \param ordreDePassage[] tableau de sortie qui contiendra le nouveau parcour
+ * \return vide
  */
-void nearestNeighbour(matrice m,point ordreDePassage[]){
+void nearestNeighbour(matrice mIn,point ordreDePassage[]){
     
+    matrice m = cloneMatrice(mIn);
     int nombreDePoints = getDimensionMatrice(m);
         
     //Insertion du point d'origine
     ordreDePassage[0] = clone(getPointIndice(m, 0));
-    //Marquage du point visité
     markVisited(getPointIndice(m, 0));
-    
-    //On defini un point qui sera l'intermédiaire
+
     int indicePointActuel = 0;
     
     //Indice du tableau d'ordre de passage
@@ -96,7 +93,8 @@ void nearestNeighbour(matrice m,point ordreDePassage[]){
     }
     
     //On retourne au point d'origine
-    ordreDePassage[indice] = clone(ordreDePassage[0]);
+    //ordreDePassage[indice] = clone(ordreDePassage[0]);
+    detruireMatrice(m);
     
 }
 
@@ -229,12 +227,16 @@ point *bruteForce(matrice m)
 }
  
 
-int prim(matrice m,point* TabVisite){
+int prim(matrice mIn,point* TabVisite){
     
+    matrice m = cloneMatrice(mIn);
     int dim = getDimensionMatrice(m);
     int current = 0; //Indice du point courant
     int indicePointVisite[dim];
-
+    int nbPointVisite = 1;
+    int tmp = 0;
+    int min = 32000;
+    int distance = 0;
     
     //Initatiliser le marquage des points sur non visités
     for(int i = 1;i<dim;i++)
@@ -242,20 +244,15 @@ int prim(matrice m,point* TabVisite){
     
     //Point d'origine visité
     markVisited(getPointIndice(m, 0));
-    //Insertion du point
     TabVisite[0] = getPointIndice(m,0);
-    //Stcokage de l'indice du point visité
     indicePointVisite[0] = 0;
 
-    int nbPointVisite = 1;
-    int tmp = 0;
-    int min = 32000;
-    int distance = 0;
+
     //Parcours
     //Tant qu'il reste des points à visité
     while(nbPointVisite < dim){
         
-        //Pour tous les points visité
+        //Pour tous les points visités
         //On cherche le point le plus proche de chaque point visité et on garde celui qui sera le plus economique (distance)
         for(int i = 0;i<nbPointVisite;i++){
             tmp = PointLePlusProche(indicePointVisite[i], m);
@@ -265,23 +262,19 @@ int prim(matrice m,point* TabVisite){
             }
         }
         distance+= min;
-        //Marquage du point visité
         markVisited(getPointIndice(m, current));
         
-        //Stocker le parcour de point
+        //Parcour stocke
         TabVisite[nbPointVisite] = getPointIndice(m,current);
        
-        
-        //Mise a jour du nombre de point visité
         nbPointVisite++;
-        
-        //Stocker les indices des points visités
         indicePointVisite[nbPointVisite-1] = current;
-        min = 32000;
+        min = 32000; //Reinitialisation de min
         
     }
-    TabVisite[dim] = getPointIndice(m, 0);
-    distance+= getDistanceIndice(m, indicePointVisite[nbPointVisite-1], 0);
+    //TabVisite[dim] = getPointIndice(m, 0);//Retour a l'origine
+    distance+= getDistanceIndice(m, indicePointVisite[nbPointVisite-1], 0);//retour a l'origine
+    detruireMatrice(m);
     return distance;
 }
 
