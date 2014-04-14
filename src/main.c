@@ -5,21 +5,23 @@
 #include "matrice.h"
 #include "tspIOtourO.h"
 
-
+void erreurArguments();
 
 int main(int argc, char** argv)
 {
     
     if(argc !=2){
         printf("Nombre d'arguments incorrect :\n");
-        printf("1 - Nearest Neighbour\n");
-        printf("2 - Prim\n");
-        printf("3 - Brute Force\n");
-        printf("4 - BRANCH & BOUND\n");
-        
+        erreurArguments();
         return 0;
     }
     int choix = atoi(argv[1]);
+    
+    if(choix > 4 || choix < 1){
+        perror("Argument incorrect :\n");
+        erreurArguments();
+        return EXIT_FAILURE;
+    }
     
     /*****************************************************************************************
      ****************************** INITIALISATION MATRICE ***********************************
@@ -120,6 +122,7 @@ int main(int argc, char** argv)
     free(tabTestOut);
     }
     
+
     
     /*****************************************************************************************
      ***************************** LIBERATION DE LA MEMOIRE **********************************
@@ -129,5 +132,12 @@ int main(int argc, char** argv)
     return EXIT_SUCCESS;
 
     return 0;
+}
+
+void erreurArguments(){
+    printf("1 - Nearest Neighbour\n");
+    printf("2 - Prim\n");
+    printf("3 - Brute Force\n");
+    printf("4 - BRANCH & BOUND\n");
 }
 
