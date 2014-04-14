@@ -15,8 +15,8 @@ int main(int argc, char** argv)
         erreurArguments();
         return 0;
     }
-    int choix = atoi(argv[1]);
     
+    int choix = atoi(argv[1]);
     if(choix > 4 || choix < 1){
         perror("Argument incorrect :\n");
         erreurArguments();
@@ -37,79 +37,76 @@ int main(int argc, char** argv)
     afficherMatrice(m);
 
     point* ListePoint = NULL;
+    
+    
+    //Choix du parcour
+    switch(choix){
+        
     /*****************************************************************************************
      ****************************** NEAREAST NEIGHBOUR ***************************************
      *****************************************************************************************/
-    
-    if(choix == 1 ) {
             
-        
-    printf("Test Nearest Neighbour:\n");
+        case 1 :
+            printf("Test Nearest Neighbour:\n");
  
-    //ON APPLIQUE L'ALGORITHME NEAREST NEIGHBOUR DEPUIS LA MATRICE D'ENTREE, DANS UN TABLEAU
-    ListePoint = nearestNeighbour(m);
+            ListePoint = nearestNeighbour(m);
     
-    //ON RECUPERE LE TABLEAU DE POINTS EN SORTIE
-    matrice matriceOut = creerMatriceDesPoints(ListePoint, nbPoint);
+            //ON RECUPERE LE TABLEAU DE POINTS EN SORTIE
+            matrice matriceOut = creerMatriceDesPoints(ListePoint, nbPoint);
     
-    //AFFICHAGE DU PARCOURS
-    afficherMatrice(matriceOut);
+            //AFFICHAGE DU PARCOURS
+            afficherMatrice(matriceOut);
 
-    printf("\nDistance totale: %d\n", overallDistanceVerbose(matriceOut, ListePoint));
+            printf("\nDistance totale: %d\n", overallDistanceVerbose(matriceOut, ListePoint));
         
-    detruireMatrice(matriceOut);
-        
-    }
-    
+            detruireMatrice(matriceOut);
+            break;
     
     /*****************************************************************************************
      *********************************** PRIM ************************************************
      *****************************************************************************************/
+        case 2 :
+            printf("Test prim:\n");
+            point *tabPrim = malloc(sizeof(point)*nbPoint);
     
-    if(choix == 2) {
-    printf("Test prim:\n");
-    point tabPrim[nbPoint];
-    int dist = prim(m,tabPrim);
-    //matrice matricePrimOut = creerMatriceDesPoints(tabPrim, nbPoint);
-    afficherListeDesPoints(tabPrim, nbPoint);
-    
-    printf("\nDistance totale  prim : %d\n",dist);
-    //detruireMatrice(matricePrimOut);
-    }
-    
-    
+            int dist = prim(m,tabPrim);
+            
+            //matrice matricePrimOut = creerMatriceDesPoints(tabPrim, nbPoint);
+            afficherListeDesPoints(tabPrim, nbPoint);
+        
+            printf("\nDistance totale  prim : %d\n",dist);
+            //detruireMatrice(matricePrimOut);
+            free(tabPrim);
+            break;
+            
     /*****************************************************************************************
      *********************************** BRUTE FORCE *****************************************
      *****************************************************************************************/
-    
-    if(choix == 3) {
-        
-    printf("Test brute force:\n");
-    printf("(Attention: il prend qqs secondes)\n");
-    ListePoint = bruteForce(m);
+        case 3:
+            printf("Test brute force:\n");
+            printf("(Attention: il prend qqs secondes)\n");
+            ListePoint = bruteForce(m);
 
-    printf("Points en sortie: \n");
-    afficherListeDesPoints(ListePoint, getDimensionMatrice(m));
-    printf("Overall distance: %d\n", overallDistanceVerbose(m, ListePoint));
+            printf("Points en sortie: \n");
+            afficherListeDesPoints(ListePoint, nbPoint);
+            printf("Overall distance: %d\n", overallDistanceVerbose(m, ListePoint));
+            break;
 
-    }
-    
-    
     /*****************************************************************************************
      *********************************** BRANCH & BOUND **************************************
      *****************************************************************************************/
-    
-    if(choix == 4) {
-    printf("Test branch & bound:\n");
-    ListePoint = branchBound(m);
+        case 4:
+            printf("Test branch & bound:\n");
+            ListePoint = branchBound(m);
 
-    printf("Points en sortie: \n");
-    afficherListeDesPoints(ListePoint, getDimensionMatrice(m));
-    printf("Overall distance: %d\n", overallDistanceVerbose(m, ListePoint));
+            printf("Points en sortie: \n");
+            afficherListeDesPoints(ListePoint, getDimensionMatrice(m));
+            printf("Overall distance: %d\n", overallDistanceVerbose(m, ListePoint));
+            break;
 
     }
-    
 
+    
     
     /*****************************************************************************************
      ***************************** LIBERATION DE LA MEMOIRE **********************************
