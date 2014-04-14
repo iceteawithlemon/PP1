@@ -4,30 +4,15 @@
 #include "projetAlgo.h"
 #include "matrice.h"
 # include "tspIOtourO.h"
+#include <String.h>
 
-#define nombreDePoints 4
-int main()
+
+int main(int argc, char** argv)
 {
     
-    //Creation de Points (a remplacer par une lecture de matrice)
-     point p1 = creerPoint(0,0);
-     point p2 = creerPoint(1,1);
-     point p3 = creerPoint(2,2);
-     point p4 = creerPoint(3,3);
-     
-    
-     //Tableau comprenant les points
-     point tab[nombreDePoints]={p4 ,p2, p1,p3};
-     
-     printf("Points en entrée : \n");
-     for(int i =0;i<nombreDePoints;i++)
-        afficherPoint(tab[i]);
-     
-    
-    
-    //CREATION MATRICE ENTREE
-    matrice matriceIN;
-    matriceIN = creerMatriceDesPoints(tab, nombreDePoints);
+    /*****************************************************************************************
+     ****************************** INITIALISATION MATRICE ***********************************
+     *****************************************************************************************/
     
     //AFFICHAGE MATRICE
     matrice m = creerMatriceTSP("../test_cases/exemple10.tsp");
@@ -35,45 +20,61 @@ int main()
     afficherMatrice(m);
      
     //RECUPERATION DU NOMBRE DE POINTS
-    int nbPointIn = getDimensionMatrice(m);
-    int nbPointOut = nbPointIn+1;
+    int nbPoint = getDimensionMatrice(m);
+
     
     
+    /*****************************************************************************************
+     ****************************** NEAREAST NEIGHBOUR ***************************************
+     *****************************************************************************************/
+    
+    if(strcmp(argv[1], "1") == 0 ) {
+            
+        
+    printf("Test Nearest Neighbour:\n");
     //CREATION D'UN TABLEAU DE POINT
-    point ordreDePassage[nbPointOut];
+    point ordreDePassage[nbPoint];
     
     //ON APPLIQUE L'ALGORITHME NEARESTNEIGHBOUR DEPUIS LA MATRICE D'ENTREE, DANS UN TABLEAU
     nearestNeighbour(m,ordreDePassage);
     
     //ON RECUPERE LE TABLEAU DE POINTS EN SORTIE
-    matrice matriceOut = creerMatriceDesPoints(ordreDePassage, nbPointOut);
+    matrice matriceOut = creerMatriceDesPoints(ordreDePassage, nbPoint);
     
     //AFFICHAGE DU PARCOURS
     afficherMatrice(matriceOut);
 
     printf("\nDistance totale: %d\n", overallDistanceVerbose(matriceOut, ordreDePassage));
-
+        
+    detruireMatrice(matriceOut);
+        
+    }
     
     
+    /*****************************************************************************************
+     *********************************** PRIM ************************************************
+     *****************************************************************************************/
     
-    //PRIM -> Segmentation Fault :(
+    if(strcmp(argv[1], "2") == 0 ) {
     printf("Test prim:\n");
-    point tabPrim[nbPointOut];
+    point tabPrim[nbPoint];
     int dist = prim(m,tabPrim);
-    matrice matricePrimOut = creerMatriceDesPoints(tabPrim, nbPointOut);
-    afficherListeDesPoints(tabPrim, nbPointOut);
+    matrice matricePrimOut = creerMatriceDesPoints(tabPrim, nbPoint);
+    afficherListeDesPoints(tabPrim, nbPoint);
     
-    printf("\nDistance totale REELLE !!! prim : %d\n",dist);
-    printf("\nDistance totale: %d\n", overallDistanceVerbose(matricePrimOut, tabPrim));
+    printf("\nDistance totale  prim : %d\n",dist);
+        
+    detruireMatrice(matricePrimOut);
+    }
     
     
+    /*****************************************************************************************
+     *********************************** BRUTE FORCE *****************************************
+     *****************************************************************************************/
     
-   
-    //BRUTE FORCE
+    if(strcmp(argv[1], "3") == 0 ) {
     printf("Test brute force:\n");
     
-    
-
 
     printf("Points en entrée: \n");
     afficherListeDesPoints(getTableauPointsMatrice(m), getDimensionMatrice(m));
@@ -85,9 +86,15 @@ int main()
     afficherListeDesPoints(tabTest, getDimensionMatrice(m));
     printf("Overall distance: %d\n", overallDistanceVerbose(m, tabTest));
 
-
-
-    //BRANCH & BOUND
+    free(tabTest);
+    }
+    
+    
+    /*****************************************************************************************
+     *********************************** BRANCH & BOUND **************************************
+     *****************************************************************************************/
+    
+    if(strcmp(argv[1], "4") == 0 ) {
     printf("Test branch & bound:\n");
 
     printf("Points en entrée: \n");
@@ -99,16 +106,16 @@ int main()
     afficherListeDesPoints(tabTestOut, getDimensionMatrice(m));
     printf("Overall distance: %d\n", overallDistanceVerbose(m, tabTestOut));
 
-    //désallocation de mémoire
-    free(tabTest);
     free(tabTestOut);
-    detruireMatrice(m);
-    detruireMatrice(matricePrimOut);
-    detruireMatrice(matriceOut);
-    detruireMatrice(matriceIN);
-    for(int i = 0; i < nombreDePoints; i++)
-        detruirePoint(tab[i]);
+    }
     
+    
+    /*****************************************************************************************
+     ***************************** LIBERATION DE LA MEMOIRE **********************************
+     *****************************************************************************************/
+
+    detruireMatrice(m);
+    return EXIT_SUCCESS;
 
     return 0;
 }
