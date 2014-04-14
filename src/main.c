@@ -56,10 +56,12 @@ int main(int argc, char** argv)
     
             //AFFICHAGE DU PARCOURS
             afficherMatrice(matriceOut);
+            //creerTOUR("Testfichier", matriceOut, ListePoint);
 
             printf("\nDistance totale: %d\n", overallDistanceVerbose(matriceOut, ListePoint));
         
             detruireMatrice(matriceOut);
+            break;
          
     
     /*****************************************************************************************
@@ -77,7 +79,7 @@ int main(int argc, char** argv)
             printf("\nDistance totale  prim : %d\n",dist);
             //detruireMatrice(matricePrimOut);
             free(tabPrim);
-     
+            break;
             
     /*****************************************************************************************
      *********************************** BRUTE FORCE *****************************************
@@ -90,7 +92,7 @@ int main(int argc, char** argv)
             printf("Points en sortie: \n");
             afficherListeDesPoints(ListePoint, nbPoint);
             printf("Overall distance: %d\n", overallDistanceVerbose(m, ListePoint));
-           
+            break;
 
     /*****************************************************************************************
      *********************************** BRANCH & BOUND **************************************
@@ -102,13 +104,13 @@ int main(int argc, char** argv)
             printf("Points en sortie: \n");
             afficherListeDesPoints(ListePoint, getDimensionMatrice(m));
             printf("Overall distance: %d\n", overallDistanceVerbose(m, ListePoint));
+            break;
     }
 
     /*****************************************************************************************
      ***************************** LIBERATION DE LA MEMOIRE **********************************
      *****************************************************************************************/
 
-    printf("COUCOU !");
     detruireMatrice(m);
     free(ListePoint);
     
