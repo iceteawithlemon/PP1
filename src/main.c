@@ -3,8 +3,8 @@
 #include "point.h"
 #include "projetAlgo.h"
 #include "matrice.h"
-# include "tspIOtourO.h"
-#include <String.h>
+#include "tspIOtourO.h"
+
 
 
 int main(int argc, char** argv)
@@ -19,7 +19,7 @@ int main(int argc, char** argv)
         
         return 0;
     }
-        
+    int choix = atoi(argv[1]);
     
     /*****************************************************************************************
      ****************************** INITIALISATION MATRICE ***********************************
@@ -39,7 +39,7 @@ int main(int argc, char** argv)
      ****************************** NEAREAST NEIGHBOUR ***************************************
      *****************************************************************************************/
     
-    if(strcmp(argv[1], "1") == 0 ) {
+    if(choix == 1 ) {
             
         
     printf("Test Nearest Neighbour:\n");
@@ -66,7 +66,7 @@ int main(int argc, char** argv)
      *********************************** PRIM ************************************************
      *****************************************************************************************/
     
-    if(strcmp(argv[1], "2") == 0 ) {
+    if(choix == 2) {
     printf("Test prim:\n");
     point tabPrim[nbPoint];
     int dist = prim(m,tabPrim);
@@ -83,7 +83,7 @@ int main(int argc, char** argv)
      *********************************** BRUTE FORCE *****************************************
      *****************************************************************************************/
     
-    if(strcmp(argv[1], "3") == 0 ) {
+    if(choix == 3) {
     printf("Test brute force:\n");
     
 
@@ -105,7 +105,7 @@ int main(int argc, char** argv)
      *********************************** BRANCH & BOUND **************************************
      *****************************************************************************************/
     
-    if(strcmp(argv[1], "4") == 0 ) {
+    if(choix == 4) {
     printf("Test branch & bound:\n");
 
     printf("Points en entrée: \n");
