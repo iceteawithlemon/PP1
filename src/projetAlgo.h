@@ -10,7 +10,7 @@ void bruteForce(matrice m, point *pList);
 void copyList(point *pIn, point *pOut, int len);
 void copyListIndice(point *pIn, point *pOut, int start, int end);
 point *branchBound(matrice m);
-void prim(matrice m, point* TabVisite);
+int prim(matrice m, point* TabVisite);
 
 
 #endif
