@@ -101,18 +101,38 @@ void nearestNeighbour(matrice m,point ordreDePassage[]){
 }
 
 /*fonction qui calcul la distance totale entre tous les points d'un liste */
+
 int overallDistance(matrice m, point *points)
 {
     float sum = 0;
     int n = getDimensionMatrice(m);
-    for(int i = 0; i < n-1; i++)
+    for(int i = 0; i < n; i++)
     {
-
-        sum += getDistancePoint(m, points[i], points[i+1]);
+        sum += getDistancePoint(m, points[i], points[(i+1)%n]);
     }
-    sum += getDistancePoint(m, points[n-1], points[0]);
+    //sum += getDistancePoint(m, points[n-1], points[0]);
     return (int)sum;
 }
+
+int overallDistanceVerbose(matrice m, point *points)
+{
+    float sum = 0;
+    float tmp;
+    int n = getDimensionMatrice(m);
+    for(int i = 0; i < n; i++)
+    {
+        printf("Distance between :\n");
+        afficherPoint(points[i]);
+        afficherPoint(points[(i+1)%n]);
+        tmp = getDistancePoint(m, points[i], points[(i+1)%n]);
+        printf("= %f\n", tmp);
+        sum += tmp;
+    }
+    //sum += getDistancePoint(m, points[n-1], points[0]);
+    return (int)sum;
+}
+
+
 
 
 /*fonction qui echange deux points passés en paramètres*/
@@ -144,6 +164,21 @@ void copyListIndice(point *pIn, point *pOut, int start, int end)
 }
 
 
+void deleteFromList(point *in, int length, point p)
+{
+    point tmp_list[length-1];
+    int a = 0;
+    int b = 0; 
+    while(b < length-1)
+    {
+        if(!equals(in[a], p))
+             tmp_list[b++] = in[a++];
+        else
+             a++;
+    }
+    copyList(tmp_list, in, length-1);
+}
+
 /*fonction brute force*/
 void bruteForceRough(matrice m, point *pIn, int i, int n, int *min, point *pOut)
 {
@@ -169,32 +204,28 @@ void bruteForceRough(matrice m, point *pIn, int i, int n, int *min, point *pOut)
 
 }
 
-void deleteFromList(point *in, int length, point p)
-{
-    point tmp_list[length-1];
-    int a = 0;
-    int b = 0; 
-    while(b < length-1)
-    {
-        if(!equals(in[a], p))
-             tmp_list[b++] = in[a++];
-        else
-             a++;
-    }
-    copyList(tmp_list, in, length-1);
-}
+
 
 //wrapper pour bruteForceRough
-void bruteForce(matrice m, point *pList)
+point *bruteForce(matrice m)
 {
     int n = getDimensionMatrice(m);
-    point pOut[n];
-    copyList(pList, pOut, n);
+
+    point pList[n];
+    copyList(getTableauPointsMatrice(m), pList, n);
+
+    point *pOut = malloc(sizeof(point) * n);
+    //copyList(pList, pOut, n);
+
     int *min = malloc(sizeof(int));
     *min = overallDistance(m, pList);
+
     bruteForceRough(m, pList, 0, n, min, pOut);
-    copyList(pOut, pList, n);
+
+    //copyList(pList, pOut, n);
+
     free(min);
+    return pOut;
 }
  
 

@@ -6,11 +6,12 @@
 int PointLePlusProche(int indicePointActuel,matrice m);
 void nearestNeighbour(matrice m,point ordreDePassage[]);
 int overallDistance(matrice m, point *points);
-void bruteForce(matrice m, point *pList);
+int overallDistanceVerbose(matrice m, point *points);
+point *bruteForce(matrice m);
 void copyList(point *pIn, point *pOut, int len);
 void copyListIndice(point *pIn, point *pOut, int start, int end);
 point *branchBound(matrice m);
-void prim(matrice m, point* TabVisite);
+int prim(matrice m, point* TabVisite);
 
 
 #endif

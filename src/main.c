@@ -51,7 +51,7 @@ int main()
     //AFFICHAGE DU PARCOURS
     afficherMatrice(matriceOut);
 
-    printf("\nDistance totale: %d\n", overallDistance(matriceOut, ordreDePassage));
+    printf("\nDistance totale: %d\n", overallDistanceVerbose(matriceOut, ordreDePassage));
 
     
     
@@ -64,7 +64,7 @@ int main()
     afficherListeDesPoints(tabPrim, nbPointOut);
     
     printf("\nDistance totale REELLE !!! prim : %d\n",dist);
-    printf("\nDistance totale: %d\n", overallDistance(matricePrimOut, tabPrim));
+    printf("\nDistance totale: %d\n", overallDistanceVerbose(matricePrimOut, tabPrim));
     
     
     
@@ -72,19 +72,18 @@ int main()
     //BRUTE FORCE
     printf("Test brute force:\n");
     
-    point tabTest[getDimensionMatrice(m)];
+    
 
 
-    copyList(getTableauPointsMatrice(m), tabTest, getDimensionMatrice(m));
     printf("Points en entrée: \n");
-    afficherListeDesPoints(tabTest, getDimensionMatrice(m));
+    afficherListeDesPoints(getTableauPointsMatrice(m), getDimensionMatrice(m));
     
     printf("(Attention: il prend qqs secondes)\n");
-    bruteForce(m, tabTest);
+    point *tabTest = bruteForce(m);
 
     printf("Points en sortie: \n");
     afficherListeDesPoints(tabTest, getDimensionMatrice(m));
-    printf("Overall distance: %d\n", overallDistance(m, tabTest));
+    printf("Overall distance: %d\n", overallDistanceVerbose(m, tabTest));
 
 
 
@@ -98,7 +97,17 @@ int main()
 
     printf("Points en sortie: \n");
     afficherListeDesPoints(tabTestOut, getDimensionMatrice(m));
-    printf("Overall distance: %d\n", overallDistance(m, tabTestOut));
+    printf("Overall distance: %d\n", overallDistanceVerbose(m, tabTestOut));
+
+    //désallocation de mémoire
+    free(tabTest);
+    free(tabTestOut);
+    detruireMatrice(m);
+    detruireMatrice(matricePrimOut);
+    detruireMatrice(matriceOut);
+    detruireMatrice(matriceIN);
+    for(int i = 0; i < nombreDePoints; i++)
+        detruirePoint(tab[i]);
     
 
     return 0;
