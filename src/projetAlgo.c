@@ -65,10 +65,11 @@ int PointLePlusProche(int indicePointActuel,matrice m){
  * \param ordreDePassage[] tableau de sortie qui contiendra le nouveau parcour
  * \return vide
  */
-void nearestNeighbour(matrice mIn,point ordreDePassage[]){
+point *nearestNeighbour(matrice mIn){
     
     matrice m = cloneMatrice(mIn);
     int nombreDePoints = getDimensionMatrice(m);
+    point *ordreDePassage = malloc(sizeof(point)*nombreDePoints);
         
     //Insertion du point d'origine
     ordreDePassage[0] = clone(getPointIndice(m, 0));
@@ -96,6 +97,7 @@ void nearestNeighbour(matrice mIn,point ordreDePassage[]){
     //ordreDePassage[indice] = clone(ordreDePassage[0]);
     detruireMatrice(m);
     
+    return ordreDePassage;
 }
 
 /*fonction qui calcul la distance totale entre tous les points d'un liste */

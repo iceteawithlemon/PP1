@@ -4,7 +4,7 @@
 #include "matrice.h"
 
 int PointLePlusProche(int indicePointActuel,matrice m);
-void nearestNeighbour(matrice m,point ordreDePassage[]);
+point *nearestNeighbour(matrice m);
 int overallDistance(matrice m, point *points);
 int overallDistanceVerbose(matrice m, point *points);
 point *bruteForce(matrice m);
