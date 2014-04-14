@@ -10,6 +10,17 @@
 int main(int argc, char** argv)
 {
     
+    if(argc !=2){
+        printf("Nombre d'arguments incorrect :\n");
+        printf("1 - Nearest Neighbour\n");
+        printf("2 - Prim\n");
+        printf("3 - Brute Force\n");
+        printf("4 - BRANCH & BOUND\n");
+        
+        return 0;
+    }
+        
+    
     /*****************************************************************************************
      ****************************** INITIALISATION MATRICE ***********************************
      *****************************************************************************************/
