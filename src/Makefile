@@ -42,8 +42,11 @@ check:
 	
 	$(CC) -c  $(CFLAGS) test_BF.c 
 	$(CC) $(OBJ) test_BF.o -o test_BF -lm
+	
+	$(CC) -c  $(CFLAGS) test_Prim.c 
+	$(CC) $(OBJ) test_Prim.o -o test_Prim -lm
 	   
 clean:
-	-rm -f $(OBJ) main.o $(DEP) *~ \#*\# $(OUTFILES) test_NN test_BF
+	-rm -f $(OBJ) main.o $(DEP) *~ \#*\# $(OUTFILES) test_NN test_BF test_Prim
 	
 
