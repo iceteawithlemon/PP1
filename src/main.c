@@ -29,14 +29,14 @@ int main(int argc, char** argv)
     
     //AFFICHAGE MATRICE
     matrice m = creerMatriceTSP("../test_cases/exemple10.tsp");
-
-    afficherMatrice(m);
-     
+    
     //RECUPERATION DU NOMBRE DE POINTS
     int nbPoint = getDimensionMatrice(m);
 
-    
-    
+    printf("Matrice en entrée :\n");
+    afficherMatrice(m);
+
+    point* ListePoint = NULL;
     /*****************************************************************************************
      ****************************** NEAREAST NEIGHBOUR ***************************************
      *****************************************************************************************/
@@ -45,19 +45,17 @@ int main(int argc, char** argv)
             
         
     printf("Test Nearest Neighbour:\n");
-    //CREATION D'UN TABLEAU DE POINT
-    point ordreDePassage[nbPoint];
-    
-    //ON APPLIQUE L'ALGORITHME NEARESTNEIGHBOUR DEPUIS LA MATRICE D'ENTREE, DANS UN TABLEAU
-    nearestNeighbour(m,ordreDePassage);
+ 
+    //ON APPLIQUE L'ALGORITHME NEAREST NEIGHBOUR DEPUIS LA MATRICE D'ENTREE, DANS UN TABLEAU
+    ListePoint = nearestNeighbour(m);
     
     //ON RECUPERE LE TABLEAU DE POINTS EN SORTIE
-    matrice matriceOut = creerMatriceDesPoints(ordreDePassage, nbPoint);
+    matrice matriceOut = creerMatriceDesPoints(ListePoint, nbPoint);
     
     //AFFICHAGE DU PARCOURS
     afficherMatrice(matriceOut);
 
-    printf("\nDistance totale: %d\n", overallDistanceVerbose(matriceOut, ordreDePassage));
+    printf("\nDistance totale: %d\n", overallDistanceVerbose(matriceOut, ListePoint));
         
     detruireMatrice(matriceOut);
         
@@ -72,12 +70,11 @@ int main(int argc, char** argv)
     printf("Test prim:\n");
     point tabPrim[nbPoint];
     int dist = prim(m,tabPrim);
-    matrice matricePrimOut = creerMatriceDesPoints(tabPrim, nbPoint);
+    //matrice matricePrimOut = creerMatriceDesPoints(tabPrim, nbPoint);
     afficherListeDesPoints(tabPrim, nbPoint);
     
     printf("\nDistance totale  prim : %d\n",dist);
-        
-    detruireMatrice(matricePrimOut);
+    //detruireMatrice(matricePrimOut);
     }
     
     
@@ -86,20 +83,15 @@ int main(int argc, char** argv)
      *****************************************************************************************/
     
     if(choix == 3) {
+        
     printf("Test brute force:\n");
-    
-
-    printf("Points en entrée: \n");
-    afficherListeDesPoints(getTableauPointsMatrice(m), getDimensionMatrice(m));
-    
     printf("(Attention: il prend qqs secondes)\n");
-    point *tabTest = bruteForce(m);
+    ListePoint = bruteForce(m);
 
     printf("Points en sortie: \n");
-    afficherListeDesPoints(tabTest, getDimensionMatrice(m));
-    printf("Overall distance: %d\n", overallDistanceVerbose(m, tabTest));
+    afficherListeDesPoints(ListePoint, getDimensionMatrice(m));
+    printf("Overall distance: %d\n", overallDistanceVerbose(m, ListePoint));
 
-    free(tabTest);
     }
     
     
@@ -109,17 +101,12 @@ int main(int argc, char** argv)
     
     if(choix == 4) {
     printf("Test branch & bound:\n");
-
-    printf("Points en entrée: \n");
-    afficherListeDesPoints(getTableauPointsMatrice(m), getDimensionMatrice(m));
-
-    point *tabTestOut = branchBound(m);
+    ListePoint = branchBound(m);
 
     printf("Points en sortie: \n");
-    afficherListeDesPoints(tabTestOut, getDimensionMatrice(m));
-    printf("Overall distance: %d\n", overallDistanceVerbose(m, tabTestOut));
+    afficherListeDesPoints(ListePoint, getDimensionMatrice(m));
+    printf("Overall distance: %d\n", overallDistanceVerbose(m, ListePoint));
 
-    free(tabTestOut);
     }
     
 
@@ -129,9 +116,9 @@ int main(int argc, char** argv)
      *****************************************************************************************/
 
     detruireMatrice(m);
+    free(ListePoint);
+    
     return EXIT_SUCCESS;
-
-    return 0;
 }
 
 void erreurArguments(){
