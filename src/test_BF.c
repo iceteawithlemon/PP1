@@ -32,6 +32,6 @@ int main()
     afficherListeDesPoints(ListePoint, nbPoint);
     printf("Overall distance: %d\n", overallDistanceVerbose(m, ListePoint));
 
-    return EXIT_SUCESS;
+    return EXIT_SUCCESS;
 }
 
