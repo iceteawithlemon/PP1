@@ -5,8 +5,6 @@
 #include "matrice.h"
 # include "tspIOtourO.h"
 
-#define nombreDePoints 4
-
 /**
  * \brief Fonction principale permettant de tester la fonction Prim
  *
@@ -14,28 +12,49 @@
  */
 int main()
 {
-     printf("Matrice d'entree depuis le fichier exemple10.tsp\n");
+    printf("------------------------------------------------------------------\n");
+    printf("|                         Test Prim                              |\n");
+    printf("------------------------------------------------------------------\n");
+    printf("Matrice d'entree depuis le fichier exemple10.tsp\n");
     //CREATION MATRICE DEPUIS EXEMPLE10.TSP
     matrice m = creerMatriceTSP("../test_cases/exemple10.tsp");
     
     //RECUPERATION DU NOMBRE DE POINTS
     int nbPoint = getDimensionMatrice(m);
 
-    printf("Matrice en entrée :\n");
+    printf("Matrice en entree:\n\n");
     afficherMatrice(m);
 
-   	printf("Test prim:\n");
-            point *tabPrim = malloc(sizeof(point)*nbPoint);
+    point* ListePoint = NULL;
     
-            int dist = prim(m,tabPrim);
-            
-            //matrice matricePrimOut = creerMatriceDesPoints(tabPrim, nbPoint);
-            afficherListeDesPoints(tabPrim, nbPoint);
-        
-            printf("\nDistance totale  prim : %d\n",dist);
-            //detruireMatrice(matricePrimOut);
-            free(tabPrim);
+    ListePoint = prim(m);
+    
+    //ON RECUPERE LE TABLEAU DE POINTS EN SORTIE
+    matrice matricePrimOut = creerMatriceDesPoints(ListePoint, nbPoint);
+    
+    
+    printf("------------------------------------------------------------------\n");
+    printf("Matrice en sortie :\n");
+    //AFFICHAGE DU PARCOURS
+    afficherMatrice(matricePrimOut);
+    
+    printf("------------------------------------------------------------------\n");
+    int distance = overallDistanceVerbose(matricePrimOut, ListePoint);
+    printf("------------------------------------------------------------------\n");
+    
+    printf("\nDistance totale  prim : %d\n",distance);
+    printf("Valeur attendue: 50 \n");
+    if(distance == 50)
+        printf("Test Reussi\n");
+    else
+        printf("Echec du test\n");
+    
+    
+    detruireMatrice(matricePrimOut);
+    for(int i = 0;i<nbPoint;i++)
+        free(ListePoint[i]);
+    
+    free(ListePoint);
 			
     return EXIT_SUCCESS;
 }
-
