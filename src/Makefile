@@ -9,13 +9,13 @@ OBJ=  projetAlgo.o point.o matrice.o tspIOtourO.o
 DEP = $(SRC:.c=.d)
 
 
-OUTFILES= testN 
+OUTFILES= Voyageur 
 
 all: $(OUTFILES)
 
 -include $(DEP)
 
-testN: $(OBJ) main.o
+Voyageur: $(OBJ) main.o
 	$(CC) $(OBJ) main.o -o $@ -lm
 
 # main.o: main.c point.h projetAlgo.h matrice.h 
