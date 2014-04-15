@@ -5,6 +5,12 @@
 #include "matrice.h"
 # include "tspIOtourO.h"
 
+
+/**
+ * \brief Fonction principale permettant de tester la fonction Nearest Neighbour
+ *
+ * \return: EXIT_FAILURE si il y a un probleme, EXIT_SUCESS si tout ce passe bien
+ */
 int main()
 {
     printf("Matrice d'entree depuis le fichier exemple10.tsp\n");
