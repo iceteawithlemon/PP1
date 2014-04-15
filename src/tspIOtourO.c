@@ -58,7 +58,7 @@ matrice creerMatriceTSP(char *fileName)
 
 
 
-extern void creerTSPMatrice(char *fileName, matrice m)
+void creerTSPMatrice(char *fileName, matrice m)
 {
 	if (strstr(fileName, ".tsp") == NULL) //si le nom du fichier passée en paramètre ne contient pas ".tsp", l'ajouter
 		asprintf(&fileName, "%s.tsp", fileName);
@@ -87,11 +87,12 @@ extern void creerTSPMatrice(char *fileName, matrice m)
 }
 
 /*la liste des points DOIT correspondre à la matrice donnée*/
-extern void creerTOUR(char *fileName, matrice m, point liste[]) 
+void creerTOUR(char *fileName, matrice m, point *liste) 
 {
+	assert(fileName != NULL);
 	if (strstr(fileName, ".opt.tour") == NULL) //si le nom du fichier passée en paramètre ne contient pas ".tsp", l'ajouter
 		asprintf(&fileName, "%s.opt.tour", fileName);
-	printf("%s\n", fileName);
+	printf("Création du fichier : %s\n", fileName);
 	FILE *fp = fopen(fileName, "w");
 	assert(fp != NULL);
 	fprintf(fp, "NAME : %s\n", fileName);
@@ -100,6 +101,6 @@ extern void creerTOUR(char *fileName, matrice m, point liste[])
 	fprintf(fp, "TOUR_SECTION\n");
 	for(int i = 0; i < getDimensionMatrice(m); i++)
 		fprintf(fp, "%d\n", getIndicePoint(m, liste[i]));
-	fprintf(fp, "EOF\n");
+	fprintf(fp, "-1\nEOF\n");
 	fclose(fp);
 }
