@@ -11,7 +11,7 @@ point *bruteForce(matrice m);
 void copyList(point *pIn, point *pOut, int len);
 void copyListIndice(point *pIn, point *pOut, int start, int end);
 point *branchBound(matrice m);
-int prim(matrice m, point* TabVisite);
+point *prim(matrice m);
 
 
 #endif

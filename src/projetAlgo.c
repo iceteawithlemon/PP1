@@ -263,21 +263,21 @@ point *bruteForce(matrice m)
  * \brief Fonction qui permet le calcul de la distance du Voyageur avec Prim
  *
  * \param mIn matrice d'entrée qui permet d'obtenir la liste des points que l'on souhaite parcourir.
- * \param TabVisite tableau qui contient les points 
  *
- * \return: la distance générale parcourue
+ * \return: TabVisite tableau qui contient les points ordonnés selon le parcours
  */
 
-int prim(matrice mIn,point* TabVisite){
+ point* prim(matrice mIn){
+    
     
     matrice m = cloneMatrice(mIn);
     int dim = getDimensionMatrice(m);
+    point* TabVisite = malloc(sizeof(point)*dim);
     int current = 0; //Indice du point courant
     int indicePointVisite[dim];
     int nbPointVisite = 1;
     int tmp = 0;
     int min = 32000;
-    int distance = 0;
     
     //Initatiliser le marquage des points sur non visités
     for(int i = 1;i<dim;i++)
@@ -302,7 +302,6 @@ int prim(matrice mIn,point* TabVisite){
                 current = tmp;
             }
         }
-        distance+= min;
         markVisited(getPointIndice(m, current));
         
         //Parcour stocke
@@ -314,9 +313,8 @@ int prim(matrice mIn,point* TabVisite){
         
     }
     //TabVisite[dim] = getPointIndice(m, 0);//Retour a l'origine
-    distance+= getDistanceIndice(m, indicePointVisite[nbPointVisite-1], 0);//retour a l'origine
     detruireMatrice(m);
-    return distance;
+    return TabVisite;
 }
 
 /**
