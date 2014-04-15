@@ -20,6 +20,8 @@ int main()
     
     //RECUPERATION DU NOMBRE DE POINTS
     int nbPoint = getDimensionMatrice(m);
+	
+	point* ListePoint = NULL;
 
     printf("Matrice en entrée :\n");
     afficherMatrice(m);
