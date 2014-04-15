@@ -66,7 +66,7 @@ int main(int argc, char** argv)
      *****************************************************************************************/
             
         case 1 :
-            printf("Test Nearest Neighbour:\n");
+            printf("Nearest Neighbour:\n");
  
             ListePoint = nearestNeighbour(m);
     
@@ -87,24 +87,25 @@ int main(int argc, char** argv)
      *********************************** PRIM ************************************************
      *****************************************************************************************/
         case 2 :
-            printf("Test prim:\n");
-            point *tabPrim = malloc(sizeof(point)*nbPoint);
+            printf("Prim:\n");
     
-            int dist = prim(m,tabPrim);
+            ListePoint = prim(m);
             
-            //matrice matricePrimOut = creerMatriceDesPoints(tabPrim, nbPoint);
-            afficherListeDesPoints(tabPrim, nbPoint);
+            printf("Points en sortie: \n");
+            afficherListeDesPoints(ListePoint, nbPoint);
+            
+            matrice matricePrimOut = creerMatriceDesPoints(ListePoint, nbPoint);
         
-            printf("\nDistance totale  prim : %d\n",dist);
-            //detruireMatrice(matricePrimOut);
-            free(tabPrim);
+            printf("\nDistance totale  prim : %d\n",overallDistanceVerbose(matricePrimOut, ListePoint));
+            
+            detruireMatrice(matricePrimOut);
             break;
             
     /*****************************************************************************************
      *********************************** BRUTE FORCE *****************************************
      *****************************************************************************************/
         case 3:
-            printf("Test brute force:\n");
+            printf("Brute force:\n");
             printf("(Attention: il prend qqs secondes)\n");
             ListePoint = bruteForce(m);
 
@@ -117,11 +118,11 @@ int main(int argc, char** argv)
      *********************************** BRANCH & BOUND **************************************
      *****************************************************************************************/
         case 4:
-            printf("Test branch & bound:\n");
+            printf("Branch & bound:\n");
             ListePoint = branchBound(m);
 
             printf("Points en sortie: \n");
-            afficherListeDesPoints(ListePoint, getDimensionMatrice(m));
+            afficherListeDesPoints(ListePoint, nbPoint);
             printf("Overall distance: %d\n", overallDistanceVerbose(m, ListePoint));
             break;
     }
