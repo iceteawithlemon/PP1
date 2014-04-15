@@ -7,6 +7,23 @@
 
 void erreurArguments();
 
+
+/// \file
+/// \brief Point d'entrée de l'application
+
+/// \mainpage
+///
+/// Cette application a pour vocation de calculer des solutions au problème du voyageur de commerce
+
+/**
+ * \brief Fonction principale permettant à l'utilisateur de choisir une solution de parcours depuis un fichier tsp
+ *
+ * \param argc contient le nombre d'argument passé en parametre
+ * \param argv contient les arguments de l'appel sous forme de chaine de caractere
+ *
+ * \return: EXIT_FAILURE si il y a un probleme, EXIT_SUCESS si tout ce passe bien
+ */
+
 int main(int argc, char** argv)
 {
     

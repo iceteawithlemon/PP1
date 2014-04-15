@@ -2,11 +2,11 @@
 #include <stdlib.h>
 #include "matrice.h"
 
-/*
- * \b Cherche dans la matrice quel est le point le plus proche du point indiqué par l'indice,
+/**
+ * \brief Cherche dans la matrice quel est le point non visité le plus proche  du point indiqué par l'indice,
  * cette fonction utilise la fonction getDistanceIndice() permettant de connaitre la distance entre deux points.
  *
- * \param indicePointActuel correpond à l'indice du point actuel, permettant l'accès à ce point.
+ * \param indicePointActuel correspond à l'indice du point actuel, permettant l'accès à ce point.
  * \param m matrice contenant tous les points
  *
  * \return: indice du point le plus proche du point actuel
@@ -57,13 +57,12 @@ int PointLePlusProche(int indicePointActuel,matrice m){
 }
 
 
-/*
- * \b Parcour de la matrice, crée un ordre de parcour permettant d'effectuer une distance moindre,
+/**
+ * \brief Parcour de la matrice, crée un ordre de parcours permettant d'effectuer une distance moindre,
  * recherche de point le plus proche.
  *
  * \param m matrice d'entrée qui permet d'obtenir la liste des points que l'on souhaite parcourir.
- * \param ordreDePassage[] tableau de sortie qui contiendra le nouveau parcour
- * \return vide
+ * \return ordreDePassage[] tableau de sortie qui contiendra le nouveau parcours
  */
 point *nearestNeighbour(matrice mIn){
     
