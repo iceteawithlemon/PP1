@@ -99,8 +99,15 @@ point *nearestNeighbour(matrice mIn){
     return ordreDePassage;
 }
 
-/*fonction qui calcul la distance totale entre tous les points d'un liste */
 
+/**
+ * \brief Fonction qui calcul la distance totale entre tous les points d'une liste
+ *
+ * \param m matrice d'entrée qui permet d'obtenir la liste des points que l'on souhaite parcourir.
+ * \param points tableau contenants les points
+ *
+ * \return: la distance totale
+ */
 int overallDistance(matrice m, point *points)
 {
     float sum = 0;
@@ -133,7 +140,13 @@ int overallDistanceVerbose(matrice m, point *points)
 
 
 
-
+/**
+ * \brief Fonction qui echange deux points passés en paramètres
+ *
+ * \param plist liste contenant les points
+ * \param i premier point
+ * \param j deuxième point
+ */
 /*fonction qui echange deux points passés en paramètres*/
 void swap(point *plist, int i, int j)
 {
@@ -145,15 +158,28 @@ void swap(point *plist, int i, int j)
         plist[j] = tmp;
     }
 }
-
-/*fonction qui copie une liste de points */
+/**
+ * \brief Fonction qui copie une liste de points 
+ *
+ * \param pIn tableau 1 de points
+ * \param pOut tableau 2 de points
+ * \param len taille 
+ */
 void copyList(point *pIn, point *pOut, int len)
 {
     for(int i = 0; i < len; i++)
         pOut[i] = pIn[i];
 }
 
-/*fonction qui copie une liste de points à partir d'un indice */
+
+/**
+ * \brief Fonction qui copie une liste de points à partir d'un indice  
+ *
+ * \param pIn tableau 1 de points
+ * \param pOut tableau 2 de points
+ * \param start indice de début
+ * \param end indice de fin
+ */
 void copyListIndice(point *pIn, point *pOut, int start, int end)
 {
     int j = 0;
@@ -203,9 +229,15 @@ void bruteForceRough(matrice m, point *pIn, int i, int n, int *min, point *pOut)
 
 }
 
+/**
+ * \brief Fonction qui permet le calcul de la distance du Voyageur avec l'algorithme Brute Force
+ *
+ * \param m matrice d'entrée qui permet d'obtenir la liste des points que l'on souhaite parcourir.
+ *
+ * \return: la distance générale parcourue
+ */
 
-
-//wrapper pour bruteForceRough
+ //wrapper pour bruteForceRough
 point *bruteForce(matrice m)
 {
     int n = getDimensionMatrice(m);
@@ -227,6 +259,14 @@ point *bruteForce(matrice m)
     return pOut;
 }
  
+/**
+ * \brief Fonction qui permet le calcul de la distance du Voyageur avec Prim
+ *
+ * \param mIn matrice d'entrée qui permet d'obtenir la liste des points que l'on souhaite parcourir.
+ * \param TabVisite tableau qui contient les points 
+ *
+ * \return: la distance générale parcourue
+ */
 
 int prim(matrice mIn,point* TabVisite){
     
@@ -278,6 +318,14 @@ int prim(matrice mIn,point* TabVisite){
     detruireMatrice(m);
     return distance;
 }
+
+/**
+ * \brief Fonction qui permet le calcul de la distance du Voyageur par l'algorithme de Branch & Bound
+ *
+ * \param m matrice d'entrée qui permet d'obtenir la liste des points que l'on souhaite parcourir.
+ *
+ * \return: la distance générale parcourue
+ */
 
 point *branchBound(matrice m)
 {

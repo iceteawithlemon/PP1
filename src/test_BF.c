@@ -6,6 +6,12 @@
 # include "tspIOtourO.h"
 
 #define nombreDePoints 4
+
+/**
+ * \brief Fonction principale permettant de tester la fonction Brute force
+ *
+ * \return: EXIT_FAILURE si il y a un probleme, EXIT_SUCESS si tout ce passe bien
+ */
 int main()
 {
     
@@ -53,6 +59,6 @@ int main()
     printf("Overall min: %d\n", overallDistance(m, tabTest));
      
 
-    return 0;
+    return EXIT_SUCESS;
 }
 
