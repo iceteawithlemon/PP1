@@ -14,6 +14,8 @@
 int main()
 {
     printf("------------------------------------------------------------------\n");
+    printf("|                    TEST NEAREST NEIGHBOUR                      |\n");
+    printf("------------------------------------------------------------------\n");
     printf("Matrice d'entree depuis le fichier exemple10.tsp\n");
     //CREATION MATRICE DEPUIS EXEMPLE10.TSP
     matrice m = creerMatriceTSP("../test_cases/exemple10.tsp");
@@ -53,7 +55,10 @@ int main()
     
     
     detruireMatrice(matriceOut);
-
+    for(int i = 0;i<nbPoint;i++)
+        free(ListePoint[i]);
+    
+    free(ListePoint);
     return EXIT_SUCCESS;
 }
 
