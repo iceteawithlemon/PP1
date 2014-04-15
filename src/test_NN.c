@@ -11,32 +11,28 @@ int main()
     //CREATION MATRICE DEPUIS EXEMPLE10.TSP
     matrice m = creerMatriceTSP("../test_cases/exemple10.tsp");
     
-    //AFFICHAGE MATRICE
-    afficherMatrice(m);
-     
     //RECUPERATION DU NOMBRE DE POINTS
-    int nbPointIn = getDimensionMatrice(m);
-    int nbPointOut = nbPointIn+1;
+    int nbPoint = getDimensionMatrice(m);
+
+    printf("Matrice en entrée :\n");
+    afficherMatrice(m);
+
+    point* ListePoint = NULL;
     
-    
-    //CREATION D'UN TABLEAU DE POINT
-    point ordreDePassage[nbPointOut];
-    
-    //ON APPLIQUE L'ALGORITHME NEARESTNEIGHBOUR DEPUIS LA MATRICE D'ENTREE, DANS UN TABLEAU
-    nearestNeighbour(m,ordreDePassage);
+	ListePoint = nearestNeighbour(m);
     
     //ON RECUPERE LE TABLEAU DE POINTS EN SORTIE
-    matrice matriceOut = creerMatriceDesPoints(ordreDePassage, nbPointOut);
+    matrice matriceOut = creerMatriceDesPoints(ListePoint, nbPoint);
     
-    
-    printf("\n Lancement du test Nearest Neighbour\n");
     //AFFICHAGE DU PARCOURS
     afficherMatrice(matriceOut);
     
+	//creerTOUR("Testfichier", matriceOut, ListePoint);
 
-    printf("\nDistance totale: %d\n", overallDistance(m, ordreDePassage));
-    printf("Distance fausse ! a modifier!");
+    printf("\nDistance totale: %d\n", overallDistanceVerbose(matriceOut, ListePoint));
+        
+    detruireMatrice(matriceOut);
 
-    return 0;
+    return EXIT_SUCCESS;
 }
 
