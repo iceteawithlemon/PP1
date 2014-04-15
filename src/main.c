@@ -27,13 +27,15 @@ void erreurArguments();
 int main(int argc, char** argv)
 {
     
-    if(argc !=2){
+    if(argc !=3){
         printf("Nombre d'arguments incorrect :\n");
         erreurArguments();
         return 0;
     }
     
-    int choix = atoi(argv[1]);
+    //char * Directory = "../test_cases/exemple10.tsp";
+    char * Directory = argv[1];
+    int choix = atoi(argv[2]);
     if(choix > 4 || choix < 1){
         perror("Argument incorrect :\n");
         erreurArguments();
@@ -45,7 +47,7 @@ int main(int argc, char** argv)
      *****************************************************************************************/
     
     //AFFICHAGE MATRICE
-    matrice m = creerMatriceTSP("../test_cases/exemple10.tsp");
+    matrice m = creerMatriceTSP(Directory);
     
     //RECUPERATION DU NOMBRE DE POINTS
     int nbPoint = getDimensionMatrice(m);
@@ -123,18 +125,22 @@ int main(int argc, char** argv)
             printf("Overall distance: %d\n", overallDistanceVerbose(m, ListePoint));
             break;
     }
-
+    
     /*****************************************************************************************
      ***************************** LIBERATION DE LA MEMOIRE **********************************
      *****************************************************************************************/
 
     detruireMatrice(m);
+    for(int i=0;i<nbPoint;i++){
+        free(ListePoint[i]);
+    }
     free(ListePoint);
     
     return EXIT_SUCCESS;
 }
 
 void erreurArguments(){
+    printf("Premier parametre : Fichier tsp\nDeuxieme parametre selectionné le parcours:\n");
     printf("1 - Nearest Neighbour\n");
     printf("2 - Prim\n");
     printf("3 - Brute Force\n");
