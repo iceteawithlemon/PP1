@@ -70,18 +70,11 @@ int main(int argc, char** argv)
  
             ListePoint = nearestNeighbour(m);
     
-            //ON RECUPERE LE TABLEAU DE POINTS EN SORTIE
-            //matrice matriceOut = creerMatriceDesPoints(ListePoint, nbPoint);
-    
-            //AFFICHAGE DU PARCOURS
-
-	    afficherListeDesPoints(ListePoint, getDimensionMatrice(m));
-            //afficherMatrice(matriceOut);
-            creerTOUR("Testfichier", m, ListePoint);
+            printf("Points en sortie: \n");
+            afficherListeDesPoints(ListePoint, getDimensionMatrice(m));
 
             printf("\nDistance totale: %d\n", overallDistance(m, ListePoint));
-        
-            
+            creerTOUR("ParcoursNearestNeighbour", m, ListePoint);/* Creation du fichier de sortie */
             break;
          
     
@@ -96,11 +89,9 @@ int main(int argc, char** argv)
             printf("Points en sortie: \n");
             afficherListeDesPoints(ListePoint, nbPoint);
             
-            matrice matricePrimOut = creerMatriceDesPoints(ListePoint, nbPoint);
         
-            printf("\nDistance totale  prim : %d\n",overallDistance(matricePrimOut, ListePoint));
-            
-            detruireMatrice(matricePrimOut);
+            printf("\nDistance totale  prim : %d\n",overallDistance(m, ListePoint));
+            creerTOUR("ParcoursPrim", m, ListePoint);/* Creation du fichier de sortie */
             break;
             
     /*****************************************************************************************
@@ -114,6 +105,7 @@ int main(int argc, char** argv)
             printf("Points en sortie: \n");
             afficherListeDesPoints(ListePoint, nbPoint);
             printf("Overall distance: %d\n", overallDistance(m, ListePoint));
+            creerTOUR("ParcoursBruteForce", m, ListePoint);/* Creation du fichier de sortie */
             break;
 
     /*****************************************************************************************
@@ -126,8 +118,7 @@ int main(int argc, char** argv)
             printf("Points en sortie: \n");
             afficherListeDesPoints(ListePoint, nbPoint);
             printf("Overall distance: %d\n", overallDistance(m, ListePoint));
-	    creerTOUR("testTOUR", m, ListePoint);
-	    
+            creerTOUR("ParcoursBranch&Bound", m, ListePoint);/* Creation du fichier de sortie */
             break;
     }
     
