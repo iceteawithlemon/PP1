@@ -71,15 +71,17 @@ int main(int argc, char** argv)
             ListePoint = nearestNeighbour(m);
     
             //ON RECUPERE LE TABLEAU DE POINTS EN SORTIE
-            matrice matriceOut = creerMatriceDesPoints(ListePoint, nbPoint);
+            //matrice matriceOut = creerMatriceDesPoints(ListePoint, nbPoint);
     
             //AFFICHAGE DU PARCOURS
-            afficherMatrice(matriceOut);
-            //creerTOUR("Testfichier", matriceOut, ListePoint);
 
-            printf("\nDistance totale: %d\n", overallDistanceVerbose(matriceOut, ListePoint));
+	    afficherListeDesPoints(ListePoint, getDimensionMatrice(m));
+            //afficherMatrice(matriceOut);
+            creerTOUR("Testfichier", m, ListePoint);
+
+            printf("\nDistance totale: %d\n", overallDistance(m, ListePoint));
         
-            detruireMatrice(matriceOut);
+            
             break;
          
     
@@ -96,7 +98,7 @@ int main(int argc, char** argv)
             
             matrice matricePrimOut = creerMatriceDesPoints(ListePoint, nbPoint);
         
-            printf("\nDistance totale  prim : %d\n",overallDistanceVerbose(matricePrimOut, ListePoint));
+            printf("\nDistance totale  prim : %d\n",overallDistance(matricePrimOut, ListePoint));
             
             detruireMatrice(matricePrimOut);
             break;
@@ -111,7 +113,7 @@ int main(int argc, char** argv)
 
             printf("Points en sortie: \n");
             afficherListeDesPoints(ListePoint, nbPoint);
-            printf("Overall distance: %d\n", overallDistanceVerbose(m, ListePoint));
+            printf("Overall distance: %d\n", overallDistance(m, ListePoint));
             break;
 
     /*****************************************************************************************
@@ -123,7 +125,9 @@ int main(int argc, char** argv)
 
             printf("Points en sortie: \n");
             afficherListeDesPoints(ListePoint, nbPoint);
-            printf("Overall distance: %d\n", overallDistanceVerbose(m, ListePoint));
+            printf("Overall distance: %d\n", overallDistance(m, ListePoint));
+	    creerTOUR("testTOUR", m, ListePoint);
+	    
             break;
     }
     
