@@ -8,50 +8,28 @@
 #define nombreDePoints 4
 int main()
 {
-    
-    //Creation de Points (a remplacer par une lecture de matrice)
-     point p1 = creerPoint(0,0);
-     point p2 = creerPoint(1,1);
-     point p3 = creerPoint(2,2);
-     point p4 = creerPoint(3,3);
-     
-    
-     //Tableau comprenant les points
-     point tab[nombreDePoints]={p4 ,p2, p1, p3};
-     
-     printf("Points en entrée : \n");
-     for(int i =0;i<nombreDePoints;i++)
-        afficherPoint(tab[i]);
-     
-    
-    //CREATION MATRICE ENTREE
-    matrice matriceIN;
-    matriceIN = creerMatriceDesPoints(tab, nombreDePoints);
-    
-    //AFFICHAGE MATRICE
+     printf("Matrice d'entree depuis le fichier exemple10.tsp\n");
+    //CREATION MATRICE DEPUIS EXEMPLE10.TSP
     matrice m = creerMatriceTSP("../test_cases/exemple10.tsp");
-
-    afficherMatrice(m);
-     
+    
     //RECUPERATION DU NOMBRE DE POINTS
-    int nbPointIn = getDimensionMatrice(matriceIN);
-    int nbPointOut = nbPointIn+1;
-    
-    //CREATION D'UN TABLEAU DE POINT
-    point ordreDePassage[nbPointOut];
-    
-   
-   //PRIM -> Segmentation Fault :(
-    printf("Test prim:\n");
-    point tabPrim[nbPointOut];
-    int dist = prim(m,tabPrim);
-    matrice matricePrimOut = creerMatriceDesPoints(tabPrim, nbPointOut);
-    afficherListeDesPoints(tabPrim, nbPointOut);
-    
-    printf("\nDistance totale REELLE !!! prim : %d\n",dist);
-    printf("\nDistance totale: %d\n", overallDistanceVerbose(matricePrimOut, tabPrim));
-     
+    int nbPoint = getDimensionMatrice(m);
 
-    return 0;
+    printf("Matrice en entrée :\n");
+    afficherMatrice(m);
+
+   	printf("Test prim:\n");
+            point *tabPrim = malloc(sizeof(point)*nbPoint);
+    
+            int dist = prim(m,tabPrim);
+            
+            //matrice matricePrimOut = creerMatriceDesPoints(tabPrim, nbPoint);
+            afficherListeDesPoints(tabPrim, nbPoint);
+        
+            printf("\nDistance totale  prim : %d\n",dist);
+            //detruireMatrice(matricePrimOut);
+            free(tabPrim);
+			
+    return EXIT_SUCCESS;
 }
 

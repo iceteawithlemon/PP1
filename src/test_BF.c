@@ -14,50 +14,23 @@
  */
 int main()
 {
-    
-    //Creation de Points (a remplacer par une lecture de matrice)
-     point p1 = creerPoint(0,0);
-     point p2 = creerPoint(1,1);
-     point p3 = creerPoint(2,2);
-     point p4 = creerPoint(3,3);
-     
-    
-     //Tableau comprenant les points
-     point tab[nombreDePoints]={p4 ,p2, p1, p3};
-     
-     printf("Points en entrée : \n");
-     for(int i =0;i<nombreDePoints;i++)
-        afficherPoint(tab[i]);
-     
-    
-    //CREATION MATRICE ENTREE
-    matrice matriceIN;
-    matriceIN = creerMatriceDesPoints(tab, nombreDePoints);
-    
-    //AFFICHAGE MATRICE
+   printf("Matrice d'entree depuis le fichier exemple10.tsp\n");
+    //CREATION MATRICE DEPUIS EXEMPLE10.TSP
     matrice m = creerMatriceTSP("../test_cases/exemple10.tsp");
-
-    afficherMatrice(m);
-     
+    
     //RECUPERATION DU NOMBRE DE POINTS
-    int nbPointIn = getDimensionMatrice(matriceIN);
-    int nbPointOut = nbPointIn+1;
-    
-    //CREATION D'UN TABLEAU DE POINT
-    point ordreDePassage[nbPointOut];
-    
-   
-   //BRUTE FORCE
-    printf("Test bruteForce:\n");
-    printf("(Attention: il prend qqs secondes)\n");
-    point tabTest[getDimensionMatrice(m)];
-    copyList(getTableauPointsMatrice(m), tabTest, getDimensionMatrice(m));
-    bruteForce(m, tabTest);
+    int nbPoint = getDimensionMatrice(m);
 
-    for(int i = 0;i < 4; i++)
-        afficherPoint(tabTest[i]);
-    printf("Overall min: %d\n", overallDistance(m, tabTest));
-     
+    printf("Matrice en entrée :\n");
+    afficherMatrice(m);
+	
+	printf("Test brute force:\n");
+    printf("(Attention: il prend qqs secondes)\n");
+    ListePoint = bruteForce(m);
+
+    printf("Points en sortie: \n");
+    afficherListeDesPoints(ListePoint, nbPoint);
+    printf("Overall distance: %d\n", overallDistanceVerbose(m, ListePoint));
 
     return EXIT_SUCESS;
 }
