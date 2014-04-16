@@ -7,6 +7,6 @@
 
 extern matrice creerMatriceTSP(char *fnom);
 extern void creerTSPMatrice(char *fnom, matrice m);
-extern void creerTOUR(char *fnom, matrice m, point liste[]);
+extern void creerTOUR(char *fileName, matrice m, point *list);
 
 #endif
