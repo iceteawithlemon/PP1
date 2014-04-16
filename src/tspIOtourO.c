@@ -41,14 +41,14 @@ matrice creerMatriceTSP(char *fileName)
 			i++;
 			j = 0;
 		}
-		setDistanceIndice(m, i, j, atof(arg1));
+		setDistanceIndice(m, i, j, atoi(arg1));
 		//printf("i: %d j: %d = %s\n", i, j, arg1);
 		j++;
 	}
 	i = 0;
 	while(fscanf(fp, "%s %s %s", dump, arg1, arg2) && strcmp(dump, "EOF") != 0)
 	{
-		setPointIndice(m, i, creerPoint(atof(arg1), atof(arg2)));
+		setPointIndice(m, i, creerPoint(atoi(arg1), atoi(arg2)));
 		//printf("%d: %s %s\n", i, arg1, arg2);
 		i++;
 	}
@@ -64,7 +64,7 @@ void creerTSPMatrice(char *fileName, matrice m)
 		asprintf(&fileName, "%s.tsp", fileName);
 	//printf("%s\n", fileName);
 	FILE *fp = fopen(fileName, "w");
-	int is_int = ( (int)getDistanceIndice(m, 0, 1) == getDistanceIndice(m, 0, 1) ) ;
+	int is_int = ( 1 ) ;
 	fprintf(fp, "NAME: %s\nTYPE: TSP\nDIMENSION: %d\n", fileName, getDimensionMatrice(m));
 	fprintf(fp, "EDGE_WEIGHT_TYPE: EXPLICIT\nEDGE_WEIGHT_FORMAT: FULL_MATRIX\nDISPLAY_DATA_TYPE: TWOD_DISPLAY\nEDGE_WEIGHT_SECTION\n");
 	for(int i = 0; i < getDimensionMatrice(m); i++)
@@ -89,7 +89,7 @@ void creerTSPMatrice(char *fileName, matrice m)
 /*la liste des points DOIT correspondre à la matrice donnée*/
 void creerTOUR(char *fileName, matrice m, point *liste) 
 {
-	assert(fileName != NULL);
+	assert(fileName != NULL && fileName );
 	if (strstr(fileName, ".opt.tour") == NULL) //si le nom du fichier passée en paramètre ne contient pas ".tsp", l'ajouter
 		asprintf(&fileName, "%s.opt.tour", fileName);
 	printf("Création du fichier : %s\n", fileName);
