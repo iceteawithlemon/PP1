@@ -7,16 +7,35 @@
 
 void erreurArguments();
 
+
+/// \file
+/// \brief Point d'entrée de l'application
+
+/// \mainpage
+///
+/// Cette application a pour vocation de calculer des solutions au problème du voyageur de commerce
+
+/**
+ * \brief Fonction principale permettant à l'utilisateur de choisir une solution de parcours depuis un fichier tsp
+ *
+ * \param argc contient le nombre d'argument passé en parametre
+ * \param argv contient les arguments de l'appel sous forme de chaine de caractere
+ *
+ * \return: EXIT_FAILURE si il y a un probleme, EXIT_SUCESS si tout ce passe bien
+ */
+
 int main(int argc, char** argv)
 {
     
-    if(argc !=2){
+    if(argc !=3){
         printf("Nombre d'arguments incorrect :\n");
         erreurArguments();
         return 0;
     }
     
-    int choix = atoi(argv[1]);
+    //char * Directory = "../test_cases/exemple10.tsp";
+    char * Directory = argv[1];
+    int choix = atoi(argv[2]);
     if(choix > 4 || choix < 1){
         perror("Argument incorrect :\n");
         erreurArguments();
@@ -28,7 +47,7 @@ int main(int argc, char** argv)
      *****************************************************************************************/
     
     //AFFICHAGE MATRICE
-    matrice m = creerMatriceTSP("../test_cases/exemple10.tsp");
+    matrice m = creerMatriceTSP(Directory);
     
     //RECUPERATION DU NOMBRE DE POINTS
     int nbPoint = getDimensionMatrice(m);
@@ -47,20 +66,15 @@ int main(int argc, char** argv)
      *****************************************************************************************/
             
         case 1 :
-            printf("Test Nearest Neighbour:\n");
+            printf("Nearest Neighbour:\n");
  
             ListePoint = nearestNeighbour(m);
     
-            //ON RECUPERE LE TABLEAU DE POINTS EN SORTIE
-            matrice matriceOut = creerMatriceDesPoints(ListePoint, nbPoint);
-    
-            //AFFICHAGE DU PARCOURS
-            afficherMatrice(matriceOut);
-            //creerTOUR("Testfichier", matriceOut, ListePoint);
+            printf("Points en sortie: \n");
+            afficherListeDesPoints(ListePoint, getDimensionMatrice(m));
 
-            printf("\nDistance totale: %d\n", overallDistanceVerbose(matriceOut, ListePoint));
-        
-            detruireMatrice(matriceOut);
+            printf("\nDistance totale: %d\n", overallDistance(m, ListePoint));
+            creerTOUR("ParcoursNearestNeighbour", m, ListePoint);/* Creation du fichier de sortie */
             break;
          
     
@@ -68,56 +82,61 @@ int main(int argc, char** argv)
      *********************************** PRIM ************************************************
      *****************************************************************************************/
         case 2 :
-            printf("Test prim:\n");
-            point *tabPrim = malloc(sizeof(point)*nbPoint);
+            printf("Prim:\n");
     
-            int dist = prim(m,tabPrim);
+            ListePoint = prim(m);
             
-            //matrice matricePrimOut = creerMatriceDesPoints(tabPrim, nbPoint);
-            afficherListeDesPoints(tabPrim, nbPoint);
+            printf("Points en sortie: \n");
+            afficherListeDesPoints(ListePoint, nbPoint);
+            
         
-            printf("\nDistance totale  prim : %d\n",dist);
-            //detruireMatrice(matricePrimOut);
-            free(tabPrim);
+            printf("\nDistance totale  prim : %d\n",overallDistance(m, ListePoint));
+            creerTOUR("ParcoursPrim", m, ListePoint);/* Creation du fichier de sortie */
             break;
             
     /*****************************************************************************************
      *********************************** BRUTE FORCE *****************************************
      *****************************************************************************************/
         case 3:
-            printf("Test brute force:\n");
+            printf("Brute force:\n");
             printf("(Attention: il prend qqs secondes)\n");
             ListePoint = bruteForce(m);
 
             printf("Points en sortie: \n");
             afficherListeDesPoints(ListePoint, nbPoint);
-            printf("Overall distance: %d\n", overallDistanceVerbose(m, ListePoint));
+            printf("Overall distance: %d\n", overallDistance(m, ListePoint));
+            creerTOUR("ParcoursBruteForce", m, ListePoint);/* Creation du fichier de sortie */
             break;
 
     /*****************************************************************************************
      *********************************** BRANCH & BOUND **************************************
      *****************************************************************************************/
         case 4:
-            printf("Test branch & bound:\n");
+            printf("Branch & bound:\n");
             ListePoint = branchBound(m);
 
             printf("Points en sortie: \n");
-            afficherListeDesPoints(ListePoint, getDimensionMatrice(m));
-            printf("Overall distance: %d\n", overallDistanceVerbose(m, ListePoint));
+            afficherListeDesPoints(ListePoint, nbPoint);
+            printf("Overall distance: %d\n", overallDistance(m, ListePoint));
+            creerTOUR("ParcoursBranch&Bound", m, ListePoint);/* Creation du fichier de sortie */
             break;
     }
-
+    
     /*****************************************************************************************
      ***************************** LIBERATION DE LA MEMOIRE **********************************
      *****************************************************************************************/
 
     detruireMatrice(m);
+    for(int i=0;i<nbPoint;i++){
+        free(ListePoint[i]);
+    }
     free(ListePoint);
     
     return EXIT_SUCCESS;
 }
 
 void erreurArguments(){
+    printf("Premier parametre : Fichier tsp\nDeuxieme parametre selectionné le parcours:\n");
     printf("1 - Nearest Neighbour\n");
     printf("2 - Prim\n");
     printf("3 - Brute Force\n");

@@ -2,11 +2,11 @@
 #include <stdlib.h>
 #include "matrice.h"
 
-/*
- * \b Cherche dans la matrice quel est le point le plus proche du point indiqué par l'indice,
+/**
+ * \brief Cherche dans la matrice quel est le point non visité le plus proche  du point indiqué par l'indice,
  * cette fonction utilise la fonction getDistanceIndice() permettant de connaitre la distance entre deux points.
  *
- * \param indicePointActuel correpond à l'indice du point actuel, permettant l'accès à ce point.
+ * \param indicePointActuel correspond à l'indice du point actuel, permettant l'accès à ce point.
  * \param m matrice contenant tous les points
  *
  * \return: indice du point le plus proche du point actuel
@@ -57,13 +57,12 @@ int PointLePlusProche(int indicePointActuel,matrice m){
 }
 
 
-/*
- * \b Parcour de la matrice, crée un ordre de parcour permettant d'effectuer une distance moindre,
+/**
+ * \brief Parcour de la matrice, crée un ordre de parcours permettant d'effectuer une distance moindre,
  * recherche de point le plus proche.
  *
  * \param m matrice d'entrée qui permet d'obtenir la liste des points que l'on souhaite parcourir.
- * \param ordreDePassage[] tableau de sortie qui contiendra le nouveau parcour
- * \return vide
+ * \return ordreDePassage[] tableau de sortie qui contiendra le nouveau parcours
  */
 point *nearestNeighbour(matrice mIn){
     
@@ -100,8 +99,15 @@ point *nearestNeighbour(matrice mIn){
     return ordreDePassage;
 }
 
-/*fonction qui calcul la distance totale entre tous les points d'un liste */
 
+/**
+ * \brief Fonction qui calcul la distance totale entre tous les points d'une liste
+ *
+ * \param m matrice d'entrée qui permet d'obtenir la liste des points que l'on souhaite parcourir.
+ * \param points tableau contenants les points
+ *
+ * \return: la distance totale
+ */
 int overallDistance(matrice m, point *points)
 {
     float sum = 0;
@@ -134,7 +140,13 @@ int overallDistanceVerbose(matrice m, point *points)
 
 
 
-
+/**
+ * \brief Fonction qui echange deux points passés en paramètres
+ *
+ * \param plist liste contenant les points
+ * \param i premier point
+ * \param j deuxième point
+ */
 /*fonction qui echange deux points passés en paramètres*/
 void swap(point *plist, int i, int j)
 {
@@ -146,15 +158,28 @@ void swap(point *plist, int i, int j)
         plist[j] = tmp;
     }
 }
-
-/*fonction qui copie une liste de points */
+/**
+ * \brief Fonction qui copie une liste de points 
+ *
+ * \param pIn tableau 1 de points
+ * \param pOut tableau 2 de points
+ * \param len taille 
+ */
 void copyList(point *pIn, point *pOut, int len)
 {
     for(int i = 0; i < len; i++)
         pOut[i] = pIn[i];
 }
 
-/*fonction qui copie une liste de points à partir d'un indice */
+
+/**
+ * \brief Fonction qui copie une liste de points à partir d'un indice  
+ *
+ * \param pIn tableau 1 de points
+ * \param pOut tableau 2 de points
+ * \param start indice de début
+ * \param end indice de fin
+ */
 void copyListIndice(point *pIn, point *pOut, int start, int end)
 {
     int j = 0;
@@ -204,9 +229,15 @@ void bruteForceRough(matrice m, point *pIn, int i, int n, int *min, point *pOut)
 
 }
 
+/**
+ * \brief Fonction qui permet le calcul de la distance du Voyageur avec l'algorithme Brute Force
+ *
+ * \param m matrice d'entrée qui permet d'obtenir la liste des points que l'on souhaite parcourir.
+ *
+ * \return: la distance générale parcourue
+ */
 
-
-//wrapper pour bruteForceRough
+ //wrapper pour bruteForceRough
 point *bruteForce(matrice m)
 {
     int n = getDimensionMatrice(m);
@@ -228,17 +259,25 @@ point *bruteForce(matrice m)
     return pOut;
 }
  
+/**
+ * \brief Fonction qui permet le calcul de la distance du Voyageur avec Prim
+ *
+ * \param mIn matrice d'entrée qui permet d'obtenir la liste des points que l'on souhaite parcourir.
+ *
+ * \return: TabVisite tableau qui contient les points ordonnés selon le parcours
+ */
 
-int prim(matrice mIn,point* TabVisite){
+ point* prim(matrice mIn){
+    
     
     matrice m = cloneMatrice(mIn);
     int dim = getDimensionMatrice(m);
+    point* TabVisite = malloc(sizeof(point)*dim);
     int current = 0; //Indice du point courant
     int indicePointVisite[dim];
     int nbPointVisite = 1;
     int tmp = 0;
     int min = 32000;
-    int distance = 0;
     
     //Initatiliser le marquage des points sur non visités
     for(int i = 1;i<dim;i++)
@@ -263,7 +302,6 @@ int prim(matrice mIn,point* TabVisite){
                 current = tmp;
             }
         }
-        distance+= min;
         markVisited(getPointIndice(m, current));
         
         //Parcour stocke
@@ -275,10 +313,17 @@ int prim(matrice mIn,point* TabVisite){
         
     }
     //TabVisite[dim] = getPointIndice(m, 0);//Retour a l'origine
-    distance+= getDistanceIndice(m, indicePointVisite[nbPointVisite-1], 0);//retour a l'origine
     detruireMatrice(m);
-    return distance;
+    return TabVisite;
 }
+
+/**
+ * \brief Fonction qui permet le calcul de la distance du Voyageur par l'algorithme de Branch & Bound
+ *
+ * \param m matrice d'entrée qui permet d'obtenir la liste des points que l'on souhaite parcourir.
+ *
+ * \return: la distance générale parcourue
+ */
 
 point *branchBound(matrice m)
 {

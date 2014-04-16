@@ -5,53 +5,56 @@
 #include "matrice.h"
 # include "tspIOtourO.h"
 
-#define nombreDePoints 4
+/**
+ * \brief Fonction principale permettant de tester la fonction Prim
+ *
+ * \return: EXIT_FAILURE si il y a un probleme, EXIT_SUCESS si tout ce passe bien
+ */
 int main()
 {
-    
-    //Creation de Points (a remplacer par une lecture de matrice)
-     point p1 = creerPoint(0,0);
-     point p2 = creerPoint(1,1);
-     point p3 = creerPoint(2,2);
-     point p4 = creerPoint(3,3);
-     
-    
-     //Tableau comprenant les points
-     point tab[nombreDePoints]={p4 ,p2, p1, p3};
-     
-     printf("Points en entrée : \n");
-     for(int i =0;i<nombreDePoints;i++)
-        afficherPoint(tab[i]);
-     
-    
-    //CREATION MATRICE ENTREE
-    matrice matriceIN;
-    matriceIN = creerMatriceDesPoints(tab, nombreDePoints);
-    
-    //AFFICHAGE MATRICE
+    printf("------------------------------------------------------------------\n");
+    printf("|                         Test Prim                              |\n");
+    printf("------------------------------------------------------------------\n");
+    printf("Matrice d'entree depuis le fichier exemple10.tsp\n");
+    //CREATION MATRICE DEPUIS EXEMPLE10.TSP
     matrice m = creerMatriceTSP("../test_cases/exemple10.tsp");
-
-    afficherMatrice(m);
-     
+    
     //RECUPERATION DU NOMBRE DE POINTS
-    int nbPointIn = getDimensionMatrice(matriceIN);
-    int nbPointOut = nbPointIn+1;
-    
-    //CREATION D'UN TABLEAU DE POINT
-    point ordreDePassage[nbPointOut];
-    
-   
-   //PRIM -> Segmentation Fault :(
-    printf("Test prim:\n");
-    point tabPrim[nbPointOut];
-    int dist = prim(m,tabPrim);
-    matrice matricePrimOut = creerMatriceDesPoints(tabPrim, nbPointOut);
-    afficherListeDesPoints(tabPrim, nbPointOut);
-    
-    printf("\nDistance totale REELLE !!! prim : %d\n",dist);
-    printf("\nDistance totale: %d\n", overallDistanceVerbose(matricePrimOut, tabPrim));
-     
+    int nbPoint = getDimensionMatrice(m);
 
-    return 0;
+    printf("Matrice en entree:\n\n");
+    afficherMatrice(m);
+
+    point* ListePoint = NULL;
+    
+    ListePoint = prim(m);
+    
+    //ON RECUPERE LE TABLEAU DE POINTS EN SORTIE
+    matrice matricePrimOut = creerMatriceDesPoints(ListePoint, nbPoint);
+    
+    
+    printf("------------------------------------------------------------------\n");
+    printf("Matrice en sortie :\n");
+    //AFFICHAGE DU PARCOURS
+    afficherMatrice(matricePrimOut);
+    
+    printf("------------------------------------------------------------------\n");
+    int distance = overallDistanceVerbose(matricePrimOut, ListePoint);
+    printf("------------------------------------------------------------------\n");
+    
+    printf("\nDistance totale  prim : %d\n",distance);
+    printf("Valeur attendue: 50 \n");
+    if(distance == 50)
+        printf("Test Reussi\n");
+    else
+        printf("Echec du test\n");
+    
+    
+    detruireMatrice(matricePrimOut);
+    for(int i = 0;i<nbPoint;i++)
+        free(ListePoint[i]);
+    
+    free(ListePoint);
+			
+    return EXIT_SUCCESS;
 }
-

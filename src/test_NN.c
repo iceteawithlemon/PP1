@@ -5,38 +5,60 @@
 #include "matrice.h"
 # include "tspIOtourO.h"
 
+
+/**
+ * \brief Fonction principale permettant de tester la fonction Nearest Neighbour
+ *
+ * \return: EXIT_FAILURE si il y a un probleme, EXIT_SUCESS si tout ce passe bien
+ */
 int main()
 {
+    printf("------------------------------------------------------------------\n");
+    printf("|                    TEST NEAREST NEIGHBOUR                      |\n");
+    printf("------------------------------------------------------------------\n");
     printf("Matrice d'entree depuis le fichier exemple10.tsp\n");
     //CREATION MATRICE DEPUIS EXEMPLE10.TSP
     matrice m = creerMatriceTSP("../test_cases/exemple10.tsp");
     
-    //AFFICHAGE MATRICE
-    afficherMatrice(m);
-     
     //RECUPERATION DU NOMBRE DE POINTS
-    int nbPointIn = getDimensionMatrice(m);
-    int nbPointOut = nbPointIn+1;
+    int nbPoint = getDimensionMatrice(m);
+
+    printf("Matrice en entree:\n\n");
+    afficherMatrice(m);
+
+    point* ListePoint = NULL;
     
-    
-    //CREATION D'UN TABLEAU DE POINT
-    point ordreDePassage[nbPointOut];
-    
-    //ON APPLIQUE L'ALGORITHME NEARESTNEIGHBOUR DEPUIS LA MATRICE D'ENTREE, DANS UN TABLEAU
-    nearestNeighbour(m,ordreDePassage);
+	ListePoint = nearestNeighbour(m);
     
     //ON RECUPERE LE TABLEAU DE POINTS EN SORTIE
-    matrice matriceOut = creerMatriceDesPoints(ordreDePassage, nbPointOut);
+    matrice matriceOut = creerMatriceDesPoints(ListePoint, nbPoint);
     
     
-    printf("\n Lancement du test Nearest Neighbour\n");
+    printf("------------------------------------------------------------------\n");
+    printf("Matrice en sortie :\n");
     //AFFICHAGE DU PARCOURS
     afficherMatrice(matriceOut);
     
-
-    printf("\nDistance totale: %d\n", overallDistance(m, ordreDePassage));
-    printf("Distance fausse ! a modifier!");
-
-    return 0;
+	//creerTOUR("Testfichier", matriceOut, ListePoint);
+    
+    printf("------------------------------------------------------------------\n");
+    int distance = overallDistanceVerbose(matriceOut, ListePoint);
+    printf("------------------------------------------------------------------\n");
+    
+    printf("\nDistance totale: %d\n", distance);
+   
+    printf("Valeur attendue: 46 \n");
+    if(distance == 46)
+        printf("Test Reussi\n");
+    else
+        printf("Echec du test\n");
+    
+    
+    detruireMatrice(matriceOut);
+    for(int i = 0;i<nbPoint;i++)
+        free(ListePoint[i]);
+    
+    free(ListePoint);
+    return EXIT_SUCCESS;
 }
 
