@@ -127,9 +127,9 @@ int main(int argc, char** argv)
      *****************************************************************************************/
 
     detruireMatrice(m);
-    for(int i=0;i<nbPoint;i++){
+    /*for(int i=0;i<nbPoint;i++){
         free(ListePoint[i]);
-    }
+    }*/
     free(ListePoint);
     
     return EXIT_SUCCESS;
