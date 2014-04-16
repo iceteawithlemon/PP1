@@ -62,7 +62,7 @@ void creerTSPMatrice(char *fileName, matrice m)
 {
 	if (strstr(fileName, ".tsp") == NULL) //si le nom du fichier passée en paramètre ne contient pas ".tsp", l'ajouter
 		asprintf(&fileName, "%s.tsp", fileName);
-	//printf("%s\n", fileName);
+	printf("Création du fichier: %s\n", fileName);
 	FILE *fp = fopen(fileName, "w");
 	int is_int = ( 1 ) ;
 	fprintf(fp, "NAME: %s\nTYPE: TSP\nDIMENSION: %d\n", fileName, getDimensionMatrice(m));
