@@ -26,13 +26,11 @@ int getDimensionMatrice(matrice m);
 
 void afficherMatrice(matrice m);
 
-matrice creerMatriceTSP(char *fnom);
-
-//void creerTSPMatrice(char *fnom, matrice m);
-//void creerTOUR(char *fnom, matrice m, point liste[]);
-int lowerBound(matrice m);
-
 void markAsInfinite(matrice m, int i, int j);
+
+int getLowerBoundInclude(matrice m, point from, point to);
+int getLowerBoundExclude(matrice m, point from, point to);
+int lowerBound(matrice m);
 
 
 #endif

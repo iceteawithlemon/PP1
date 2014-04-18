@@ -156,38 +156,6 @@ int findMin(float *list, int len, int k)
 }
 
 
-/* réduit une matrice et retourne son lower bound */
-int lowerBound(matrice m)
-{
-    int n = getDimensionMatrice(m);
-    int lowerBound = 0;
-    int min;
-    for(int i = 0; i < n; i++)
-    {
-        min = findMin(m->tab[i], n, i);
-
-        lowerBound += min;
-        for(int j = 0; j < n; j++)
-        	if (m->tab[i][j] != 0)
-            	m->tab[i][j] -= min;
-    }
-    for(int j = 0; j < n; j++)
-    {
-        float tmp[n];
-        for(int i = 0; i < n; i++)
-            tmp[i] = m->tab[i][j];
-        min = findMin(tmp, n, j);
-        lowerBound += min;
-        if(min != 0)
-        {
-        	for(int i = 0; i < n; i++)
-        		if (m->tab[i][j] != 0)
-        			m->tab[i][j] -= min;
-        }
-    }
-    return lowerBound/2;
-}
-
 
 void markAsInfinite(matrice m, int i, int j)
 {
@@ -199,3 +167,53 @@ void markAsInfinite(matrice m, int i, int j)
 }
 
 
+int getLowerBoundInclude(matrice m, point from, point to)
+{
+	matrice tmp_m = cloneMatrice(m);
+	markAsInfinite(tmp_m, getIndicePoint(tmp_m, from), getIndicePoint(tmp_m, to));
+	int lb = lowerBound(tmp_m);
+	detruireMatrice(tmp_m);
+	return lb;
+}
+
+int getLowerBoundExclude(matrice m, point from, point to)
+{
+	matrice tmp_m = cloneMatrice(m);
+	setDistanceIndice(tmp_m, getIndicePoint(tmp_m, from), getIndicePoint(tmp_m, to), -1);
+	int lb = lowerBound(tmp_m);
+	detruireMatrice(tmp_m);
+	return lb;
+}
+
+/* réduit une matrice et retourne son lower bound */
+int lowerBound(matrice m)
+{
+	
+    int n = getDimensionMatrice(m);
+    int lb = 0;
+    int min;
+    for(int i = 0; i < n; i++)
+    {
+        min = findMin(m->tab[i], n, i);
+
+        lb += min;
+        for(int j = 0; j < n; j++)
+        	if (m->tab[i][j] != 0)
+            	m->tab[i][j] -= min;
+    }
+    for(int j = 0; j < n; j++)
+    {
+        float tmp[n];
+        for(int i = 0; i < n; i++)
+            tmp[i] = m->tab[i][j];
+        min = findMin(tmp, n, j);
+        lb += min;
+        if(min != 0)
+        {
+        	for(int i = 0; i < n; i++)
+        		if (m->tab[i][j] != 0)
+        			m->tab[i][j] -= min;
+        }
+    }
+    return lb;
+}
