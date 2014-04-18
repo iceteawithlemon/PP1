@@ -1,0 +1,100 @@
+\documentclass[11pt,a4paper]{report}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}  
+\usepackage[french]{babel}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+
+
+\title{Rapport de Projet: Le voyageur de commerce}
+\author{Benjamin Saint-Sever, Caitlin Dagg, Manon Pintault }
+\date{\today}
+
+\renewcommand{\headrulewidth}{1pt}
+%\fancyhead[C]{\textbf{page \thepage}} 
+%\fancyhead[L]{\leftmark}
+\fancyhead[R]{Rapport de Projet: Le voyageur de commerce}
+
+
+\renewcommand{\footrulewidth}{1pt}
+%\fancyfoot[C]{\textbf{page \thepage}} 
+%\fancyfoot[L]{Rapport de Projet: Le voyageur de commerce}
+%\fancyfoot[R]{\leftmark}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+
+
+
+
+\chapter{Introduction}
+Le but de ce projet est de fournir un programme fonctionnant en ligne de commande permettant de calculer des solutions (pas forcément optimales) au problème du voyageur de commerce métrique (c?est-à-dire calculer le meilleur trajet à parcourir pour un ensemble de villes données sans repasser par un ville déjà visitée). Dans le cadre de ce projet, l?ensemble des villes est donnée sous forme de matrice de distance.
+
+\chapter {Vie du projet}
+\section{Logiciel de gestion de version}
+Afin de pouvoir réalisé ce projet, nous avons choisi d?utiliser un dépôt en ligne : Github. Si nous avons opté pour cette solution c?est car il nous permettait de choisir entre l?utilisation de svn ou git. De plus c?est un outil simple d?utilisation et accessible avec une simple connexion internet depuis n?importe quel support (mac, windows, linux).
+
+\section{organisation}
+Pendant toute la durée du projet, nous nous sommes partagé les tâches chaque semaine. Par exemple, certains travaillaient un algorithme, l?autre s?occupait du makefile, de réfléchir sur le prochain algorithme à faire et le dernier créait des tests et gérait l?organisation des fichiers. Mais généralement nous rajoutions chacun des lignes de codes au différents algorithmes pour améliorer ceux-ci et régler quelques soucis rencontrés . 
+
+
+\chapter {Présentation des algorithmes}
+\section{Nearest Neighbour}
+
+
+\begin{figure}[h!]
+  \centering 
+  \includegraphics[height=10cm]{Nearest.JPG}
+  \caption{Une heuristique simple}
+\end{figure}
+\newpage
+
+\section{Prim}
+
+
+\begin{figure}[h!]
+  \centering 
+  \includegraphics[height=10cm]{Prim_part1.JPG}
+  \caption{Un algorithme d'approximation}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering 
+  \includegraphics[height=10cm]{Prim_part2.JPG}
+\end{figure}
+
+\newpage
+\section{Brute Force}
+
+
+\begin{figure}[h!]
+  \centering 
+  \includegraphics[height=6cm]{BF_1.JPG}
+  \caption{Un algorithme exact par recherche exhaustive}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering 
+  \includegraphics[height=10cm]{BF_2.JPG}
+  \caption{Un algorithme exact par recherche exhaustive}
+\end{figure}
+
+\newpage
+\section{Branch and Bound}
+
+
+\chapter {Conclusion}
+
+
+
+
+
+
+\end{document}
