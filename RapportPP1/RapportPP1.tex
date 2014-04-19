@@ -35,30 +35,37 @@
 
 
 \chapter{Introduction}
-Le but de ce projet est de fournir un programme fonctionnant en ligne de commande permettant de calculer des solutions (pas forcément optimales) au problème du voyageur de commerce métrique (c?est-à-dire calculer le meilleur trajet à parcourir pour un ensemble de villes données sans repasser par un ville déjà visitée). Dans le cadre de ce projet, l?ensemble des villes est donnée sous forme de matrice de distance.
+Le but de ce projet était de fournir un programme fonctionnant en ligne de commande permettant de calculer des solutions (pas forcément optimales) au problème du voyageur de commerce métrique (c'est-à-dire calculer le meilleur trajet à parcourir pour un ensemble de villes données sans repasser par une ville déjà visitée). Dans le cadre de ce projet, l'ensemble des villes a été donnée sous forme de matrice de distances. 
 
 \chapter {Vie du projet}
 \section{Logiciel de gestion de version}
-Afin de pouvoir réalisé ce projet, nous avons choisi d?utiliser un dépôt en ligne : Github. Si nous avons opté pour cette solution c?est car il nous permettait de choisir entre l?utilisation de svn ou git. De plus c?est un outil simple d?utilisation et accessible avec une simple connexion internet depuis n?importe quel support (mac, windows, linux).
+Afin de pouvoir réaliser ce projet, nous avons choisi d'utiliser un dépôt en ligne : github. Si nous avons opté pour cette solution c'est car il nous permettait de choisir entre l'utilisation de svn ou git. De plus c'est un outil simple d'utilisation et accessible avec une simple connexion internet depuis n'importe quel support (mac, windows, linux). 
 
 \section{organisation}
-Pendant toute la durée du projet, nous nous sommes partagé les tâches chaque semaine. Par exemple, certains travaillaient un algorithme, l?autre s?occupait du makefile, de réfléchir sur le prochain algorithme à faire et le dernier créait des tests et gérait l?organisation des fichiers. Mais généralement nous rajoutions chacun des lignes de codes au différents algorithmes pour améliorer ceux-ci et régler quelques soucis rencontrés . 
+Pendant toute la durée du projet, nous nous sommes partagés les tâches chaque semaine. Par exemple, certains travaillaient un algorithme, un autre s'occupait du makefile, de réfléchir sur le prochain algorithme à faire et le dernier créait des tests et gérait l'organisation des fichiers. Mais généralement nous rajoutions chacun des lignes de codes aux différents algorithmes et modules pour améliorer ceux-ci, ajouter des fonctionnalités et régler quelques soucis rencontrés. 
+
 
 
 \chapter {Présentation des algorithmes}
 \section{Nearest Neighbour}
-
-
+\paragraph{}
+L'algorithme Nearest Neighbour consiste à visiter le point le plus proche non-visité jusqu'à obtenir un parcours complet des points. Cette algorithme ne fournit que rarement le parcours optimal, mais a un complexité en O(n) (contrairement au O(n !) de l'algorithme de brute force), et fournit une distance qui se situe à environ deux fois la distance minimale, ce qui peut le rendre utile.
+Notre algorithme prends en paramètre une matrice de points, et partant du premier, utilise la matrice des distances et la propriété "visitée/non-visitée" de la structure de donnée des points pour trouver le prochain point. Ce point est ensuite ajouté à la liste des points représentant le parcours (qui est en fait un tableau), et on recommence en cherchant le « nearest neighbour » de ce point. L'algorithme s'appuie sur la fonction "PointLePlusProche" qui prend en paramètre le point de départ et une matrice de point, la fonction renvoi le point le plus proche non visité du point de départ. 
+\clearpage
 \begin{figure}[h!]
   \centering 
   \includegraphics[height=10cm]{Nearest.JPG}
   \caption{Une heuristique simple}
 \end{figure}
-\newpage
+
 
 \section{Prim}
+\paragraph{}
+L'algorithme de Prim, utilise le principe de Minimum Spanning Tree (MST), et consiste à essayer de connecter tous les points, ou noeuds, en suivant les vertices ayant un coût minimum.
+Nous considérons le premier point de la matrice comme le premier sommet de l'arbre. Nous initialisons donc le tableau de point visité par ce point, et tant qu'il reste des points non visités on appelle la fonction PointLePlusProche pour chaque point visité, il ne reste plus qu'a comparer les distances des points les plus proches, des points visités. La distance minimale indiquera quel sera le prochain point visité.
+Nous recherchons le point par parcours de la matrice de point et nous effectuons ce parcours NBPoint fois. Donc la complexité de la fonction Prim est en O(n2) avec n le nombre de points.
 
-
+\clearpage
 \begin{figure}[h!]
   \centering 
   \includegraphics[height=10cm]{Prim_part1.JPG}
@@ -70,10 +77,15 @@ Pendant toute la durée du projet, nous nous sommes partagé les tâches chaque sem
   \includegraphics[height=10cm]{Prim_part2.JPG}
 \end{figure}
 
+\mbox{} 
 \newpage
 \section{Brute Force}
-
-
+\paragraph{\\}
+L'algorithme de Brute Force trouve la solution du problème de voyageur de commerce en calculant la distance totale de chaque parcours possible, et retourne la solution optimale.
+Notre fonction Brute Force fonctionne en trouvant chaque permutation possible d'une liste de points (en utilisant du swapping et backtracking), en calculant la distance totale avec la fonction overallDistance, et enfin comparant avec la valeur minimum actuel; si la valeur est plus petite que cette minimum, alors on prends cette valeur comme nouvel minimum, et copie la permutation actuel des points vers la liste « pOut ».
+La « vraie » fonction Brute Force, appelé « bruteForceRough » est récursif : il prends donc plusieurs paramètres, certains assez obscurs. Pour faciliter l'utilisation de cette fonction, on a crée une fonction « wrapper » (appelé « bruteForce»), qui prend comme unique paramètre une matrice et retourne une liste de points, et fournit aux fonctions récursives les paramètres nécessaires.
+Cette solution est lente, de complexité O(n !), et n?est donc utilisable en pratique que dans des cas où n est très petit.
+\clearpage
 \begin{figure}[h!]
   \centering 
   \includegraphics[height=6cm]{BF_1.JPG}
@@ -85,16 +97,26 @@ Pendant toute la durée du projet, nous nous sommes partagé les tâches chaque sem
   \includegraphics[height=10cm]{BF_2.JPG}
   \caption{Un algorithme exact par recherche exhaustive}
 \end{figure}
+\clearpage
 
 \newpage
 \section{Branch and Bound}
+\paragraph{}
+
+L'algorithme Branch and Bound, comme son nom l'indique, est base deux principes: branching, et bounding (séparation et évaluation).
+
+\begin{itemize}
+\item Branching : on pourrait représenter l'ensemble des solutions du TSP par un arbre (que ce soit planaire, avec chaque noeud représentant les points qu'on peut visiter, ou binaire, avec un noeud représentant l'inclusion d'un point dans le parcours, et l'autre son exclusion). La branching consistera alors à choisir le meilleur noeud, en fonction d'un critère donné. 
+\item Bounding : c'est avec le bounding qu'on choisit sur quel parcours continuer. Dans notre algorithme, ceci consiste à calculer la « lower bound », c'est-à-dire la moins grande distance possible d'un parcours donné. 
+En combinant ces deux principes, on crée donc un algorithme en partant du même principe que brute force, mais qui, en pratique, diminue fortement le temps de recherche de la solution.
+
+\end{itemize}
 
 
 \chapter {Conclusion}
 
 
-
-
-
+Nous avons pu mettre en pratique des savoirs acquis au fils des autres cours, par exemple : l'algorithme de permutation utilise des concepts vus en cours d'algorithme de S3, le découpage modulaire vu en cours de programmation aussi du semestre dernier, et l'utilisation de valgrind et des makefile vu en cours d'EDD ce semestre. 
+Néanmoins, nous conseillons aux voyageurs de commerce de contacter Montgomery Scott au lieu des étudiants de L2, ce serait peut-être plus simple?
 
 \end{document}
